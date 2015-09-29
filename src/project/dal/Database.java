@@ -31,7 +31,7 @@ public class Database
 			   
 			   st.executeUpdate("CREATE TABLE  stock ( "
 	                     +"stockSymbol NVARCHAR(10) NOT NULL, "
-	                     +"stockName NVARCHAR(10) NOT NULL, "
+	                     +"stockName NVARCHAR(30) NOT NULL, "
 	                     +"percentageChange NVARCHAR (10), "
 	                     +"PRIMARY KEY (stockSymbol)"
 	                     + ");" )  ;
