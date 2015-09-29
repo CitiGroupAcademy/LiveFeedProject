@@ -11,11 +11,11 @@ import javax.ws.rs.Produces;
 
 import project.dal.Database;
 
-@Path("/bottomsearch")
-public class bottomFiveSearch 
+@Path("/favsearch")
+public class favouritesSearch 
 {
 	@GET
-	@Produces("text/html")
+	@Produces("text/plain")
 	public String getText() throws SQLException
 	{
 		Connection con = null;
@@ -25,7 +25,7 @@ public class bottomFiveSearch
 			con = Database.getConnection();
 			Statement st = con.createStatement();
 	   
-			ResultSet rs = st.executeQuery("SELECT s.stockSymbol, s.stockName FROM stock s JOIN ticker t ON t.stockSymbol = s.stockSymbol ORDER BY t.percentageChange ASC LIMIT 5");
+			ResultSet rs = st.executeQuery("SELECT f.stockSymbol, s.stockName FROM favourite f JOIN stock s ON s.stockSymbol = f.stockSymbol");
 			html += "<table>";
 			while(rs.next())
 			{
