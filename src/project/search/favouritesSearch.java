@@ -25,7 +25,7 @@ public class favouritesSearch
 			con = Database.getConnection();
 			Statement st = con.createStatement();
 	   
-			ResultSet rs = st.executeQuery("SELECT f.stockSymbol, s.stockName, s.askPrice, s.bidPrice, s.percentageChange FROM favourite f JOIN stock s ON s.stockSymbol = f.stockSymbol");
+			ResultSet rs = st.executeQuery("SELECT f.stockSymbol, s.stockName, t.askPrice, t.bidPrice, s.percentageChange FROM favourite f JOIN stock s ON s.stockSymbol = f.stockSymbol JOIN ticker t ON t.stockSymbol = s.stockSymbol");
 			html += "<table><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
 			while(rs.next())
 			{
