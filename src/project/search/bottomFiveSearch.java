@@ -25,8 +25,8 @@ public class bottomFiveSearch
 			con = Database.getConnection();
 			Statement st = con.createStatement();
 	   
-			ResultSet rs = st.executeQuery("SELECT s.stockSymbol, s.stockName, s.askPrice, s.bidPrice, s.percentageChange FROM stock s ORDER BY s.percentageChange ASC LIMIT 5");
-			html += "<table><th></th><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
+			ResultSet rs = st.executeQuery("SELECT s.stockSymbol, s.stockName, t.askPrice, t.bidPrice, s.percentageChange FROM stock s JOIN ticker t ON t.stockSymbol = s.stockSymbol ORDER BY s.percentageChange ASC LIMIT 5");
+			html += "<table><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
 			int count = 1;
 			while(rs.next())
 			{

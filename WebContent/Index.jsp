@@ -17,22 +17,59 @@
     function top5update() {
 
         if (request != null) {
-            var url = "/topsearch";
+            var url = "search/topsearch";
 
             request.open("GET", url, true);
-            request.onreadystatechange = myHandleCallback;
+            request.onreadystatechange = top5Callback;
             request.send(null);
         }
     }
 
-    function myHandleCallback() {
+    function top5Callback() {
 
         if (request.readyState == 4 && request.status == 200) {
             var outputField = document.getElementById("top5table");
             outputField.innerHTML = request.responseText;
         }
     }
- 
+
+    function bot5update() {
+
+        if (request != null) {
+            var url = "search/bottomsearch";
+
+            request.open("GET", url, true);
+            request.onreadystatechange = bot5Callback;
+            request.send(null);
+        }
+    }
+
+    function bot5Callback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("bot5table");
+            outputField.innerHTML = request.responseText;
+        }
+    }
+
+    function favupdate() {
+
+        if (request != null) {
+            var url = "search/favsearch";
+
+            request.open("GET", url, true);
+            request.onreadystatechange = favCallback;
+            request.send(null);
+        }
+    }
+
+    function favCallback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("favtable");
+            outputField.innerHTML = request.responseText;
+        }
+    }
     </script>
     
     
@@ -53,18 +90,22 @@
             <div id="favourites">
             	<h3> Favourites</h3>
             	
-            	<div id="top5">
+            	<input type="button" id="favbutton" value="Update" onclick="favupdate()">
+               	<p id="favtable"></p>
+            </div>
+            	
+            <div id="top5">
             	<h3> Top 5</h3>
                       	
-               	<input type="button" value="Update" onclick="myOnKeyUp()">
-               	<p id="top5table"></p>
-               	
-            	</div>
-            	
+               	<input type="button" id="topbutton" value="Update" onclick="top5update()">
+               	<p id="top5table"></p>            	
             </div>
-                    
+            	               
             <div id="bottom5">
             	<h3> Bottom 5</h3>
+            	
+            	<input type="button" id="botbutton" value="Update" onclick="bot5update()">
+               	<p id="bot5table"></p>
             </div>
             
             <div id="strategies">
