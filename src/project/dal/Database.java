@@ -32,6 +32,7 @@ public class Database
 			   st.executeUpdate("CREATE TABLE  stock ( "
 	                     +"stockSymbol NVARCHAR(10) NOT NULL, "
 	                     +"stockName NVARCHAR(10) NOT NULL, "
+	                     +"percentageChange DECIMAL(5,2), "
 	                     +"PRIMARY KEY (stockSymbol)"
 	                     + ");" )  ;
 			   
@@ -63,7 +64,6 @@ public class Database
 	                     +"askPrice DECIMAL(5,2), "
 	                     +"bidPrice DECIMAL(5,2), "
 	                     +"timeStamp TIMESTAMP, "
-	                     +"percentageChange DECIMAL(5,2), "
 	                     +"PRIMARY KEY (tickerID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
