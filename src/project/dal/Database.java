@@ -11,7 +11,7 @@ public class Database
 	public static void main(String[] args) throws Exception
 	{
 		Connection connect = null;
-		connect = getConnection("");
+		connect = getConnection();
 		try
 		{
 			   Statement st = connect.createStatement();			   
@@ -78,7 +78,7 @@ public class Database
 			}
 		}
 	}
-	public static Connection getConnection(String databaseURL)
+	public static Connection getConnection()
 	{
 		Connection cn = null;
 		try
