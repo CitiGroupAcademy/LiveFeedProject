@@ -283,7 +283,7 @@ public class DataAccess {
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("INSERT INTO stock(percentageChange) values(?) where stockSymbol like ?");
+					.prepareStatement("UPDATE stock SET percentagechange = ? WHERE stockSymbol = ?");
 			st.setString(1, percentageChange);
 			st.setString(2, symbol);
 			st.executeUpdate();
