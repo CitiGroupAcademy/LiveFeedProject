@@ -1,4 +1,4 @@
-package projects.dataObjects;
+package project.dataObjects;
 
 public class User 
 {

@@ -1,4 +1,4 @@
-package projects.dataObjects;
+package project.dataObjects;
 
 import java.util.Date;
 
