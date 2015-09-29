@@ -15,11 +15,12 @@ public class Database
 		try
 		{
 			   Statement st = connect.createStatement();			   
-			   //st.executeUpdate("DROP TABLE IF EXISTS  stock ");
-			   //st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
 			   //st.executeUpdate("DROP TABLE IF EXISTS  user ");
-			   //st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
-			   //st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  stock ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  user ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
 			   
 			   st.executeUpdate("CREATE TABLE  user ( "
 	                     +"userID INTEGER AUTO_INCREMENT NOT NULL, "
@@ -62,6 +63,7 @@ public class Database
 	                     +"askPrice DECIMAL(5,2), "
 	                     +"bidPrice DECIMAL(5,2), "
 	                     +"timeStamp TIMESTAMP, "
+	                     +"percentageChange DECIMAL(5,2), "
 	                     +"PRIMARY KEY (tickerID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
