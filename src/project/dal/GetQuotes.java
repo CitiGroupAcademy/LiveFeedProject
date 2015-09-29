@@ -41,8 +41,6 @@ public class GetQuotes {
 				
 				String[] fields = inputLine.split(",");
 				
-				System.out.println(fields[0] + fields[1] + fields[2] + fields[3]);
-
 					DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
 							Double.parseDouble(fields[1]),
 							Double.parseDouble(fields[2]));
@@ -50,7 +48,7 @@ public class GetQuotes {
 					
 					if(!fields[3].equals("N/A")){
 						
-						DataAccess.updateStockChange(fields[0], removeLastChar(fields[3]).replaceAll("\"", ""));
+						DataAccess.updateStockChange(fields[0].replaceAll("\"", ""), removeLastChar(fields[3]).replaceAll("\"", ""));
 					}
 
 			}
