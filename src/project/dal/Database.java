@@ -32,7 +32,7 @@ public class Database
 			   st.executeUpdate("CREATE TABLE  stock ( "
 	                     +"stockSymbol NVARCHAR(10) NOT NULL, "
 	                     +"stockName NVARCHAR(10) NOT NULL, "
-	                     +"percentageChange DECIMAL(5,2), "
+	                     +"percentageChange NVARCHAR (10), "
 	                     +"PRIMARY KEY (stockSymbol)"
 	                     + ");" )  ;
 			   
@@ -67,6 +67,14 @@ public class Database
 	                     +"PRIMARY KEY (tickerID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
+			   
+			   st.executeUpdate("INSERT INTO user(email, password) VALUES('user@gmail.com', 'password')");
+			   
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('AAPL', 'Apple Inc.', 0)");
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('MSFT', 'Microsoft Corporation', 0)");
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('GOOG', 'Google Inc.', 0)");
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('VOW.DE', 'Volkswagon AG', 0)");
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('FB', 'Facebook, Inc', 0)");
 		}
 		catch (SQLException ex) 
 		{
