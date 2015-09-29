@@ -14,8 +14,8 @@ public class Database
 		connect = getConnection();
 		try
 		{
-			   Statement st = connect.createStatement();			   
-			   //st.executeUpdate("DROP TABLE IF EXISTS  user ");
+			   Statement st = connect.createStatement();	
+			   st.executeUpdate("DROP TABLE IF EXISTS  user ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  stock ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  user ");
