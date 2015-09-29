@@ -17,7 +17,7 @@
     function top5update() {
 
         if (request != null) {
-            var url = "rest/querystrname";
+            var url = "/topsearch";
 
             request.open("GET", url, true);
             request.onreadystatechange = myHandleCallback;
@@ -34,6 +34,8 @@
     }
  
     </script>
+    
+    
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <link rel="stylesheet" type="text/css" href="Styles/Index.css">
@@ -57,12 +59,10 @@
                	<input type="button" value="Update" onclick="myOnKeyUp()">
                	<p id="top5table"></p>
                	
-            </div>
+            	</div>
             	
             </div>
-            
-            
-            
+                    
             <div id="bottom5">
             	<h3> Bottom 5</h3>
             </div>
