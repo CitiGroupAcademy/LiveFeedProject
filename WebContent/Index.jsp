@@ -12,7 +12,7 @@
 
 <body>
 <div id="titlebar">
-        <h3> Stock Trading System</h3>
+        <h3 id="stocktitle"> Stock Trading System</h3>
 </div>
 
 <div id="content">
@@ -28,6 +28,12 @@
             <div id="bottom5">
             	<h3> Bottom 5</h3>
             </div>
+            
+            <div id="strategies">
+            	<h3> Strategies</h3>
+            </div>
+            
+            
     </div>
 
 </body>
