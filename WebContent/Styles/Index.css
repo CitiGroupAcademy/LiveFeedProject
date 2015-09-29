@@ -3,6 +3,27 @@ h3 {
         font-family: calibri;
         color: white;
         }
+        
+#tabletop5 {
+			position: absolute;        	
+         	top: 22%;
+         	left: 38%;
+			}
+        
+table, th  {
+ 
+            background: #E7E7E7;
+            border: 1px solid black;
+            text-align: center;
+             
+            }
+             
+table, td  {
+ 
+            border: 1px solid black;
+            text-align: center;
+             
+            }
 
 html, body {
          width: 100%;
@@ -48,8 +69,8 @@ html, body {
          position: absolute;
          width: 500px;
          height: 200px;
-         top: 60%;
-         left: 20%;
+         top: 174%;
+         left: 34%;
          
          margin-top: -140px;
          margin-left: -170px;
