@@ -277,5 +277,31 @@ public class DataAccess {
 		}
 		return temp;
 	}
+
+	public static void updateStockChange(String symbol, String percentageChange) {
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("INSERT INTO stock(percentageChange) values(?) where stockSymbol like ?");
+			st.setString(1, percentageChange);
+			st.setString(2, symbol);
+			st.executeUpdate();
+
+		} catch (SQLException ex) {
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
 	
 }

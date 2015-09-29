@@ -23,7 +23,7 @@ public class GetQuotes {
 				url.append(s.getStockSymbol() + ",");
 			}
 				
-			url.append("&f=sabc0&e=.csv");
+			url.append("&f=sabp2&e=.csv");
 
 			String theUrl = url.toString();
 
@@ -38,15 +38,20 @@ public class GetQuotes {
 			String inputLine;
 
 			while ((inputLine = in.readLine()) != null) {
-
+				
 				String[] fields = inputLine.split(",");
+				
+				System.out.println(fields[0] + fields[1] + fields[2] + fields[3]);
 
-				if(!fields[1].equalsIgnoreCase("N/A") || !fields[2].equalsIgnoreCase("N/A")){
 					DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
 							Double.parseDouble(fields[1]),
 							Double.parseDouble(fields[2]));
-				}
 				
+					
+					if(!fields[3].equals("N/A")){
+						
+						DataAccess.updateStockChange(fields[0], removeLastChar(fields[3]).replaceAll("\"", ""));
+					}
 
 			}
 
@@ -54,6 +59,17 @@ public class GetQuotes {
 		
 	}
 	
+	/**
+	 * Method deleted the last character in the string
+	 * @param s
+	 * @return
+	 */
+	public static String removeLastChar(String s) {
+	    if (s == null || s.length() == 0) {
+	        return s;
+	    }
+	    return s.substring(0, s.length()-2);
+	}
 	
 }
 
