@@ -75,6 +75,12 @@ public class Database
 			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('GOOG', 'Google Inc.', 0)");
 			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('VOW.DE', 'Volkswagon AG', 0)");
 			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('FB', 'Facebook, Inc', 0)");
+			   
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('AAPL', 10.00, 8.00)");
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('MSFT', 10.00, 8.00)");
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('GOOG', 10.00, 8.00)");
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('VOW.DE', 10.00, 8.00)");
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('FB', 10.00, 8.00)");
 		}
 		catch (SQLException ex) 
 		{
