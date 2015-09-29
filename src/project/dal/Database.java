@@ -13,11 +13,21 @@ public class Database
 	{
 		Connection connect = null;
 		Scanner sc = new Scanner(System.in);
-		connect = getConnection();
+		connect = getConnection("");
 		try
 		{
+			
 			   Statement st = connect.createStatement();
+			   st.executeUpdate("DROP DATABASE livefeedproject");
+			   st.executeUpdate("CREATE DATABASE livefeedproject");
+				connect = getConnection("livefeedproject");
+			   st.executeUpdate("DROP TABLE IF EXISTS  stock ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  user ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
 			   
+<<<<<<< HEAD
 			   //st.executeUpdate("DROP TABLE IF EXISTS  stock ");
 			   //st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
 			   //st.executeUpdate("DROP TABLE IF EXISTS  user ");
@@ -29,31 +39,55 @@ public class Database
 	                     +"email NVARCHAR(10), "
 	                     +"password NVARCHAR(10), "
 	                     +"PRIMARY KEY (userID)"
+=======
+			   st.executeUpdate("CREATE TABLE  user ( "
+	                     +"userID INTEGER AUTO_INCREMENT NOT NULL, "
+	                     +"email NVARCHAR (20), "
+	                     +"password NVARCHAR (20), "
+	                     +"PRIMARY KEY (userID) "
+>>>>>>> origin/master
 	                     + ");" )  ;
 			   
 			   st.executeUpdate("CREATE TABLE  stock ( "
 	                     +"stockSymbol NVARCHAR(10) NOT NULL, "
+<<<<<<< HEAD
 	                     +"stockName NVARCHAR(10), "
 	                     +"PRIMARY KEY (stockSymbol)"
+=======
+	                     +"stockName NVARCHAR (10), "
+	                     +"PRIMARY KEY (stockSymbol) "
+>>>>>>> origin/master
 	                     + ");" )  ;
 			   
 			   st.executeUpdate("CREATE TABLE  strategy ( "
 	                     +"stratID INTEGER AUTO_INCREMENT NOT NULL, "
 	                     +"userID INTEGER NOT NULL, "
+<<<<<<< HEAD
 	                     +"stockSymbol NVARCHAR (10) NOT NULL, "
+=======
+	                     +"stockSymbol NVARCHAR (10)NOT NULL, "
+>>>>>>> origin/master
 	                     +"type NVARCHAR(10), "
 	                     +"buy INTEGER, "
 	                     +"sell INTEGER, "
 	                     +"active NVARCHAR(10), "
 	                     +"PRIMARY KEY (stratID), "
 	                     +"FOREIGN KEY (userID) REFERENCES user (userID), "
+<<<<<<< HEAD
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
+=======
+	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol) "
+>>>>>>> origin/master
 	                     + ");" )  ;
 			   
 			   st.executeUpdate("CREATE TABLE  favourite ( "
 	                     +"favID INTEGER AUTO_INCREMENT NOT NULL, "
 	                     +"userID INTEGER, "
+<<<<<<< HEAD
 	                     +"stockSymbol NVARCHAR(10), "
+=======
+	                     +"stockSymbol NVARCHAR (10), "
+>>>>>>> origin/master
 	                     +"PRIMARY KEY (favID), "
 	                     +"FOREIGN KEY (userID) REFERENCES user (userID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
@@ -66,7 +100,10 @@ public class Database
 	                     +"bidPrice DECIMAL(5,2), "
 	                     +"timeStamp TIMESTAMP, "
 	                     +"PRIMARY KEY (tickerID), "
+<<<<<<< HEAD
 	                     +"FOREIGN KEY (userID) REFERENCES user (userID), "
+=======
+>>>>>>> origin/master
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
 		}
@@ -82,13 +119,13 @@ public class Database
 			}
 		}
 	}
-	public static Connection getConnection()
+	public static Connection getConnection(String databaseURL)
 	{
 		Connection cn = null;
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection("jdbc:mysql://localhost/montestdb", "root", "password");
+			cn = DriverManager.getConnection("jdbc:mysql://localhost/"+databaseURL, "root", "password");
 		}
 		catch(SQLException ex)
 		{
