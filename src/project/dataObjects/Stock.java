@@ -17,6 +17,15 @@ public class Stock
 	{
 		return stockName;
 	}
+	
+	/**
+	 * @param stockSymbol
+	 * @param stockName
+	 */
+	public Stock(String stockSymbol, String stockName) {
+		this.stockSymbol = stockSymbol;
+		this.stockName = stockName;
+	}
 	public void setStockName(String stockName) 
 	{
 		this.stockName = stockName;

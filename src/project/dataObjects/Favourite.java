@@ -18,6 +18,17 @@ public class Favourite
 	{
 		return userID;
 	}
+	
+	/**
+	 * @param favID
+	 * @param userID
+	 * @param stockSymbol
+	 */
+	public Favourite(int favID, int userID, String stockSymbol) {
+		this.favID = favID;
+		this.userID = userID;
+		this.stockSymbol = stockSymbol;
+	}
 	public void setUserID(int userID) 
 	{
 		this.userID = userID;

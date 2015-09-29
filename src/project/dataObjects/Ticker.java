@@ -14,6 +14,23 @@ public class Ticker
 	{
 		return tickerID;
 	}
+	
+	/**
+	 * @param tickerID
+	 * @param stockSymbol
+	 * @param bidPrice
+	 * @param askPrice
+	 * @param timeStamp
+	 */
+	public Ticker(int tickerID, String stockSymbol, double bidPrice,
+			double askPrice, Date timeStamp) {
+		this.tickerID = tickerID;
+		this.stockSymbol = stockSymbol;
+		this.bidPrice = bidPrice;
+		this.askPrice = askPrice;
+		this.timeStamp = timeStamp;
+	}
+	
 	public void setTickerID(int tickerID) 
 	{
 		this.tickerID = tickerID;
