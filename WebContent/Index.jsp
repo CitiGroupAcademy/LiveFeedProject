@@ -85,6 +85,10 @@
         <h3 id="stocktitle"> Stock Trading System</h3>
 </div>
 
+<div id="logo">
+	
+</div>
+
 <div id="content">
                
             <div id="favourites">
