@@ -23,7 +23,7 @@ public class GetQuotes {
 				url.append(s.getStockSymbol() + ",");
 			}
 				
-			url.append("&f=sabc0&e=.csv");
+			url.append("&f=sab&e=.csv");
 
 			String theUrl = url.toString();
 
@@ -50,6 +50,9 @@ public class GetQuotes {
 
 			}
 
+			
+			
+			
 		}
 		
 	}
