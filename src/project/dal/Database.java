@@ -27,6 +27,7 @@ public class Database
 			   st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
 			   
+<<<<<<< HEAD
 			   st.executeUpdate("CREATE TABLE  user ( "
 	                     +"userID INTEGER AUTO_INCREMENT NOT NULL, "
 	                     +"email NVARCHAR (20), "
@@ -59,16 +60,64 @@ public class Database
 	                     +"stockSymbol NVARCHAR (10), "
 	                     +"PRIMARY KEY (favID), "
 	                     +"FOREIGN KEY (userID) REFERENCES user (userID), "
+=======
+			   //st.executeUpdate("DROP TABLE IF EXISTS  stock ");
+			   //st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
+			   //st.executeUpdate("DROP TABLE IF EXISTS  user ");
+			   //st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
+			   //st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
+			   
+			   st.executeUpdate("CREATE TABLE  user ( "
+	                     +"userID INTEGER NOT NULL,"
+	                     +"email TEXT,"
+	                     +"password TEXT"
+	                     +"PRIMARY KEY (userID)"
+	                     + ");" )  ;
+			   
+			   st.executeUpdate("CREATE TABLE  stock ( "
+	                     +"stockSymbol TEXT NOT NULL,"
+	                     +"stockName TEXT,"
+	                     +"PRIMARY KEY (stockSymbol)"
+	                     + ");" )  ;
+			   
+			   st.executeUpdate("CREATE TABLE  strategy ( "
+	                     +"stratID INTEGER NOT NULL,"
+	                     +"userID INTEGER NOT NULL,"
+	                     +"stockSymbol TEXT NOT NULL,"
+	                     +"type TEXT,"
+	                     +"buy INTEGER,"
+	                     +"sell INTEGER,"
+	                     +"active TEXT,"
+	                     +"PRIMARY KEY (stratID),"
+	                     +"FOREIGN KEY (userID) REFERENCES user (userID)"
+	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
+	                     + ");" )  ;
+			   
+			   st.executeUpdate("CREATE TABLE  favourite ( "
+	                     +"favID INTEGER NOT NULL,"
+	                     +"userID INTEGER,"
+	                     +"stockSymbol TEXT"
+	                     +"PRIMARY KEY (favID)"
+	                     +"FOREIGN KEY (userID) REFERENCES user (userID)"
+>>>>>>> origin/master
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
 			   
 			   st.executeUpdate("CREATE TABLE  ticker ( "
+<<<<<<< HEAD
 					     +"tickerID INTEGER AUTO_INCREMENT NOT NULL, "
 	                     +"stockSymbol NVARCHAR(10), "
 	                     +"askPrice DECIMAL(5,2), "
 	                     +"bidPrice DECIMAL(5,2), "
 	                     +"timeStamp TIMESTAMP, "
 	                     +"PRIMARY KEY (tickerID), "
+=======
+					     +"tickerID INTEGER,"
+	                     +"stockSymbol TEXT,"
+	                     +"askPrice TEXT,"
+	                     +"bidPrice TEXT"
+	                     +"PRIMARY KEY (tickerID)"
+>>>>>>> origin/master
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
 		}
