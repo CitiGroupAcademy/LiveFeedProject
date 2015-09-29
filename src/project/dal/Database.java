@@ -50,8 +50,8 @@ public class Database
 			   
 			   st.executeUpdate("CREATE TABLE  favourite ( "
 	                     +"favID INTEGER AUTO_INCREMENT NOT NULL, "
-	                     +"userID INTEGER, "
-	                     +"stockSymbol NVARCHAR(10), "
+	                     +"userID INTEGER NOT NULL, "
+	                     +"stockSymbol NVARCHAR(10) NOT NULL, "
 	                     +"PRIMARY KEY (favID), "
 	                     +"FOREIGN KEY (userID) REFERENCES user (userID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
