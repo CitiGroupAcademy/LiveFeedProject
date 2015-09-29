@@ -19,25 +19,25 @@ public class Database
 			   Statement st = connect.createStatement();
 			   
 			   //st.executeUpdate("DROP TABLE IF EXISTS  stock ");
-			   //st.executeUpdate("DROP TABLE IF EXISTS  strategies ");
+			   //st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
 			   //st.executeUpdate("DROP TABLE IF EXISTS  user ");
-			   //st.executeUpdate("DROP TABLE IF EXISTS  favourites ");
+			   //st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
 			   //st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
 			   
-			   st.executeUpdate("CREATE TABLE  users ( "
+			   st.executeUpdate("CREATE TABLE  user ( "
 	                     +"userID INTEGER NOT NULL,"
 	                     +"email TEXT,"
 	                     +"password TEXT"
 	                     +"PRIMARY KEY (userID)"
 	                     + ");" )  ;
 			   
-			   st.executeUpdate("CREATE TABLE  stocks ( "
+			   st.executeUpdate("CREATE TABLE  stock ( "
 	                     +"stockSymbol TEXT NOT NULL,"
 	                     +"stockName TEXT,"
 	                     +"PRIMARY KEY (stockSymbol)"
 	                     + ");" )  ;
 			   
-			   st.executeUpdate("CREATE TABLE  strategies ( "
+			   st.executeUpdate("CREATE TABLE  strategy ( "
 	                     +"stratID INTEGER NOT NULL,"
 	                     +"userID INTEGER NOT NULL,"
 	                     +"stockSymbol TEXT NOT NULL,"
@@ -46,17 +46,17 @@ public class Database
 	                     +"sell INTEGER,"
 	                     +"active TEXT,"
 	                     +"PRIMARY KEY (stratID),"
-	                     +"FOREIGN KEY (userID) REFERENCES users (userID)"
-	                     +"FOREIGN KEY (stockSymbol) REFERENCES stocks (stockSymbol)"
+	                     +"FOREIGN KEY (userID) REFERENCES user (userID)"
+	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
 			   
-			   st.executeUpdate("CREATE TABLE  favourites ( "
+			   st.executeUpdate("CREATE TABLE  favourite ( "
 	                     +"favID INTEGER NOT NULL,"
 	                     +"userID INTEGER,"
 	                     +"stockSymbol TEXT"
 	                     +"PRIMARY KEY (favID)"
-	                     +"FOREIGN KEY (userID) REFERENCES users (userID)"
-	                     +"FOREIGN KEY (stockSymbol) REFERENCES stocks (stockSymbol)"
+	                     +"FOREIGN KEY (userID) REFERENCES user (userID)"
+	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
 			   
 			   st.executeUpdate("CREATE TABLE  ticker ( "
@@ -65,7 +65,7 @@ public class Database
 	                     +"askPrice TEXT,"
 	                     +"bidPrice TEXT"
 	                     +"PRIMARY KEY (tickerID)"
-	                     +"FOREIGN KEY (stockSymbol) REFERENCES stocks (stockSymbol)"
+	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
 		}
 		catch (SQLException ex) 
