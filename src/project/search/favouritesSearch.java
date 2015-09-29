@@ -25,11 +25,11 @@ public class favouritesSearch
 			con = Database.getConnection();
 			Statement st = con.createStatement();
 	   
-			ResultSet rs = st.executeQuery("SELECT f.stockSymbol, s.stockName FROM favourite f JOIN stock s ON s.stockSymbol = f.stockSymbol");
-			html += "<table>";
+			ResultSet rs = st.executeQuery("SELECT f.stockSymbol, s.stockName, s.askPrice, s.bidPrice, s.percentageChange FROM favourite f JOIN stock s ON s.stockSymbol = f.stockSymbol");
+			html += "<table><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
 			while(rs.next())
 			{
-				html += "<tr><td><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockName") + "</a></td></tr>";
+				html += "<tr><td><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockSymbol") + "</a></td><td>"+rs.getString("stockName")+"</td><td>"+rs.getString("askPrice")+"</td><td>"+rs.getString("bidPrice")+"</td><td>"+rs.getString("percentageChange")+"</td></tr>";			
 			}
 			html += "</table>";
 		}

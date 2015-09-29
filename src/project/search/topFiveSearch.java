@@ -25,11 +25,13 @@ public class topFiveSearch
 			con = Database.getConnection();
 			Statement st = con.createStatement();
 	   
-			ResultSet rs = st.executeQuery("SELECT s.stockSymbol, s.stockName FROM stock s JOIN ticker t ON t.stockSymbol = s.stockSymbol ORDER BY t.percentageChange DESC LIMIT 5");
-			html += "<table>";
+			ResultSet rs = st.executeQuery("SELECT s.stockSymbol, s.stockName, s.askPrice, s.bidPrice, s.percentageChange FROM stock s ORDER BY s.percentageChange DESC LIMIT 5");
+			html += "<table><th></th><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
+			int count = 1;
 			while(rs.next())
 			{
-				html += "<tr><td><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockName") + "</a></td></tr>";
+				html += "<tr><td>"+count+"</td><td><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockSymbol") + "</a></td><td>"+rs.getString("stockName")+"</td><td>"+rs.getString("askPrice")+"</td><td>"+rs.getString("bidPrice")+"</td><td>"+rs.getString("percentageChange")+"</td></tr>";
+				count++;
 			}
 			html += "</table>";
 		}
