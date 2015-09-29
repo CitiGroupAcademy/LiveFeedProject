@@ -85,6 +85,9 @@ public class Database
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
+			cn = DriverManager.getConnection("jdbc:mysql://localhost", "root", "password");
+			Statement st = cn.createStatement();
+			st.executeUpdate("CREATE DATABASE IF NOT EXISTS livefeedproject");
 			cn = DriverManager.getConnection("jdbc:mysql://localhost/livefeedproject", "root", "password");
 		}
 		catch(SQLException ex)
