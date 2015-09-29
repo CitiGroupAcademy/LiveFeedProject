@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 public class Database 
 {
@@ -12,7 +11,6 @@ public class Database
 	public static void main(String[] args) throws Exception
 	{
 		Connection connect = null;
-		Scanner sc = new Scanner(System.in);
 		connect = getConnection();
 		try
 		{
@@ -66,7 +64,6 @@ public class Database
 	                     +"bidPrice DECIMAL(5,2), "
 	                     +"timeStamp TIMESTAMP, "
 	                     +"PRIMARY KEY (tickerID), "
-	                     +"FOREIGN KEY (userID) REFERENCES user (userID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
 		}
@@ -88,7 +85,7 @@ public class Database
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection("jdbc:mysql://localhost/montestdb", "root", "password");
+			cn = DriverManager.getConnection("jdbc:mysql://localhost/livefeedproject", "root", "password");
 		}
 		catch(SQLException ex)
 		{
