@@ -30,7 +30,7 @@ public class topFiveSearch
 			int count = 1;
 			while(rs.next())
 			{
-				html += "<tr><td>"+count+"</td><td><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockSymbol") + "</a></td><td>"+rs.getString("stockName")+"</td><td>"+rs.getString("askPrice")+"</td><td>"+rs.getString("bidPrice")+"</td><td>"+rs.getString("percentageChange")+"</td></tr>";
+				html += "<tr><td><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockSymbol") + "</a></td><td>"+rs.getString("stockName")+"</td><td>"+rs.getString("askPrice")+"</td><td>"+rs.getString("bidPrice")+"</td><td>"+rs.getString("percentageChange")+"</td></tr>";
 				count++;
 			}
 			html += "</table>";
