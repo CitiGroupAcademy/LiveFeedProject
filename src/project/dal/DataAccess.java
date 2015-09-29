@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import project.dataObjects.Stock;
+import project.dataObjects.Ticker;
+
 public class DataAccess {
 
 	/**
@@ -73,6 +76,39 @@ public class DataAccess {
 		}
 
 	}
+	
+	/**
+	 * Method returns an ArrayList of ticker objects
+	 */
+	public static ArrayList<Ticker> getTicker() {
+
+		ArrayList<Ticker> temp = new ArrayList<Ticker>();
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select * from ticker");
+
+			while (rs.next()) {
+				temp.add(new Ticker(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4), rs.getDate(5)));
+			}
+
+		} catch (SQLException ex) {
+			System.out.println("Error getting data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return temp;
+	}
 
 	/**
 	 * Clears all stocks in ticker table
@@ -101,7 +137,7 @@ public class DataAccess {
 		}
 
 	}
-
+	
 	/**
 	 * Inserts stocks with their stock symbol and name into the stock table
 	 * 
@@ -140,15 +176,51 @@ public class DataAccess {
 	/**
 	 * Method returns an ArrayList of stocks from database
 	 */
-	public static ArrayList<String> getStocks() {
+	public static ArrayList<Stock> getStocks() {
 
+		ArrayList<Stock> temp = new ArrayList<Stock>();
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select * from stock ");
+
+			while (rs.next()) {
+				temp.add(new Stock(rs.getString(1), rs.getString(2)));
+			}
+
+		} catch (SQLException ex) {
+			System.out.println("Error getting data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return temp;
+
+	}
+	
+	/**
+	 * Method gets the top 5 stocks based on the percentage change
+	 * @return
+	 */
+	public static ArrayList<String> getTop5(){
+		
 		ArrayList<String> temp = new ArrayList<String>();
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select stockSymbol from stock ");
+			ResultSet rs = st.executeQuery("Select top 5 from stock");
 
 			while (rs.next()) {
 				temp.add(rs.getString(1));
@@ -169,6 +241,41 @@ public class DataAccess {
 			}
 		}
 		return temp;
-
 	}
+	
+	/**
+	 * Method gets the bottom 5 stocks based on the percentage change
+	 * @return
+	 */
+	public static ArrayList<String> getBottom5(){
+		
+		ArrayList<String> temp = new ArrayList<String>();
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select top 5 from stock    ");
+
+			while (rs.next()) {
+				temp.add(rs.getString(1));
+			}
+
+		} catch (SQLException ex) {
+			System.out.println("Error getting data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return temp;
+	}
+	
 }

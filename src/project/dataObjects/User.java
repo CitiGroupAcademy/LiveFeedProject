@@ -19,6 +19,17 @@ public class User
 	{
 		this.userID = userID;
 	}
+	
+	/**
+	 * @param userID
+	 * @param email
+	 * @param password
+	 */
+	public User(int userID, String email, String password) {
+		this.userID = userID;
+		this.email = email;
+		this.password = password;
+	}
 	public String getEmail() 
 	{
 		return email;

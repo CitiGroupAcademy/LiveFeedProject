@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import project.dataObjects.Stock;
+
 public class GetQuotes {
 
 	public static void main(String[] args) throws Exception {
@@ -17,11 +19,11 @@ public class GetQuotes {
 			StringBuilder url = new StringBuilder(
 					"http://finance.yahoo.com/d/quotes.csv?s=");
 
-			for (String s : DataAccess.getStocks()){
-				url.append(s + ",");
+			for (Stock s : DataAccess.getStocks()){
+				url.append(s.getStockSymbol() + ",");
 			}
 				
-			url.append("&f=sab&e=.csv");
+			url.append("&f=sabc0&e=.csv");
 
 			String theUrl = url.toString();
 
@@ -39,14 +41,19 @@ public class GetQuotes {
 
 				String[] fields = inputLine.split(",");
 
-				DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
-						Double.parseDouble(fields[1]),
-						Double.parseDouble(fields[2]));
+				if(!fields[1].equalsIgnoreCase("N/A") || !fields[2].equalsIgnoreCase("N/A")){
+					DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
+							Double.parseDouble(fields[1]),
+							Double.parseDouble(fields[2]));
+				}
+				
 
 			}
 
 		}
-
+		
 	}
-
+	
+	
 }
+
