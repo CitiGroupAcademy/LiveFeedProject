@@ -15,7 +15,7 @@ import project.dal.Database;
 public class topFiveSearch 
 {
 	@GET
-	@Produces("text/plain")
+	@Produces("text/html")
 	public String getText() throws SQLException
 	{
 		Connection con = null;
