@@ -8,7 +8,7 @@ import java.net.URL;
 public class GetQuotes {
 
 	public static void main(String[] args) throws Exception {
-
+		System.out.println("");
 		// clear data in database
 		DataAccess.clearTicker();
 
