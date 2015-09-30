@@ -26,14 +26,22 @@ public class topFiveSearch
 			Statement st = con.createStatement();
 	   
 			ResultSet rs = st.executeQuery("SELECT s.stockSymbol, s.stockName, s.percentageChange FROM stock s ORDER BY s.percentageChange DESC LIMIT 5");
+			String[][] stocks = new String[5][3];
 			html += "<table><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
+			int count = 0;
 			while(rs.next())
 			{
-				ResultSet rs2 = st.executeQuery("SELECT t.askPrice, t.bidPrice FROM ticker t WHERE t.stockSymbol = '"+ rs.getString("stockSymbol") +"' ORDER BY t.timeStamp DESC LIMIT 1");
-				while(rs2.next())
+				stocks[count][0] = rs.getString("stockSymbol");
+				stocks[count][1] = rs.getString("stockName");
+				stocks[count][2] = rs.getString("percentageChange");
+				count++;
+			}
+			for(int r = 0; r<5; r++)
+			{
+				rs = st.executeQuery("SELECT t.askPrice, t.bidPrice FROM ticker t WHERE t.stockSymbol = '"+ stocks[r][0] +"' ORDER BY t.timeStamp DESC LIMIT 1");
+				while(rs.next())
 				{
-					html += "<tr><td><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockSymbol") + "</a></td><td>"+rs.getString("stockName")+"</td><td>"+rs2.getString("askPrice")+"</td><td>"+rs2.getString("bidPrice")+"</td><td>"+rs.getString("percentageChange")+"</td></tr>";
-			
+					html += "<tr><td><a href='graphPage.jsp?sym="+ stocks[r][0] + "'>" + stocks[r][0] + "</a></td><td>"+stocks[r][1]+"</td><td>"+rs.getString("askPrice")+"</td><td>"+rs.getString("bidPrice")+"</td><td>"+stocks[r][2]+"</td></tr>";
 				}
 			}
 			html += "</table>";
