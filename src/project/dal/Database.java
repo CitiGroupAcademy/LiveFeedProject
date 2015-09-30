@@ -85,6 +85,8 @@ public class Database
 			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('GOOG', 10.00, 8.00)");
 			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('VOW.DE', 10.00, 8.00)");
 			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('FB', 10.00, 8.00)");
+			   
+			   System.out.println("Finished creating database");
 		}
 		catch (SQLException ex) 
 		{
