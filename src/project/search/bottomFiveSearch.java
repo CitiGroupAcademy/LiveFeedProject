@@ -36,7 +36,7 @@ public class bottomFiveSearch
 				stocks[count][2] = rs.getString("percentageChange");
 				count++;
 			}
-			for(int r = 4; r>=0; r--)
+			for(int r = 0; r<5; r++)
 			{
 				rs = st.executeQuery("SELECT t.askPrice, t.bidPrice FROM ticker t WHERE t.stockSymbol = '"+ stocks[r][0] +"' ORDER BY t.timeStamp DESC LIMIT 1");
 				while(rs.next())
