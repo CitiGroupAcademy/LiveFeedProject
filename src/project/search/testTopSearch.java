@@ -33,7 +33,7 @@ public class testTopSearch
 	public static Queue<Double> bidAverageCollection = new LinkedList<Double>();
 	public static Queue<Double> askAverageCollection = new LinkedList<Double>();
 
-	public static void main() throws Exception 
+	public static String main() throws Exception 
 	{
 		captureNumber = 1;
 		decrementor = captureNumber;
@@ -77,15 +77,16 @@ public class testTopSearch
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					con.getInputStream()));
 			String inputLine;
-
+			html += "<table class='standard'><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th>";
 			while ((inputLine = in.readLine()) != null && decrementor != 0) 
 			{
 				String[] fields = inputLine.split(",");
 
-				if (fields[0].replaceAll("\"", "").equalsIgnoreCase(symbol)) {
-					//html += fields[0].replaceAll("\"", "")+ " " + rs.getString(stock)	Double.parseDouble(fields[1]),	Double.parseDouble(fields[2]), calculateAskMovingAverage(Double.parseDouble(fields[1])), calculateBidMovingAverage(Double.parseDouble(fields[2])), captureNumber,movingAverageNo);
+				for(int i=0; i<stockNames.size();i++)
+				{
+					html += "<tr><td><a href='graphPage.jsp?sym="+ stockSymbols.get(i) + "'>" + stockSymbols.get(i) + "</a></td><td>"+stockNames.get(i)+"</td><td>"+fields[0]+"</td><td>"+fields[1]+"</td></tr>";
 				}
-
+				
 				decrementor--;
 
 			}
@@ -95,52 +96,6 @@ public class testTopSearch
 			}
 		}
 
-		System.out.println("End");
-	}
-
-	/**
-	 * Calculates the moving average with a queue collection
-	 * @param nextNumber
-	 * @return
-	 */
-	public static double calculateAskMovingAverage(double nextNumber) {
-
-		askAverageCollection.add(nextNumber);
-
-		if (askAverageCollection.size() > movingAverageNo) {
-			totalAsks = 0;
-		
-			askAverageCollection.poll();
-
-			for (double element : askAverageCollection) {
-				totalAsks += element;
-			}
-			
-		}
-
-		return totalAsks / movingAverageNo;
-	}
-
-	/**
-	 * Calculates the moving average with a queue collection
-	 * @param nextNumber
-	 * @return
-	 */
-	public static double calculateBidMovingAverage (double nextNumber){
-
-		bidAverageCollection.add(nextNumber);
-		
-		if (bidAverageCollection.size() > movingAverageNo) {
-			totalBids = 0;
-			bidAverageCollection.poll();
-
-			for (double element : bidAverageCollection) {
-				totalBids += element;
-			}
-			
-		
-		}
-
-		return totalBids / movingAverageNo;
+		return html;
 	}
 }
