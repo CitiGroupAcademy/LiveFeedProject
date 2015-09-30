@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Database 
 {
+	
 	public static void main(String[] args) throws Exception
 	{
 		Connection connect = null;

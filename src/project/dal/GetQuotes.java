@@ -51,6 +51,7 @@ public class GetQuotes {
 						
 						DataAccess.updateStockChange(fields[0].replaceAll("\"", ""), removeLastChar(fields[3]).replaceAll("\"", ""), fields[4], fields[5], fields[6], fields[7] );
 					}
+					
 
 			}
 
