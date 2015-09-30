@@ -47,10 +47,10 @@ public class GetQuotes {
 							Double.parseDouble(fields[2]));
 				
 					
-					if(!fields[3].equals("N/A")){
+					//if(!fields[3].equals("N/A")){
 						
 						DataAccess.updateStockChange(fields[0].replaceAll("\"", ""), removeLastChar(fields[3]).replaceAll("\"", ""), fields[4], fields[5], fields[6], fields[7] );
-					}
+					//}
 
 			}
 
