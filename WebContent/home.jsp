@@ -185,7 +185,13 @@
             						</select>
             						<br><br>
             						<input type="checkbox" name="buy" value="buy" checked> Buy
-  									<input type="checkbox" name="sell" value="sell"> Sell       						
+  									<input type="checkbox" name="sell" value="sell"> Sell    
+  									<br><br>
+  									<select name="txtstatus" >
+            						<option value="n/a" selected>Strategy Status</option>
+            						<option value="active">Active</option>
+            						<option value="inactive">Inactive</option>        						
+            						</select>  						
 								</form>
 							</ul>
 						</div>
