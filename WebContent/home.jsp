@@ -164,9 +164,35 @@
 						<div>
 							<h2>Strategies</h2>
 							<ul>
+<<<<<<< HEAD
+								<form>
+									<h3>New Strategies</h3>
+									<select name="txtSymbol" >
+            						<option value="Choose a Supplier" selected>Choose a Symbol</option>
+            						<%
+            							//Generate the rest of the options from the database
+            							List<Stock> stocks = DataAccess.getStocks();
+            							for(Stock s: stocks){
+            								out.println("<option value=\"" + s.getStockSymbol() + "\">" + s.getStockName() + "</option>");
+            							}
+           	
+            						%>
+            						</select>
+            						<br><br>
+            						<select name="txtStrategy" >
+            						<option value="n/a" selected>Choose a Strategy</option>
+            						<option value="movingAvg">Moving Average</option>
+            						<option value="bollinger">Bollinger Band</option>        						
+            						</select>
+            						<br><br>
+            						<input type="checkbox" name="buy" value="buy" checked> Buy
+  									<input type="checkbox" name="sell" value="sell"> Sell       						
+								</form>
+=======
 								<p>
 									
 								</p>
+>>>>>>> master
 							</ul>
 						</div>
 					</li>
