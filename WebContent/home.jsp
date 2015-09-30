@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="project.dataObjects.Stock ,java.util.List, project.dal.DataAccess"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -166,7 +166,17 @@
 							<ul>
 								<form>
 									<h3>New Strategies</h3>
-									<input type="text" name="txtStrategy" />
+									<select name="txtSymbol" >
+            						<option value="Choose a Supplier" selected>Choose a Symbol</option>
+            <%
+            	//Generate the rest of the options from the database
+            	List<Stock> stocks = DataAccess.getStocks();
+            	for(Stock s: stocks){
+            		out.println("<option value=\"" + s.getStockSymbol() + "\">" + s.getStockName() + "</option>");
+            	}
+           	
+            %>
+            </select>
 								</form>
 							</ul>
 						</div>
