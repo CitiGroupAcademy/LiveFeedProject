@@ -17,6 +17,7 @@ public class Database
 			   Statement st = connect.createStatement();	
 			   st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  ownedStock ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  user ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  stock ");
@@ -42,7 +43,6 @@ public class Database
 			   
 			   st.executeUpdate("CREATE TABLE  strategy ( "
 	                     +"stratID INTEGER AUTO_INCREMENT NOT NULL, "
-	                     +"userID INTEGER NOT NULL, "
 	                     +"stockSymbol NVARCHAR (10) NOT NULL, "
 	                     +"type NVARCHAR(10), "
 	                     +"buy INTEGER, "
@@ -55,7 +55,6 @@ public class Database
 			   
 			   st.executeUpdate("CREATE TABLE  favourite ( "
 	                     +"favID INTEGER AUTO_INCREMENT NOT NULL, "
-	                     +"userID INTEGER NOT NULL, "
 	                     +"stockSymbol NVARCHAR(10) NOT NULL, "
 	                     +"PRIMARY KEY (favID), "
 	                     +"FOREIGN KEY (userID) REFERENCES user (userID), "
@@ -69,6 +68,13 @@ public class Database
 	                     +"bidPrice DECIMAL(5,2), "
 	                     +"timeStamp TIMESTAMP, "
 	                     +"PRIMARY KEY (tickerID), "
+	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
+	                     + ");" )  ;
+			   
+			   st.executeUpdate("CREATE TABLE  ownedStock ( "
+					     +"ownedID INTEGER AUTO_INCREMENT NOT NULL, "
+					   	 +"stockSymbol NVARCHAR(10) NOT NULL, "
+	                     +"PRIMARY KEY (ownedID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
 			   
