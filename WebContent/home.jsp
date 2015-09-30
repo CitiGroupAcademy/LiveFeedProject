@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="project.dataObjects.Stock ,java.util.List, project.dal.DataAccess"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,7 +164,6 @@
 						<div>
 							<h2>Strategies</h2>
 							<ul>
-<<<<<<< HEAD
 								<form>
 									<h3>New Strategies</h3>
 									<select name="txtSymbol" >
@@ -188,11 +187,6 @@
             						<input type="checkbox" name="buy" value="buy" checked> Buy
   									<input type="checkbox" name="sell" value="sell"> Sell       						
 								</form>
-=======
-								<p>
-									
-								</p>
->>>>>>> master
 							</ul>
 						</div>
 					</li>
