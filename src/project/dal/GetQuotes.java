@@ -16,6 +16,8 @@ public class GetQuotes {
 
 		while (true) {
 
+			project.logging.LogManager.criticalLog("Test");
+			
 			StringBuilder url = new StringBuilder(
 					"http://finance.yahoo.com/d/quotes.csv?s=");
 
