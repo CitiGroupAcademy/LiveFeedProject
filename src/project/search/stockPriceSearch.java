@@ -37,7 +37,7 @@ public class stockPriceSearch
 			String dateStr = dateFormat.format(date);
 			   
 			int hour = Calendar.HOUR;
-			html += "<table><th>TIME</th>";
+			html += "<table class='standard'><th>TIME</th>";
 			for(int hourCount = 4; hourCount<hour; hourCount++)
 			{
 				html += "<th>"+hourCount+":00</th>";
