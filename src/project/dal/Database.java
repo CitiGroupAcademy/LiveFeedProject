@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 public class Database 
 {
@@ -47,7 +46,7 @@ public class Database
 	                     +"type NVARCHAR(10), "
 	                     +"buy INTEGER, "
 	                     +"sell INTEGER, "
-	                     +"active INTEGER, "
+	                     +"active NVARCHAR(10), "
 	                     +"PRIMARY KEY (stratID), "
 	                     +"FOREIGN KEY (userID) REFERENCES user (userID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"

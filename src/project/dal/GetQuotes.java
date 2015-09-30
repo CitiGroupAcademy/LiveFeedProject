@@ -11,6 +11,7 @@ public class GetQuotes {
 
 	public static void main(String[] args) throws Exception {
 
+		
 		// clear data in database
 		DataAccess.clearTicker();
 
