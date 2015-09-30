@@ -27,7 +27,7 @@ public class topFiveSearch
 	   
 			ResultSet rs = st.executeQuery("SELECT s.stockSymbol, s.stockName, s.percentageChange FROM stock s ORDER BY s.percentageChange DESC LIMIT 5");
 			String[][] stocks = new String[5][3];
-			html += "<table><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
+			html += "<table ><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
 			int count = 0;
 			while(rs.next())
 			{
