@@ -179,7 +179,6 @@
             						</select>
             						<br><br>
             						<select name="txtStrategy" >
-            						<option value="n/a" selected>Choose a Strategy</option>
             						<option value="movingAvg">Moving Average</option>
             						<option value="bollinger">Bollinger Band</option>        						
             						</select>
@@ -187,11 +186,12 @@
             						<input type="checkbox" name="buy" value="buy" checked> Buy
   									<input type="checkbox" name="sell" value="sell"> Sell    
   									<br><br>
-  									<select name="txtstatus" >
-            						<option value="n/a" selected>Strategy Status</option>
+  									<select name="txtstatus">
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
-            						</select>  						
+            						</select>
+            						<br><br>
+            						<input type="Submit" value="Create Strategy">						
 								</form>
 							</ul>
 						</div>
