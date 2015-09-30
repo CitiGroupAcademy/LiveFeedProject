@@ -1,0 +1,187 @@
+/* ### css for demonstration of the UXM only ### */
+/* ### this file can be excluded from an nidirect transactional service ### */
+
+code {
+	background: none;
+	border: none;
+	clear: both;
+	display: block;
+	font-size: 0.875em;
+	padding: 0;
+	white-space: normal;
+	word-wrap: break-word;
+}
+
+.btn-swatch {
+	color: #ffffff;
+	float: left;
+	margin-right: 1em;
+	padding: 1em 0.5em;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.primary-colour {
+	background: #008FC5;
+}
+
+.primary-colour-hover {
+	background: #00AAE5;
+}
+
+.secondary-colour {
+	background: #999999;
+}
+
+.secondary-colour-hover {
+	background: #666666;
+}
+
+.success-colour {
+	background: #629512;
+}
+
+.success-colour-hover {
+	background: #6EA614;
+}
+
+.warning-colour {
+	background: #A61A00;
+}
+
+.warning-colour-hover {
+	background: #C91F00;
+}
+
+.showcase {
+	border: 1px solid #ccc;
+}
+
+#toTop {
+	background-color: rgba(12, 31, 100, 0.95);
+	color: #FFFFFF;
+	font-size: 1.4em;
+	font-weight: normal;
+	height: 2em;
+	line-height: 2em;
+	margin: 0 auto;
+	opacity: 0.95;
+	text-align: center;
+	text-transform: uppercase;
+	width: 960px;
+}
+
+div.with-to-top-plugin {
+	margin-bottom: 2em;
+}
+
+@media (max-width: 979px) {
+	.showcase {
+		max-width: 95%;
+	}
+	
+	#toTop {
+		width: 100%;
+	}
+}
+
+form > h3 {
+	margin-top: 0;
+}
+
+form div.last {
+	margin-bottom: 0;
+}
+
+pre {
+	border-radius: 0;
+}
+
+h2.uxm {
+	border-top: 2px solid #0C1E63;
+	padding-top: 0.917em; /* 22px */
+}
+
+legend.uxm {
+	border-bottom: 2px solid #ccc;
+	font-size: 1.25em;
+}
+
+/* tabs */
+.nav-tabs {
+	margin-bottom: 0;
+}
+
+.nav-tabs > li > a {
+	border-radius: 0;
+}
+
+@media (max-width: 480px) {
+	.nav-tabs > li > a {
+		padding: 4px 6px;
+	}
+}
+
+.nav-tabs > li.active a,
+.nav-tabs > li.active a:hover,
+.nav-tabs > li.active a:focus {
+	color: #2E2E2E;
+	text-decoration: none;
+}
+
+.no-js .tab-content, .no-js .tab-pane {
+	display: block;
+}
+
+.tab-content {
+	border-bottom: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	padding: 0 12px 6px 0;
+}
+
+.tab-content ul {
+	margin-bottom: 1em;
+}
+
+.tab-content ul li {
+	margin-left: 0.5em;
+}
+
+.tab-content img.showcase {
+	margin: 12px 0 0 12px;
+}
+
+/* visualize the grid system  */
+
+.show-grid {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.show-grid [class*="span"] {
+	background-color: #eee;
+	text-align: center;
+	min-height: 40px;
+	line-height: 40px;
+}
+
+.show-grid [class*="span"]:hover {
+	background-color: #ddd;
+}
+
+.show-grid .show-grid {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.show-grid .show-grid [class*="span"] {
+	margin-top: 5px;
+}
+
+.show-grid [class*="span"] [class*="span"] {
+	background-color: #ccc;
+}
+
+.show-grid [class*="span"] [class*="span"] [class*="span"] {
+	background-color: #999;
+}
