@@ -386,7 +386,12 @@ public class DataAccess {
 	
 	
 	public static void main(String[] args){
-		insertStrategy(1, "aapl", "movAv", 1, 0, "active");
+
+		
+		for(Stock s : getStocks()){
+			s.getStockSymbol();
+		}
+		
 	}
 	
 }
