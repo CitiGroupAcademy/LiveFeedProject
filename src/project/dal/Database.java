@@ -17,9 +17,10 @@ public class Database
 			   Statement st = connect.createStatement();	
 			   st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
-			   st.executeUpdate("DROP TABLE IF EXISTS  stock ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
 			   st.executeUpdate("DROP TABLE IF EXISTS  user ");
+			   st.executeUpdate("DROP TABLE IF EXISTS  stock ");
+
 			   
 			   st.executeUpdate("CREATE TABLE  user ( "
 	                     +"userID INTEGER AUTO_INCREMENT NOT NULL, "
@@ -30,7 +31,12 @@ public class Database
 			   
 			   st.executeUpdate("CREATE TABLE  stock ( "
 	                     +"stockSymbol NVARCHAR(10) NOT NULL, "
-	                     +"stockName NVARCHAR(10) NOT NULL, "
+	                     +"stockName NVARCHAR(30) NOT NULL, "
+	                     +"percentageChange NVARCHAR (10), "
+	                     +"openingPrice NVARCHAR(10), "
+	                     +"closePrice NVARCHAR(10), "
+	                     +"changeYearHigh NVARCHAR(10), "
+	                     +"changeYearLow NVARCHAR(10), "
 	                     +"PRIMARY KEY (stockSymbol)"
 	                     + ");" )  ;
 			   
@@ -62,10 +68,23 @@ public class Database
 	                     +"askPrice DECIMAL(5,2), "
 	                     +"bidPrice DECIMAL(5,2), "
 	                     +"timeStamp TIMESTAMP, "
-	                     +"percentageChange DECIMAL(5,2), "
 	                     +"PRIMARY KEY (tickerID), "
 	                     +"FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 	                     + ");" )  ;
+			   
+			   st.executeUpdate("INSERT INTO user(email, password) VALUES('user@gmail.com', 'password')");
+			   
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('AAPL', 'Apple Inc.', 0)");
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('MSFT', 'Microsoft Corporation', 0)");
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('GOOG', 'Google Inc.', 0)");
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('VOW.DE', 'Volkswagon AG', 0)");
+			   st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('FB', 'Facebook, Inc', 0)");
+			   
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('AAPL', 10.00, 8.00)");
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('MSFT', 10.00, 8.00)");
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('GOOG', 10.00, 8.00)");
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('VOW.DE', 10.00, 8.00)");
+			   st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('FB', 10.00, 8.00)");
 		}
 		catch (SQLException ex) 
 		{

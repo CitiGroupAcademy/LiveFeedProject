@@ -277,5 +277,116 @@ public class DataAccess {
 		}
 		return temp;
 	}
+
+	public static void updateStockChange(String symbol, String percentageChange, String openPrice, String closePrice, String changeYearHigh, String changeYearLow ) {
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("UPDATE stock SET percentagechange = ?, openingPrice = ?, closePrice = ?, changeYearHigh = ?, changeYearLow = ? WHERE stockSymbol = ?");
+			st.setString(1, percentageChange);
+			st.setString(2, openPrice);
+			st.setString(3, closePrice);
+			st.setString(4, changeYearHigh);
+			st.setString(5, changeYearLow);
+			st.setString(6, symbol);
+			st.executeUpdate();
+
+		} catch (SQLException ex) {
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+	
+	/**
+	 * Method inserts a new tuple into the strategy table
+	 * @param userID int
+	 * @param stockSymbol String
+	 * @param type String
+	 * @param buy int
+	 * @param sell int
+	 * @param active String
+	 */
+	public static void insertStrategy(int userID, String stockSymbol, String type, int buy, int sell, String active){
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("INSERT INTO strategy (userID, stockSymbol, type, buy, sell, active) values(?,?,?,?,?,?)");
+			st.setInt(1, userID);
+			st.setString(2, stockSymbol);
+			st.setString(3, type);
+			st.setInt(4, buy);
+			st.setInt(5, sell);
+			st.setString(6, active);
+			st.executeUpdate();
+			
+			insertIntoFav(userID, stockSymbol);
+
+
+		} catch (SQLException ex) {
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+	
+	
+	/**
+	 * Method inserts a new tuple into the strategy table
+	 * @param userID int
+	 * @param stockSymbol String
+	 */
+	public static void insertIntoFav(int userID, String stockSymbol){
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn.prepareStatement("INSERT INTO favourite(userID, stockSymbol) VALUES(?,?)");
+			st.setInt(1, userID);
+			st.setString(2, stockSymbol);
+			st.executeUpdate();
+
+		} catch (SQLException ex) {
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+	
+	
+	
+	public static void main(String[] args){
+		insertStrategy(1, "aapl", "movAv", 1, 0, "active");
+	}
 	
 }
