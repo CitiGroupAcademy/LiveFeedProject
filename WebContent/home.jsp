@@ -181,11 +181,11 @@
             						<select name="txtStrategy" >
             						<option value="n/a" selected>Choose a Strategy</option>
             						<option value="movingAvg">Moving Average</option>
-            						<option value="bollinger">Bollinger Band</option>
-            						
+            						<option value="bollinger">Bollinger Band</option>        						
             						</select>
             						<br><br>
-            						
+            						<input type="checkbox" name="buy" value="buy" checked> Buy
+  									<input type="checkbox" name="sell" value="sell"> Sell       						
 								</form>
 							</ul>
 						</div>
