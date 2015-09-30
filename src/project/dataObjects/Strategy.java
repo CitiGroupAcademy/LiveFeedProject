@@ -3,6 +3,7 @@ package project.dataObjects;
 public class Strategy 
 {
 	private int stratID;
+	private int userID;
 	private String stockSymbol;
 	private String type;
 	private int buy;
@@ -17,15 +18,33 @@ public class Strategy
 	{
 		this.stratID = stratID;
 	}
+	public int getUserID() 
+	{
+		return userID;
+	}
 	
+	/**
+	 * @param stratID
+	 * @param userID
+	 * @param stockSymbol
+	 * @param type
+	 * @param buy
+	 * @param sell
+	 * @param active
+	 */
 	public Strategy(int stratID, int userID, String stockSymbol, String type,
 			int buy, int sell, boolean active) {
 		this.stratID = stratID;
+		this.userID = userID;
 		this.stockSymbol = stockSymbol;
 		this.type = type;
 		this.buy = buy;
 		this.sell = sell;
 		this.active = active;
+	}
+	public void setUserID(int userID) 
+	{
+		this.userID = userID;
 	}
 	public String getStockSymbol() 
 	{
