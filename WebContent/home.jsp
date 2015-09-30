@@ -164,9 +164,10 @@
 						<div>
 							<h2>Strategies</h2>
 							<ul>
-								<p>
-									
-								</p>
+								<form>
+									<h3>New Strategies</h3>
+									<input type="text" name="txtStrategy" />
+								</form>
 							</ul>
 						</div>
 					</li>

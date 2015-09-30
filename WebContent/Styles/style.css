@@ -211,62 +211,6 @@ p a {
 p a:hover {
 	color: #333333;
 }
-/** Adbox **/
-#adbox {
-	background: url(../images/bg-adbox.png) no-repeat center bottom;
-	border-bottom: 1px solid #fff;
-	padding-top: 15px;
-}
-#adbox > div {
-	background-color: #e9e9e9;
-	width: 958px;
-	border: 1px solid #fff;
-	margin: 0 auto;
-	position: relative;
-}
-#adbox > div img {
-	float: right;
-}
-#adbox .detail {
-	font-family: Times, "Times New Roman", serif;
-	height: 185px;
-	line-height: 48px;
-	width: 308px;
-	text-align: center;
-	position: absolute;
-	left: 54px;
-	top: 90px;
-}
-#adbox .detail h1 {
-	color: #4e5944;
-	font-size: 30px;
-	font-weight: normal;
-	line-height: 48px;
-	margin: 0;
-	text-transform: none;
-}
-#adbox .detail p {
-	color: #4e5944;
-	font: 25px/48px "Times New Roman", Times, serif;
-	margin: 0;
-}
-.highlight {
-	background: #eee url(../images/bg-highlight.jpg) repeat-x left bottom;
-	border-bottom: 1px solid #fff;
-}
-.highlight .clearfix {
-	width: 940px;
-}
-.highlight h1 {
-	font-size: 32px;
-	line-height: 36px;
-	padding: 12px 0 12px;
-	text-transform: none;
-}
-.highlight h2 {
-	color: #57614e;
-	margin-bottom: 24px;
-}
 .testimonial, .main, .sidebar > div h2, .sidebar ul li, .main > .section {
 	background-image: url(../images/border.png);
 	background-position: left top;
@@ -563,12 +507,7 @@ p a:hover {
 	font-size: 12px;
 	margin: 0;
 }
-#footer .section:first-child {
-	border: 0;
-}
-#footer .contact p span {
-	text-transform: uppercase;
-}
+
 #footnote {
 	background: url(../images/bg-footnote.jpg) repeat-x left top;
 	border-top: 1px solid #fff;
@@ -581,28 +520,4 @@ p a:hover {
 	padding-right: 10px;
 	text-align: right;
 	text-transform: uppercase;
-}
-#footnote .connect {
-	float: left;
-	display: inline-block;
-	margin: 0 10px;
-	padding: 6px 0;
-}
-#footnote .connect a {
-	display: inline-block;
-	height: 18px;
-	width: 18px;
-	margin-right: 6px;
-}
-#footnote .connect a.facebook {
-	background-position: 0 -112px;
-}
-#footnote .connect a.twitter {
-	background-position: 0 -140px;
-}
-#footnote .connect a.googleplus {
-	background-position: 0 -168px;
-}
-#footnote .connect a.pinterest {
-	background-position: 0 -196px;
 }
