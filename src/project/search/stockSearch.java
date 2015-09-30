@@ -27,7 +27,7 @@ public class stockSearch
 			   Statement st = con.createStatement();
 			   
 			   ResultSet rs = st.executeQuery("SELECT stockSymbol, stockName FROM stock WHERE stockName LIKE '" + str + "%'");
-			   html += "<table>";
+			   html += "<table class='standard'>";
 			   while(rs.next())
 			   {
 				   html += "<tr><td><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockName") + "</a></td></tr>";
