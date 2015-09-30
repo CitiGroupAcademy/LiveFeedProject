@@ -33,6 +33,10 @@ public class Database
 	                     +"stockSymbol NVARCHAR(10) NOT NULL, "
 	                     +"stockName NVARCHAR(30) NOT NULL, "
 	                     +"percentageChange NVARCHAR (10), "
+	                     +"openingPrice NVARCHAR(10), "
+	                     +"closePrice NVARCHAR(10), "
+	                     +"changeYearHigh NVARCHAR(10), "
+	                     +"changeYearLow NVARCHAR(10), "
 	                     +"PRIMARY KEY (stockSymbol)"
 	                     + ");" )  ;
 			   

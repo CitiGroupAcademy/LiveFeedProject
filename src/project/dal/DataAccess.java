@@ -278,14 +278,18 @@ public class DataAccess {
 		return temp;
 	}
 
-	public static void updateStockChange(String symbol, String percentageChange) {
+	public static void updateStockChange(String symbol, String percentageChange, String openPrice, String closePrice, String changeYearHigh, String changeYearLow ) {
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("UPDATE stock SET percentagechange = ? WHERE stockSymbol = ?");
+					.prepareStatement("UPDATE stock SET percentagechange = ?, openingPrice = ?, closePrice = ?, changeYearHigh = ?, changeYearLow = ? WHERE stockSymbol = ?");
 			st.setString(1, percentageChange);
-			st.setString(2, symbol);
+			st.setString(2, openPrice);
+			st.setString(3, closePrice);
+			st.setString(4, changeYearHigh);
+			st.setString(5, changeYearLow);
+			st.setString(6, symbol);
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
