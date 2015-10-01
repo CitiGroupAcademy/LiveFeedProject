@@ -79,7 +79,7 @@ public class GetQuotes {
 	 * @throws Exception
 	 */
 	public static List<String> returnStockPercent() throws Exception {
-
+ 
 		ArrayList<String> temp = new ArrayList<String>();
 		StringBuilder url = new StringBuilder(
 				"http://finance.yahoo.com/d/quotes.csv?s=");
