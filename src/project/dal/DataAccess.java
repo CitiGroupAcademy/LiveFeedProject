@@ -1,6 +1,7 @@
 package project.dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -420,6 +421,63 @@ public class DataAccess {
 	
 	public static void main(String [] args){
 
+	}
+
+	public static void insertProfit(int parseInt, double d, double e) {
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn.prepareStatement("INSERT INTO profit(profitID, dailyAmount, overallAmount) VALUES(?,?,?)");
+			st.setInt(1, parseInt);
+			st.setDouble(2, d);
+			st.setDouble(3, e);
+			st.executeUpdate();
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException ex) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + ex);
+				}
+			}
+		}		
+	}
+	
+	public static void insertProfit(int parseInt, double d, double e, String date) {
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn.prepareStatement("INSERT INTO profit(profitID, dailyAmount, overallAmount, timeStamp) VALUES(?,?,?,?)");
+			st.setInt(1, parseInt);
+			st.setDouble(2, d);
+			st.setDouble(3, e);
+			st.setDate(4, Date.valueOf(date));
+			st.executeUpdate();
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException ex) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + ex);
+				}
+			}
+		}		
 	}
 	
 }
