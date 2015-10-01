@@ -35,6 +35,8 @@ public class Database {
 					+ "closePrice NVARCHAR(10), "
 					+ "changeYearHigh NVARCHAR(10), "
 					+ "changeYearLow NVARCHAR(10), "
+					+ "shortMovingAverage DECIMAL(5,4),"
+					+ "longMovingAverage DECIMAL(5,4),"
 					+ "PRIMARY KEY (stockSymbol)" + ");");
 
 			st.executeUpdate("CREATE TABLE  strategy ( "
@@ -93,6 +95,9 @@ public class Database {
 			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('VOW.DE', 10.00, 8.00)");
 			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('FB', 10.00, 8.00)");
 
+			Logger log = Logger.getLogger("DATABASE CREATION:");
+			log.debug("Database created");
+			
 		} catch (SQLException ex) {
 			System.out.println("Database error " + ex);
 			Logger log = Logger.getLogger("DATABASE CREATION:");
