@@ -216,8 +216,8 @@
             						<option value="bollinger">Bollinger Band</option>        						
             						</select>
             						<br><br>
-            						<input type="checkbox" name="buy" value="buy" checked> Buy
-  									<input type="checkbox" name="sell" value="sell"> Sell    
+            						<input type="checkbox" name="buy" value="1" checked> Buy
+  									<input type="checkbox" name="sell" value="1"> Sell    
   									<br><br>
   									<select name="txtstatus" >
             						
