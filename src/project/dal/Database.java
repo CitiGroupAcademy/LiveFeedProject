@@ -86,8 +86,8 @@ public class Database {
 					+ "profitID INTEGER AUTO_INCREMENT NOT NULL, "
 					+ "dailyAmount DECIMAL(5,2), "
 					+ "overallAmount DECIMAL(5,2), "
-					+ "timeStamp TIMESTAMP, "
-					+ "PRIMARY KEY (ownedID) "
+					+ "timeStamp DATE, "
+					+ "PRIMARY KEY (profitID) "
 					+ ");");
 
 			st.executeUpdate("INSERT INTO user(email, password) VALUES('user@gmail.com', 'password')");

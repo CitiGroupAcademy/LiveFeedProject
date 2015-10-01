@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import project.dal.DataAccess;
 import project.dal.Database;
 
 public class profitLoss 
@@ -28,6 +31,7 @@ public class profitLoss
 			}
 			
 			String[][] stocks = new String[count][3];
+			rs = st.executeQuery("SELECT o.stockSymbol, o.buyPrice, o.amount FROM ownedStock");
 			
 			while(rs.next())
 			{
@@ -43,6 +47,21 @@ public class profitLoss
 					sum += (rs.getDouble("bidPrice")*Double.parseDouble(stocks[r][2]))-(Double.parseDouble(stocks[r][1])*Double.parseDouble(stocks[r][2]));
 				}
 			}
+			
+			SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd"); 
+			Date date = new Date(); 
+			String currDate = dt.format(date);
+			rs = st.executeQuery("SELECT p.profitID, p.dailyAmount, p.timestamp FROM profit p ORDER BY t.timeStamp DESC LIMIT 1");
+			String timeStamp = dt.format(rs.getString("timeStamp"));
+			if(currDate.equals(timeStamp))
+			{
+				DataAccess.insertProfit(Integer.parseInt(rs.getString("profitID")), Double.parseDouble(rs.getString("dailyAmount"))+sum);
+			}
+			else
+			{
+				DataAccess.insertProfit(Integer.parseInt(rs.getString("profitID")), sum, currDate);
+			}
+			
 			sumStr += sum;
 		}
 		catch (SQLException ex) 
