@@ -53,20 +53,6 @@
         return null;
     }
 
-    function insertStrategy() {
-
-        if (request != null) {
-            String symbol = document.getElementById("sym");
-            String type = document.getElementById("type");
-            int buy = document.getElementById("buy");
-            int sell = document.getElementById("sell");
-            String status = document.getElementById("status");
-        	
-			<%
-				DataAccess.insertStrategy(1,symbol,type,buy,sell,status);
-			%>
-        }
-    }
 
     function stocksearch() {
 
