@@ -53,6 +53,26 @@
         return null;
     }
 
+    function stocksearch() {
+
+        if (request != null) {
+        	var textField = document.getElementById("stockInput");
+            var url = "search/stocksearch?str" + textField.value;
+
+            request.open("GET", url, true);
+            request.onreadystatechange = stockSearchCallback;
+            request.send(null);
+        }
+    }
+
+    function stockSearchCallback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("searchtable");
+            outputField.innerHTML = request.responseText;
+        }
+    }
+
     function top5update() {
 
         if (request != null) {
@@ -161,6 +181,18 @@
 					<div>
 				<ul class="tilelinks clearfix">
 					<li>
+					<div>
+							<h2>Stock Search</h2>
+							<ul>
+								<form>
+								<input type="text" id="stockInput" onKeyUp="stocksearch()"/>													
+								</form>	
+								<p id="searchtable">
+								
+								</p>
+								
+							</ul>
+						</div>
 						<div>
 							<h2>Strategies</h2>
 							<ul>
