@@ -149,12 +149,12 @@
 
 			<div class="brandingLogo">
 				<img class="logo" src="Images/logo.jpg" alt="name" width="173" height="57" />
-				<div class="service-name">Stock Trading System</br></br><span>Stocking you with Information</span></div>
+				<div class="service-name">Stock Meet</br></br><span>Stocking you with Information</span></div>
 			</div>
 		</header>
 		
 		<div class="content container">
-			<h1 id="skip-dest" style="text-align: center;">System</h1>
+			<h1 id="skip-dest" style="text-align: center;">Stock Information</h1>
 
 			<ul class="tilelinks clearfix">
 				<div>
@@ -191,7 +191,8 @@
             						
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
-            						</select>  						
+            						</select>
+            						<input type="submit" value="Create" />					
 								</form>
 							</ul>
 						</div>
