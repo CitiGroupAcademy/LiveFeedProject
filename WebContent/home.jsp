@@ -57,7 +57,7 @@
 
         if (request != null) {
         	var textField = document.getElementById("stockInput");
-            var url = "search/stocksearch?str" + textField.value;
+            var url = "search/stocksearch?str=" + textField.value;
 
             request.open("GET", url, true);
             request.onreadystatechange = stockSearchCallback;
