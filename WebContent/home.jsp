@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="project.dataObjects.Stock ,java.util.List, project.dal.DataAccess"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +53,27 @@
         return null;
     }
 
+
+    function stocksearch() {
+
+        if (request != null) {
+        	var textField = document.getElementById("stockInput");
+            var url = "search/stocksearch?str=" + textField.value;
+
+            request.open("GET", url, true);
+            request.onreadystatechange = stockSearchCallback;
+            request.send(null);
+        }
+    }
+
+    function stockSearchCallback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("searchtable");
+            outputField.innerHTML = request.responseText;
+        }
+    }
+
     function top5update() {
 
         if (request != null) {
@@ -61,6 +82,8 @@
             request.open("GET", url, true);
             request.onreadystatechange = top5Callback;
             request.send(null);
+        	Logger log = Logger.getLogger("HOME:");
+			log.info("TOP 5 UPDATE");
         }
     }
 
@@ -109,6 +132,8 @@
             outputField.innerHTML = request.responseText;
         }
     }
+
+    
     </script>
 </head>
 <body class="no-js">
@@ -149,24 +174,63 @@
 
 			<div class="brandingLogo">
 				<img class="logo" src="Images/logo.jpg" alt="name" width="173" height="57" />
-				<div class="service-name">Stock Trading System</br></br><span>Stocking you with Information</span></div>
+				<div class="service-name">Stock Meet</br></br><span>Stocking you with Information</span></div>
 			</div>
 		</header>
 		
 		<div class="content container">
-			<h1 id="skip-dest" style="text-align: center;">System</h1>
+			<h1 id="skip-dest" style="text-align: center;">Stock Information</h1>
 
 			<ul class="tilelinks clearfix">
 				<div>
 					<div>
 				<ul class="tilelinks clearfix">
 					<li>
+					<div>
+							<h2>Stock Search</h2>
+							<ul>
+								<form>
+								<input type="text" id="stockInput" onKeyUp="stocksearch()"/>													
+								</form>	
+								<p id="searchtable">
+								
+								</p>
+								
+							</ul>
+						</div>
 						<div>
 							<h2>Strategies</h2>
 							<ul>
-								<p>
-									
-								</p>
+								<form action="" method="post">
+									<h3>New Strategies</h3>
+									<select name="txtSymbol" id="sym" >
+            						<option value="symbol" selected>Choose a Symbol</option>
+            						<%
+            							//Generate the rest of the options from the database
+            							List<Stock> stocks = DataAccess.getStocks();
+            							for(Stock s: stocks){
+            								out.println("<option value=\"" + s.getStockSymbol() + "\">" + s.getStockName() + "</option>");
+            							}
+           	
+            						%>
+            						</select>
+            						<br><br>
+            						<select name="txtStrategy" id="type" >
+            						
+            						<option value="movingAvg">Moving Average</option>
+            						<option value="bollinger">Bollinger Band</option>        						
+            						</select>
+            						<br><br>
+            						<input type="checkbox" name="buy" id="buy" value="1" checked> Buy
+  									<input type="checkbox" name="sell" id="sell" value="1" checked> Sell    
+  									<br><br>
+  									<select name="txtstatus" id="status" >
+            						
+            						<option value="active">Active</option>
+            						<option value="inactive">Inactive</option>        						
+            						</select>
+            						<input type="button" value="Create" onClick="insertStrategy"/>					
+								</form>
 							</ul>
 						</div>
 					</li>
