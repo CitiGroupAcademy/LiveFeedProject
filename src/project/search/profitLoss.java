@@ -51,15 +51,15 @@ public class profitLoss
 			SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd"); 
 			Date date = new Date(); 
 			String currDate = dt.format(date);
-			rs = st.executeQuery("SELECT p.profitID, p.dailyAmount, p.timestamp FROM profit p ORDER BY t.timeStamp DESC LIMIT 1");
+			rs = st.executeQuery("SELECT p.profitID, p.dailyAmount, p.overallAmount, p.timestamp FROM profit p ORDER BY t.timeStamp DESC LIMIT 1");
 			String timeStamp = dt.format(rs.getString("timeStamp"));
 			if(currDate.equals(timeStamp))
 			{
-				DataAccess.insertProfit(Integer.parseInt(rs.getString("profitID")), Double.parseDouble(rs.getString("dailyAmount"))+sum);
+				DataAccess.insertProfit(Integer.parseInt(rs.getString("profitID")), Double.parseDouble(rs.getString("dailyAmount"))+sum, Double.parseDouble(rs.getString("overallAmount"))+sum);
 			}
 			else
 			{
-				DataAccess.insertProfit(Integer.parseInt(rs.getString("profitID")), sum, currDate);
+				DataAccess.insertProfit(Integer.parseInt(rs.getString("profitID")), sum, Double.parseDouble(rs.getString("dailyAmount"))+sum, currDate);
 			}
 			
 			sumStr += sum;
