@@ -130,7 +130,7 @@ public class Database {
 					"jdbc:mysql://localhost/livefeedproject", "root",
 					"password");
 			
-
+ 
 
 		} catch (SQLException ex) {
 			System.out.println("Database Connection error " + ex);
