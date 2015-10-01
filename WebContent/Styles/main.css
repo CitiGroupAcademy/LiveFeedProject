@@ -36,6 +36,11 @@ body {
 	width: 93.75%; /* 900 px @ 'large layout' */
 }
 
+#graph{
+	height: 500px;
+	width: 900px;
+	}
+
 /* ### skip nav ### */
 
 .skipnav {
@@ -686,137 +691,7 @@ select:focus {
 	outline: none;
 }
 
-/* ### validation ### */
 
-span.heading-error {
-	color: #CC0000;
-}
-
-input.input-error, .input-error {
-	border: 1px solid #cc0000;
-}
-
-img.error-icon {
-	float: left;
-	margin: 4px 4px 0 0;
-}
-
-.error-summary {
-	background: url("../images/error-icon.png") no-repeat scroll 16px 16px #FFEFED;
-	border: 1px solid #FDB2B5;
-	color: #CC0000;
-	margin: 2em 0;
-	padding: 1em;
-}
-
-.error-summary p {
-	font-size: 1.25em;
-	font-weight: bold;
-	line-height: 1em;
-	margin: 0;
-	padding-left: 1.25em;
-}
-
-.error-summary ul {
-	margin: 1em 1em 0 1em;
-}
-
-.error-summary a {
-	color: #cc0000;
-	text-decoration: none;
-}
-
-.error-summary a:hover {
-	text-decoration: underline;
-}
-
-.checkbox.error img.error-icon{
-	margin-left: -20px;
-}
-
-.error-inner {
-	border: 1px solid #CC0000;
-	padding: 8px 0 8px 12px;
-	margin: 0;
-	width: 344px;
-}
-
-.radio-error input[type="radio"], .error-inner input[type="checkbox"] {
-	clear: both;
-	margin: 5px 4px 0 0;
-	* margin-top: 2px; /* ie7 */
-}
-
-/* inline validation error */
-
-.inline-error {
-	background: #FFEFED;
-	background-clip: padding-box;
-	background-color: #FFEFED;
-	border: 1px solid #FBB6B9;
-	border-radius: 0;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	clear: none;
-	color: #CC0000;
-	display: block;
-	float: left;
-	left: 0;
-	margin: 0 0 0 20px;
-	max-width: 300px;
-	padding: 1px;
-	position: relative;
-	text-align: left;
-	top: -1px;
-	width: auto;
-	white-space: normal;
-	z-index: 1010;
-}
-
-.inline-error-content {
-	padding: 0;
-	margin: 0;
-}
-
-.inline-error-content p{
-	font-size: 0.875em;
-	margin: 0;
-	padding: 4px 6px;
-}
-
-.inline-error .arrow, .inline-error .arrow:after {
-	border-color: rgba(0, 0, 0, 0);
-	border-style: solid;
-	display: block;
-	height: 0;
-	position: absolute;
-	width: 0;
-}
-.inline-error .arrow {
-	border-width: 11px;
-	border-left-width: 0;
-	border-right-color: #FBB6B9;
-	left: -11px;
-	margin-top: -11px;
-	top: 50%;
-}
-.inline-error .arrow:after {
-	border-width: 10px;
-	border-left-width: 0;
-	border-right-color: #FFEFED;
-	bottom: -10px;
-	content: "";
-	left: 1px;
-}
-
-/* override the bootstrap styles for invalid inputs - frustrating and distracting as visitors can be presented with error styling as the type (eg email address)  */
-input:focus:invalid, textarea:focus:invalid, select:focus:invalid {
-	border-color: 0;
-	color: inherit;
-}
-input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus {
-	border-color: #00AAE5;
-	box-shadow: inherit;
-}
 
 /* ### buttons ### */
 
@@ -1063,84 +938,7 @@ div#select-address2 div.radio {
 	width: 344px;
 }
 
-/* # log in / registration # */
 
-.loginform fieldset {
-	float: left;
-	width: 415px;
-}
-
-.loginform fieldset#login {
-	border-right: 2px solid #ccc;
-	margin-right: 2em;
-	padding-right: 2em;
-}
-
-.loginform p.mandatory {
-	margin: 0;
-}
-
-/* # progress tracker # */
-
-.progress-tracker {
-	margin: 3em 0;
-	text-align: center;
-}
-
-.progress-tracker ol {
-	background-color: #EEE;
-	box-shadow: 0 1px 1px #999 inset;
-	display: inline-block;
-	height: 5px;
-	list-style: none;
-	overflow: visible;
-	margin: 0 auto;
-	padding: 0 1.5em 0 0;
-	text-align: center;
-	* border: 1px solid #ddd; /* ie 7 */
-}
-
-.progress-tracker ol  li {
-	background-color: #eee;
-	border: 1px solid #ddd;
-	bottom: 18px;
-	box-shadow: 0 -1px 1px #999;
-	color: #2e2e2e;
-	float: left;
-	font-weight: bold;
-	margin-left: 1.5em;
-	padding: 4px 12px;
-	position: relative;
-	text-shadow: 1px 1px #FFF;
-}
-
-.progress-tracker ol  li.active {
-	background-color: #0282BF;
-	border: 1px solid #0282BF;
-	border-bottom: 2px solid #0C1E63;
-	box-shadow: 0 -1px 1px #aaa;
-	color: #fff;
-	padding: 4px 0;
-	text-shadow: -1px -1px #0C1E63;
-	* padding: 4px 12px;
-}
-
-.progress-tracker ol  li.active span {
-	right: 12px;
-	position: relative;
-	* position: static; /* ie 7 */
-}
-
-.progress-tracker ol  li.active:before {
-	background-color: #0c1e63;
-	content: "";
-	display: inline-block;
-	left: -25px;
-	height: 5px;
-	top: -3px;
-	width: 24px;
-	position: relative;
-}
 #footnote {
 	border-top: 1px solid #fff;
 	padding: 6px 0 3px;
@@ -1178,22 +976,7 @@ div#select-address2 div.radio {
 #footnote .connect a.pinterest {
 	background-position: 0 -196px;
 }
-.phone, .mail, .home, .fax {
-	background: url(../images/icons.png) no-repeat;
-}
-.home, .phone, .mail, .fax {
-	background-position: 0 1px;
-	padding-left: 24px;
-}
-.phone {
-	background-position: 0 -26px;
-}
-.fax {
-	background-position: 0 -54px;
-}
-.mail {
-	background-position: 0 -82px;
-}
+
 
 .more, .subscribe, input[type='submit'] {
 	background-position: -107px 0;
