@@ -35,13 +35,23 @@ public class testTopSearch
 		html += "<table class='standard'><th>Stock Symbol</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
 		for(String quote : quotes)
 		{
+			String colour = "";
 			String[] fields = quote.split(",");
-			fields[3] = fields[3].replaceAll("\"", "");
 			fields[0] = fields[0].replaceAll("\"", "");
-			fields[3] = fields[3].replaceAll("\\+", "");
-			fields[3] = fields[3].replaceAll("\\-", "");
+			fields[3] = fields[3].replaceAll("\"", "");
+			if(fields[3].startsWith("+"))
+			{
+				fields[3] = fields[3].replaceAll("\\+", "");
+				
+				colour = "green";
+			}
+			if(fields[3].startsWith("-"))
+			{
+				fields[3] = fields[3].replaceAll("\\-", "");
+				colour = "red";
+			}
 			fields[3] = fields[3].replaceAll("%", "");
-			tmap.put(Double.parseDouble(fields[3]),fields[0]+","+fields[1]+","+fields[2]);
+			tmap.put(Double.parseDouble(fields[3]),fields[0]+","+fields[1]+","+fields[2]+","+colour);
 		}
 		System.out.println(tmap);
 		Set set = tmap.entrySet();
@@ -51,7 +61,7 @@ public class testTopSearch
 		{
 			Map.Entry me = (Map.Entry)i.next();
 			String[] stockData = ((String) me.getValue()).split(",");
-			html += "<tr><td><a href='graphPage.jsp?sym="+ stockData[0] + "'>" + stockData[0] + "</a></td><td>"+stockData[1]+"</td><td>"+stockData[2]+"</td><td>"+me.getKey()+"</td></tr>";
+			html += "<tr><td><a href='graphPage.jsp?sym="+ stockData[0] + "'>" + stockData[0] + "</a></td><td>"+stockData[1]+"</td><td>"+stockData[2]+"</td><td style='color:"+stockData[3]+"'>"+me.getKey()+"</td></tr>";
 		}
 		html += "</table>";
 		return html;
