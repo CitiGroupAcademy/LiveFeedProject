@@ -17,6 +17,7 @@ public class Database {
 			Statement st = connect.createStatement();
 			st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
 			st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
+			st.executeUpdate("DROP TABLE IF EXISTS  profit ");
 			st.executeUpdate("DROP TABLE IF EXISTS  ownedStock ");
 			st.executeUpdate("DROP TABLE IF EXISTS  ticker ");
 			st.executeUpdate("DROP TABLE IF EXISTS  user ");
@@ -79,6 +80,14 @@ public class Database {
 					+ "timeStamp TIMESTAMP, "
 					+ "PRIMARY KEY (ownedID), "
 					+ "FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
+					+ ");");
+			
+			st.executeUpdate("CREATE TABLE  profit ( "
+					+ "profitID INTEGER AUTO_INCREMENT NOT NULL, "
+					+ "dailyAmount DECIMAL(5,2), "
+					+ "overallAmount DECIMAL(5,2), "
+					+ "timeStamp DATE, "
+					+ "PRIMARY KEY (profitID) "
 					+ ");");
 
 			st.executeUpdate("INSERT INTO user(email, password) VALUES('user@gmail.com', 'password')");

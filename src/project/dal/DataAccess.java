@@ -30,10 +30,6 @@ public class DataAccess {
 					"jdbc:mysql://localhost/livefeedproject", "root",
 					"password");
 			
-			if (cn.equals(null)) {
-
-			}
-
 		} catch (SQLException ex) {
 			System.out.println("Database Connection error: " + ex);
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
@@ -419,6 +415,10 @@ public class DataAccess {
 				}
 			}
 		}
+
+	}
+	
+	public static void main(String [] args){
 
 	}
 	
