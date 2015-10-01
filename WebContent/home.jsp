@@ -53,6 +53,7 @@
         return null;
     }
 
+
     function stocksearch() {
 
         if (request != null) {
@@ -129,6 +130,8 @@
             outputField.innerHTML = request.responseText;
         }
     }
+
+    
     </script>
 </head>
 <body class="no-js">
@@ -196,10 +199,10 @@
 						<div>
 							<h2>Strategies</h2>
 							<ul>
-								<form>
+								<form action="" method="post">
 									<h3>New Strategies</h3>
-									<select name="txtSymbol" >
-            						<option value="Choose a Supplier" selected>Choose a Symbol</option>
+									<select name="txtSymbol" id="sym" >
+            						<option value="symbol" selected>Choose a Symbol</option>
             						<%
             							//Generate the rest of the options from the database
             							List<Stock> stocks = DataAccess.getStocks();
@@ -210,21 +213,21 @@
             						%>
             						</select>
             						<br><br>
-            						<select name="txtStrategy" >
+            						<select name="txtStrategy" id="type" >
             						
             						<option value="movingAvg">Moving Average</option>
             						<option value="bollinger">Bollinger Band</option>        						
             						</select>
             						<br><br>
-            						<input type="checkbox" name="buy" value="1" checked> Buy
-  									<input type="checkbox" name="sell" value="1"> Sell    
+            						<input type="checkbox" name="buy" id="buy" value="1" checked> Buy
+  									<input type="checkbox" name="sell" id="sell" value="1" checked> Sell    
   									<br><br>
-  									<select name="txtstatus" >
+  									<select name="txtstatus" id="status" >
             						
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
-            						<input type="submit" value="Create" />					
+            						<input type="button" value="Create" onClick="insertStrategy"/>					
 								</form>
 							</ul>
 						</div>
