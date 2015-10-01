@@ -78,7 +78,7 @@ public class GetQuotes {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List<String> returnStockPercent() throws Exception {
+	public static ArrayList<String> returnStockPercent() throws Exception {
  
 		ArrayList<String> temp = new ArrayList<String>();
 		StringBuilder url = new StringBuilder(
