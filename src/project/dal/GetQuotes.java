@@ -4,27 +4,36 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jboss.logging.*;
 
 import project.dataObjects.Stock;
 
+/**
+ * Quote class accesses Yahoo market data and saves to database ticker
+ * 
+ * @author Citi 2015
+ *
+ */
 public class GetQuotes {
 
 	public static void main(String[] args) throws Exception {
-
 		// clear data in database
 		DataAccess.clearTicker();
+		
 
 		while (true) {
 
-			project.logging.LogManager.criticalLog("Test");
-			
+
 			StringBuilder url = new StringBuilder(
 					"http://finance.yahoo.com/d/quotes.csv?s=");
 
-			for (Stock s : DataAccess.getStocks()){
+			for (Stock s : DataAccess.getStocks()) {
 				url.append(s.getStockSymbol() + ",");
 			}
-				
+
 			url.append("&f=sabp2opk4j5&e=.csv");
 
 			String theUrl = url.toString();
@@ -40,36 +49,50 @@ public class GetQuotes {
 			String inputLine;
 
 			while ((inputLine = in.readLine()) != null) {
-				
+
 				String[] fields = inputLine.split(",");
-			System.out.println(fields[0] + " " + fields[1] + " " + fields[2] + " " + fields[3] + " " + fields[4] + " " + fields[5] + fields[6] + " "+ fields[7]);
-				
-					DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
-							Double.parseDouble(fields[1]),
-							Double.parseDouble(fields[2]));
-				
-					
-									
-						DataAccess.updateStockChange(fields[0].replaceAll("\"", ""), removeLastChar(fields[3]).replaceAll("\"", ""), fields[4], fields[5], fields[6], fields[7] );
-					
+				System.out.println(fields[0] + " " + fields[1] + " "
+						+ fields[2] + " " + fields[3] + " " + fields[4] + " "
+						+ fields[5] + fields[6] + " " + fields[7]);
+
+				DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
+						Double.parseDouble(fields[1]),
+						Double.parseDouble(fields[2]));
+
+				DataAccess.updateStockChange(fields[0].replaceAll("\"", ""),
+						removeLastChar(fields[3]).replaceAll("\"", ""),
+						fields[4], fields[5], fields[6], fields[7]);
 
 			}
 
 		}
-		
+
 	}
-	
+
+	public static List<String> returnStockPercent(String symbol,
+			String percent, String name) {
+
+		ArrayList<String> temp = new ArrayList<String>();
+
+		temp.add(symbol + ",");
+		temp.add(percent + ",");
+		temp.add(name + ",");
+
+		return temp;
+
+	}
+
 	/**
 	 * Method deleted the last character in the string
+	 * 
 	 * @param s
 	 * @return
 	 */
 	public static String removeLastChar(String s) {
-	    if (s == null || s.length() == 0) {
-	        return s;
-	    }
-	    return s.substring(0, s.length()-2);
+		if (s == null || s.length() == 0) {
+			return s;
+		}
+		return s.substring(0, s.length() - 2);
 	}
-	
-}
 
+}

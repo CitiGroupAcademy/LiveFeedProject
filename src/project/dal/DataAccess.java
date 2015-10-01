@@ -8,10 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.jboss.logging.*;
+
 import project.dataObjects.Stock;
 import project.dataObjects.Ticker;
 
 public class DataAccess {
+
 
 	/**
 	 * Method gets the connection for the live feed project database
@@ -26,12 +29,22 @@ public class DataAccess {
 			cn = DriverManager.getConnection(
 					"jdbc:mysql://localhost/livefeedproject", "root",
 					"password");
+			
+			if (cn.equals(null)) {
+
+			}
 
 		} catch (SQLException ex) {
 			System.out.println("Database Connection error: " + ex);
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
 
+			
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Class not found: " + ex);
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+
 		}
 
 		return cn;
@@ -62,6 +75,8 @@ public class DataAccess {
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
 			System.out.println("Error adding data " + ex);
 		} finally {
 
@@ -70,7 +85,8 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
@@ -95,7 +111,9 @@ public class DataAccess {
 			}
 
 		} catch (SQLException ex) {
-			System.out.println("Error getting data " + ex);
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
 		} finally {
 
 			if (cn != null) {
@@ -103,7 +121,8 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
@@ -123,6 +142,8 @@ public class DataAccess {
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
 			System.out.println("Error adding data " + ex);
 		} finally {
 
@@ -131,7 +152,8 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
@@ -158,6 +180,8 @@ public class DataAccess {
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
 			System.out.println("Error adding data " + ex);
 		} finally {
 
@@ -166,7 +190,8 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
@@ -191,7 +216,9 @@ public class DataAccess {
 			}
 
 		} catch (SQLException ex) {
-			System.out.println("Error getting data " + ex);
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
 		} finally {
 
 			if (cn != null) {
@@ -199,8 +226,8 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
@@ -227,7 +254,9 @@ public class DataAccess {
 			}
 
 		} catch (SQLException ex) {
-			System.out.println("Error getting data " + ex);
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
 		} finally {
 
 			if (cn != null) {
@@ -235,8 +264,8 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
@@ -262,7 +291,9 @@ public class DataAccess {
 			}
 
 		} catch (SQLException ex) {
-			System.out.println("Error getting data " + ex);
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
 		} finally {
 
 			if (cn != null) {
@@ -270,8 +301,8 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
@@ -293,6 +324,8 @@ public class DataAccess {
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
 			System.out.println("Error adding data " + ex);
 		} finally {
 
@@ -301,11 +334,11 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
-
 	}
 	
 	/**
@@ -336,6 +369,8 @@ public class DataAccess {
 
 
 		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
 			System.out.println("Error adding data " + ex);
 		} finally {
 
@@ -344,7 +379,8 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
@@ -368,6 +404,8 @@ public class DataAccess {
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
 			System.out.println("Error adding data " + ex);
 		} finally {
 
@@ -376,22 +414,12 @@ public class DataAccess {
 				try {
 					cn.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
 		}
 
-	}
-	
-	
-	
-	public static void main(String[] args){
-
-		
-		for(Stock s : getStocks()){
-			s.getStockSymbol();
-		}
-		
 	}
 	
 }
