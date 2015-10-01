@@ -5,7 +5,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import org.jboss.logging.*;
 
@@ -18,6 +20,57 @@ import project.dataObjects.Stock;
  *
  */
 public class GetQuotes {
+	
+	/**
+	 * Symbol inputed by user
+	 */
+	public static String symbol = "";
+
+	/**
+	 * Moving average number inputed by user
+	 */
+	public static int movingAverageNo = 0;
+
+	/**
+	 * Amount for the capture number
+	 */
+	public static int captureNumber = 0;
+
+	/**
+	 * Decrementor decrements with each loop iteration 
+	 */
+	public static int decrementor = 0;
+
+	/**
+	 *Bid moving average
+	 */
+	public static double bidMovingAverage = 0;
+
+	/**
+	 *ask moving average
+	 */
+	public static double askMovingAverage = 0;
+	
+	/**
+	 *total bids
+	 */
+	public static double totalBids = 0;
+	
+	/**
+	 *total asks
+	 */
+	public static double totalAsks = 0;
+	
+	/**
+	 *queue collection used to hold the bid averages, polls when there is the number equal to the moving average number
+	 */
+	public static Queue<Double> bidAverageCollection = new LinkedList<Double>();
+	
+	/**
+	 *queue collection used to hold the ask averages, polls when there is the number equal to the moving average number
+	 */
+	public static Queue<Double> askAverageCollection = new LinkedList<Double>();
+
 
 	public static void main(String[] args) throws Exception {
 	}
@@ -115,9 +168,6 @@ public class GetQuotes {
 
 	}
 
-		
-
-
 	/**
 	 * Method deleted the last character in the string
 	 * 
@@ -129,6 +179,52 @@ public class GetQuotes {
 			return s;
 		}
 		return s.substring(0, s.length() - 2);
+	}
+	
+	/**
+	 * Calculates the moving average with a queue collection
+	 * @param nextNumber
+	 * @return
+	 */
+	public static double calculateAskMovingAverage(double nextNumber) {
+
+		askAverageCollection.add(nextNumber);
+
+		if (askAverageCollection.size() > movingAverageNo) {
+			totalAsks = 0;
+		
+			askAverageCollection.poll();
+
+			for (double element : askAverageCollection) {
+				totalAsks += element;
+			}
+			
+		}
+
+		return totalAsks / movingAverageNo;
+	}
+
+	/**
+	 * Calculates the moving average with a queue collection
+	 * @param nextNumber
+	 * @return
+	 */
+	public static double calculateBidMovingAverage (double nextNumber){
+
+		bidAverageCollection.add(nextNumber);
+		
+		if (bidAverageCollection.size() > movingAverageNo) {
+			totalBids = 0;
+			bidAverageCollection.poll();
+
+			for (double element : bidAverageCollection) {
+				totalBids += element;
+			}
+			
+		
+		}
+
+		return totalBids / movingAverageNo;
 	}
 
 }
