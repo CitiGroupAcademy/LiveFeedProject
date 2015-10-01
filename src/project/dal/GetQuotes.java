@@ -20,6 +20,9 @@ import project.dataObjects.Stock;
 public class GetQuotes {
 
 	public static void main(String[] args) throws Exception {
+	}
+	
+	public static void insertIntoTicker() throws Exception{
 		// clear data in database
 		DataAccess.clearTicker();
 		
@@ -62,25 +65,58 @@ public class GetQuotes {
 				DataAccess.updateStockChange(fields[0].replaceAll("\"", ""),
 						removeLastChar(fields[3]).replaceAll("\"", ""),
 						fields[4], fields[5], fields[6], fields[7]);
+				
+		
 
 			}
 
 		}
-
 	}
 
-	public static List<String> returnStockPercent(String symbol,
-			String percent, String name) {
+	/**
+	 * Returns a list of stocks from yahoo with symbol, ask, bid, change in percentage
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<String> returnStockPercent() throws Exception {
 
 		ArrayList<String> temp = new ArrayList<String>();
+		StringBuilder url = new StringBuilder(
+				"http://finance.yahoo.com/d/quotes.csv?s=");
 
-		temp.add(symbol + ",");
-		temp.add(percent + ",");
-		temp.add(name + ",");
+		for (Stock s : DataAccess.getStocks()) {
+			url.append(s.getStockSymbol() + ",");
+		}
 
+		url.append("&f=sabp2&e=.csv");
+
+		String theUrl = url.toString();
+
+		URL obj = new URL(theUrl);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		con.setRequestMethod("GET");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+		int responseCode = con.getResponseCode();
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				con.getInputStream()));
+		String inputLine;
+
+		while ((inputLine = in.readLine()) != null) {
+
+			String[] fields = inputLine.split(",");
+			
+			temp.add(fields[0] + "," + fields[1] + "," +fields[2]+ "," + fields[3]);
+			
+	
+
+		}
 		return temp;
 
 	}
+
+		
+
 
 	/**
 	 * Method deleted the last character in the string
