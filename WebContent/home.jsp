@@ -82,6 +82,8 @@
             request.open("GET", url, true);
             request.onreadystatechange = top5Callback;
             request.send(null);
+        	Logger log = Logger.getLogger("HOME:");
+			log.info("TOP 5 UPDATE");
         }
     }
 
