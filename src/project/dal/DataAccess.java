@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.jboss.logging.*;
@@ -29,7 +31,7 @@ public class DataAccess {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(
 					"jdbc:mysql://localhost/livefeedproject", "root",
-					"rU1DDbaTWTSI");
+					"password");
 			
 		} catch (SQLException ex) {
 			System.out.println("Database Connection error: " + ex);
@@ -58,16 +60,17 @@ public class DataAccess {
 	 * @param bid
 	 *            double
 	 */
-	public static void insertTicker(String symbol, double ask, double bid) {
+	public static void insertTicker(String symbol, double ask, double bid, double percentage) {
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) values(?,?,?)");
+					.prepareStatement("INSERT INTO ticker(stockSymbol, askPrice, bidPrice, percentChange) values(?,?,?,?)");
 			st.setString(1, symbol);
 			st.setDouble(2, ask);
 			st.setDouble(3, bid);
+			st.setDouble(4, percentage);
 
 			st.executeUpdate();
 
@@ -306,18 +309,20 @@ public class DataAccess {
 		return temp;
 	}
 
-	public static void updateStockChange(String symbol, String percentageChange, String openPrice, String closePrice, String changeYearHigh, String changeYearLow ) {
+	public static void updateStockChange(String symbol, String percentageChange, String openPrice, String closePrice, String changeYearHigh, String changeYearLow, double fiftyDayMovingAverage, double fiveMinuteMovingAverage  ) {
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("UPDATE stock SET percentagechange = ?, openingPrice = ?, closePrice = ?, changeYearHigh = ?, changeYearLow = ? WHERE stockSymbol = ?");
+					.prepareStatement("UPDATE stock SET percentagechange = ?, openingPrice = ?, closePrice = ?, changeYearHigh = ?, changeYearLow = ?, longMovingAverage = ?, shortMovingAverage = ? WHERE stockSymbol = ?");
 			st.setString(1, percentageChange);
 			st.setString(2, openPrice);
 			st.setString(3, closePrice);
 			st.setString(4, changeYearHigh);
 			st.setString(5, changeYearLow);
-			st.setString(6, symbol);
+			st.setDouble(6, fiftyDayMovingAverage);
+			st.setDouble(7, fiveMinuteMovingAverage);
+			st.setString(8, symbol);
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
@@ -419,10 +424,6 @@ public class DataAccess {
 
 	}
 	
-	public static void main(String [] args){
-
-	}
-
 	public static void insertProfit(int parseInt, double d, double e) {
 		Connection cn = null;
 		try {
@@ -480,4 +481,98 @@ public class DataAccess {
 		}		
 	}
 	
+	
+	public static String calculateMovingAverage(String symbol){
+		
+		double temp = 0;
+		
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn.prepareStatement("select avg(askPrice + bidPrice), count(stockSymbol) "
+					+ "from ticker "
+					+ "where stockSymbol like ? " 
+					+ "and timestamp between DATE_SUB(NOW(), INTERVAL 5 MINUTE) "
+					+ "and NOW();");
+			
+			st.setString(1, symbol.replaceAll("\"", ""));
+			
+			ResultSet rs = st.executeQuery();
+			
+			while (rs.next()) {
+				
+				temp = rs.getDouble(1) / rs.getInt(2);
+				
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return String.format("%.4f", temp);
+		
+	}
+	
+	/**
+	 * Method returns the last 10 percentage changes
+	 * @return
+	 */
+public static ArrayList<String> returnLast50PercentageChanges(String symbol){
+		
+	ArrayList<String> temp = new ArrayList<String>();
+		
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn.prepareStatement("select percentchange, timestamp "
+					+ "from ticker "
+					+ "where stocksymbol like ? "
+					+ "order by timeStamp desc "
+					+ "limit 50 ");
+			
+			st.setString(1, symbol.replaceAll("\"", ""));
+			
+			ResultSet rs = st.executeQuery();
+			
+			while (rs.next()) {
+				
+				temp.add(Double.toString(rs.getDouble(1)) + ","+ rs.getTimestamp(2).toString());
+				
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
+		
+	}
+
+public static void main (String [] args){
+	
+}
 }
