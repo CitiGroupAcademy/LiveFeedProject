@@ -113,11 +113,8 @@
           var timeStamp = [];
           var change = true;
            
-<<<<<<< HEAD
-          $.get('numofchart.php', function(data){
-=======
           $.get('dataAcc', function(){
->>>>>>> origin/master
+
           data = data.split(',');
                
               for(var i in data)
