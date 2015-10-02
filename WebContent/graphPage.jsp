@@ -106,33 +106,40 @@
 							
 	<script type="text/javascript">
 
-  $(function () {
+	 $(function () {
 
-          var symbol;
-          var percentChange = [];
-          var timeStamp = [];
-          var change = true;
-           
-          $.get('dataAcc', function(){
+      	
+         var percentChange = [];
+         var timeStamp = [];
+         var change = true;
+         
+          
+         $.get("search/dataAccess", function(temp){
 
-          data = data.split(',');
-               
-              for(var i in data)
-                  {
-                      if(change == true)
-                      {
-                          timeStamp.push(data[i]);
-                          change = false;
-                      }
-                      else
-                      {
-                          if(parseFloat(data[i]) >= 20)
-                          percentChange.push({'y':parseFloat(data[i])});  
-                      }
-                  }
-   
-              percentChange.pop();
+         temp = temp.split(',');
               
+             for(var i in temp)
+                 {
+                     if(change == true)
+                     {
+                   	  percentChange.push(temp[i]);
+                         change = false;
+                     }
+                     else
+                     {
+                         if(parseFloat(temp[i]) >= 20)
+                         timeStamp.push({'value':parseFloat(temp[i])});  
+                     }
+                 }
+  
+             percentChange.pop();
+
+             var itemssource = [];
+             for(var i in percentChange)
+             {
+                 itemssource.push([percentChange[i], timeStamp[i].value]);
+             }
+             
 	    $('#graph').highcharts({
 	        title: {
 	            text: 'Stock Percentage Change',
@@ -143,8 +150,11 @@
 	            x: -20
 	        },
 	        xAxis: {
-	            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-	                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+	        	title:
+               {
+                   text:'Time'
+               },
+               categories : timeStamp
 	        },
 	        yAxis: {
 	            title: {
@@ -157,19 +167,21 @@
 	            }]
 	        },
 	        tooltip: {
-	            valueSuffix: '%'
-	        legend: {
+	            valueSuffix: ' ',	        
+		        legend: ' ',
 	            layout: 'vertical',
 	            align: 'right',
 	            verticalAlign: 'middle',
 	            borderWidth: 0
 	        },
 	        series: [{
-	            name: 'London',
-	            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+	            name: 'AAPL',
+	            data: percentChange
 	        }]
+	        });
 	    });
-	});
+      });
+	
 
   </script>						
      
