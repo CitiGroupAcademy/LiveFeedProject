@@ -24,7 +24,7 @@ public class TestDataAccess {
 	 */
 	@Test
 	public void testThatTickerTableCleared(){
-		DataAccess.insertTicker("AAPL", 20.20, 20.20);
+		DataAccess.insertTicker("AAPL", 20.20, 20.20,20.20);
 		DataAccess.clearTicker();
 		assertEquals("[]", DataAccess.getTicker().toString());
 	}
@@ -35,7 +35,7 @@ public class TestDataAccess {
 	@Test
 	public void testTickerMethod(){
 		DataAccess.clearTicker();
-		DataAccess.insertTicker("AAPL", 20.20, 20.20);
+		DataAccess.insertTicker("AAPL", 20.20, 20.20,20.20);
 		assertNotNull(DataAccess.getTicker());
 		DataAccess.clearTicker();
 	}
