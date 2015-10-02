@@ -4,12 +4,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 import org.jboss.logging.*;
+
+import com.sun.xml.internal.ws.spi.db.FieldSetter;
 
 import project.dataObjects.Stock;
 
@@ -59,38 +63,51 @@ public class GetQuotes {
 	/**
 	 *total asks
 	 */
-	public static double totalAsks = 0;
+	public static double totalForMovingAverage = 0;
+	
+	/**
+	 * Start time for moving average calculation
+	 */
+	public static LocalDateTime startTime;
+	
+	/**
+	 * Incrementing time for moving average calculation
+	 */
+	public static LocalDateTime currentTime;
+	
 	
 	/**
 	 *queue collection used to hold the bid averages, polls when there is the number equal to the moving average number
 	 */
-	public static Queue<Double> bidAverageCollection = new LinkedList<Double>();
+	public static Queue<Double> shortMovingAverageCollection = null;
 	
-	/**
-	 *queue collection used to hold the ask averages, polls when there is the number equal to the moving average number
-	 */
-	public static Queue<Double> askAverageCollection = new LinkedList<Double>();
-
+	public static HashMap<String, Double> stocksMap = new HashMap<>();
+	
 
 	public static void main(String[] args) throws Exception {
+		insertIntoTicker();
 	}
 	
 	public static void insertIntoTicker() throws Exception{
+		
 		// clear data in database
 		DataAccess.clearTicker();
 		
+		startTime = LocalDateTime.now();
 
 		while (true) {
 
+			currentTime = LocalDateTime.now();
 
 			StringBuilder url = new StringBuilder(
 					"http://finance.yahoo.com/d/quotes.csv?s=");
 
 			for (Stock s : DataAccess.getStocks()) {
 				url.append(s.getStockSymbol() + ",");
+				stocksMap.put(s.getStockSymbol(), .0);
 			}
 
-			url.append("&f=sabp2opk4j5&e=.csv");
+			url.append("&f=sabp2opk4j5m3&e=.csv");
 
 			String theUrl = url.toString();
 
@@ -107,23 +124,43 @@ public class GetQuotes {
 			while ((inputLine = in.readLine()) != null) {
 
 				String[] fields = inputLine.split(",");
+				for(String key : stocksMap.keySet()){
+					if(key.equalsIgnoreCase(fields[0])){
+						stocksMap.put(key, calculateAskMovingAverage((Double.parseDouble(fields[2]) + Double.parseDouble(fields[3]))/2));
+					}
+				}
+				
 				System.out.println(fields[0] + " " + fields[1] + " "
 						+ fields[2] + " " + fields[3] + " " + fields[4] + " "
-						+ fields[5] + fields[6] + " " + fields[7]);
+						+ fields[5] + fields[6] + " " + fields[7] + "   Fifty day:" + fields[8] + "  Short:"+ DataAccess.calculateMovingAverage(fields[0]));
 
 				DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
 						Double.parseDouble(fields[1]),
-						Double.parseDouble(fields[2]));
+						Double.parseDouble(fields[2]),
+						Double.parseDouble(removeLastChar(fields[3]).replaceAll("\"", ""));
 
-				DataAccess.updateStockChange(fields[0].replaceAll("\"", ""),
-						removeLastChar(fields[3]).replaceAll("\"", ""),
-						fields[4], fields[5], fields[6], fields[7]);
+				fields[3] = removeLastChar(fields[3]).replaceAll("\"", "");
 				
-		
-
+				DataAccess.updateStockChange(fields[0].replaceAll("\"", ""),
+						fields[3],
+						fields[4], fields[5], fields[6], fields[7], Double.parseDouble(fields[8]), Double.parseDouble(DataAccess.calculateMovingAverage(fields[0])));
+				
 			}
 
 		}
+	}
+	
+	/**
+	 * Method deleted the last character in the string
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static String removeLastChar(String s) {
+		if (s == null || s.length() == 0) {
+			return s;
+		}
+		return s.substring(0, s.length() - 2);
 	}
 
 	/**
@@ -168,18 +205,6 @@ public class GetQuotes {
 
 	}
 
-	/**
-	 * Method deleted the last character in the string
-	 * 
-	 * @param s
-	 * @return
-	 */
-	public static String removeLastChar(String s) {
-		if (s == null || s.length() == 0) {
-			return s;
-		}
-		return s.substring(0, s.length() - 2);
-	}
 	
 	/**
 	 * Calculates the moving average with a queue collection
@@ -188,43 +213,21 @@ public class GetQuotes {
 	 */
 	public static double calculateAskMovingAverage(double nextNumber) {
 
-		askAverageCollection.add(nextNumber);
+		shortMovingAverageCollection.add(nextNumber);
 
-		if (askAverageCollection.size() > movingAverageNo) {
-			totalAsks = 0;
+		if (currentTime.isAfter(startTime.plusMinutes(1))) {
+			totalForMovingAverage = 0;
 		
-			askAverageCollection.poll();
+			shortMovingAverageCollection.poll();
 
-			for (double element : askAverageCollection) {
-				totalAsks += element;
+			for (double element : shortMovingAverageCollection) {
+				totalForMovingAverage += element;
 			}
 			
 		}
 
-		return totalAsks / movingAverageNo;
+		return totalForMovingAverage /shortMovingAverageCollection.size();
 	}
 
-	/**
-	 * Calculates the moving average with a queue collection
-	 * @param nextNumber
-	 * @return
-	 */
-	public static double calculateBidMovingAverage (double nextNumber){
-
-		bidAverageCollection.add(nextNumber);
-		
-		if (bidAverageCollection.size() > movingAverageNo) {
-			totalBids = 0;
-			bidAverageCollection.poll();
-
-			for (double element : bidAverageCollection) {
-				totalBids += element;
-			}
-			
-		
-		}
-
-		return totalBids / movingAverageNo;
-	}
 
 }

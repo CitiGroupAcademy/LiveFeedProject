@@ -36,8 +36,8 @@ public class Database {
 					+ "closePrice NVARCHAR(10), "
 					+ "changeYearHigh NVARCHAR(10), "
 					+ "changeYearLow NVARCHAR(10), "
-					+ "shortMovingAverage DECIMAL(5,4),"
-					+ "longMovingAverage DECIMAL(5,4),"
+					+ "shortMovingAverage DECIMAL(8,4),"
+					+ "longMovingAverage DECIMAL(8,4),"
 					+ "PRIMARY KEY (stockSymbol)" + ");");
 
 			st.executeUpdate("CREATE TABLE  strategy ( "
@@ -65,8 +65,9 @@ public class Database {
 			st.executeUpdate("CREATE TABLE  ticker ( "
 					+ "tickerID INTEGER AUTO_INCREMENT NOT NULL, "
 					+ "stockSymbol NVARCHAR(10) NOT NULL, "
-					+ "askPrice DECIMAL(5,2), "
-					+ "bidPrice DECIMAL(5,2), "
+					+ "askPrice DECIMAL(7,4), "
+					+ "bidPrice DECIMAL(7,4), "
+					+ "percentChange DECIMAL(7,4), "
 					+ "timeStamp TIMESTAMP, "
 					+ "PRIMARY KEY (tickerID), "
 					+ "FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
@@ -132,12 +133,12 @@ public class Database {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection("jdbc:mysql://localhost", "root",
-					"rU1DDbaTWTSI");
+					"password");
 			Statement st = cn.createStatement();
 			st.executeUpdate("CREATE DATABASE IF NOT EXISTS livefeedproject");
 			cn = DriverManager.getConnection(
 					"jdbc:mysql://localhost/livefeedproject", "root",
-					"rU1DDbaTWTSI");
+					"password");
 			
  
 
