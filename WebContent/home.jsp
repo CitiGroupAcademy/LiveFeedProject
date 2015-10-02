@@ -77,13 +77,13 @@
     function top5update() {
 
         if (request != null) {
-            var url = "search/topsearch";
+            var url = "search/ztopsearch";
 
             request.open("GET", url, true);
             request.onreadystatechange = top5Callback;
             request.send(null);
-        	Logger log = Logger.getLogger("HOME:");
-			log.info("TOP 5 UPDATE");
+        	//Logger log = Logger.getLogger("HOME:");
+			//log.info("TOP 5 UPDATE");
         }
     }
 
