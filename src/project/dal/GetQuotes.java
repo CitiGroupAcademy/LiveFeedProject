@@ -137,7 +137,7 @@ public class GetQuotes {
 				DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
 						Double.parseDouble(fields[1]),
 						Double.parseDouble(fields[2]),
-						Double.parseDouble(removeLastChar(fields[3]).replaceAll("\"", ""));
+						Double.parseDouble(removeLastChar(fields[3]).replaceAll("\"", "")));
 
 				fields[3] = removeLastChar(fields[3]).replaceAll("\"", "");
 				
