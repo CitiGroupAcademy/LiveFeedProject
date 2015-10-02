@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -25,14 +26,19 @@ public class stockSearch
 		{
 			con = Database.getConnection();
 			Statement st = con.createStatement();
-	   
+			ArrayList<String> stocks = new ArrayList<>();
 			ResultSet rs = st.executeQuery("SELECT stockSymbol, stockName FROM stock WHERE stockName LIKE '" + str + "%'");
-			html += "<ul>";
+			html += "<table class='standard'><th>Stock Symbol</th><th>Stock Name</th>";
 			while(rs.next())
 			{
-				html += "<li><a href='graphPage.jsp?sym="+ rs.getString("stockSymbol") + "'>" + rs.getString("stockName") + "</a></li>";
+				stocks.add(rs.getString("stockSymbol")+","+ rs.getString("stockName"));
 			}
-			html += "</ul>";
+			for(String stock : stocks)
+			{
+				String[] fields = stock.split(",");
+				html += "<tr><td><a href='graphPage.jsp?sym="+ fields[0] + "'>" + fields[0] + "</a></td><td>"+fields[1]+"</td></tr>";
+			}
+			html += "</table>";
 		}
 		catch (SQLException ex) 
 		{

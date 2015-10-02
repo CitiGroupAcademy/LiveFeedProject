@@ -4,12 +4,19 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import project.dal.Database;
+import project.dal.GetQuotes;
 
 @Path("topsearch")
 public class topFiveSearch 
@@ -18,45 +25,49 @@ public class topFiveSearch
 	@Produces("text/html")
 	public String getText() throws SQLException
 	{
-		Connection con = null;
+		TreeMap<Double, String> tmap = new TreeMap<>(Collections.reverseOrder());
 		String html = "";
-		try
+		ArrayList<String> quotes = null;
+		try 
 		{
-			con = Database.getConnection();
-			Statement st = con.createStatement();
-	   
-			ResultSet rs = st.executeQuery("SELECT s.stockSymbol, s.stockName, s.percentageChange FROM stock s ORDER BY s.percentageChange DESC LIMIT 5");
-			String[][] stocks = new String[5][3];
-			html += "<table class='standard'><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
-			int count = 0;
-			while(rs.next())
-			{
-				stocks[count][0] = rs.getString("stockSymbol");
-				stocks[count][1] = rs.getString("stockName");
-				stocks[count][2] = rs.getString("percentageChange");
-				count++;
-			}
-			for(int r = 0; r<5; r++)
-			{
-				rs = st.executeQuery("SELECT t.askPrice, t.bidPrice FROM ticker t WHERE t.stockSymbol = '"+ stocks[r][0] +"' ORDER BY t.timeStamp DESC LIMIT 1");
-				while(rs.next())
-				{
-					html += "<tr><td><a href='graphPage.jsp?sym="+ stocks[r][0] + "'>" + stocks[r][0] + "</a></td><td>"+stocks[r][1]+"</td><td>"+rs.getString("askPrice")+"</td><td>"+rs.getString("bidPrice")+"</td><td>"+stocks[r][2]+"</td></tr>";
-				}
-			}
-			html += "</table>";
-		}
-		catch (SQLException ex) 
+			quotes = GetQuotes.returnStockPercent();
+		} 
+		catch (Exception e) 
 		{
-			System.out.println("Database error " + ex);
+			e.printStackTrace();
 		}
-		finally
+		html += "<table class='standard'><th>Stock Symbol</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
+		for(String quote : quotes)
 		{
-			if(con!=null)
+			String colour = "";
+			String[] fields = quote.split(",");
+			fields[0] = fields[0].replaceAll("\"", "");
+			fields[3] = fields[3].replaceAll("\"", "");
+			if(fields[3].startsWith("+"))
 			{
-				con.close();
+				fields[3] = fields[3].replaceAll("\\+", "");
+				
+				colour = "green";
 			}
+			if(fields[3].startsWith("-"))
+			{
+				fields[3] = fields[3].replaceAll("\\-", "");
+				colour = "red";
+			}
+			fields[3] = fields[3].replaceAll("%", "");
+			tmap.put(Double.parseDouble(fields[3]),fields[0]+","+fields[1]+","+fields[2]+","+colour);
 		}
+		System.out.println(tmap);
+		Set set = tmap.entrySet();
+		  // Get an iterator
+		Iterator i = set.iterator();
+		for(int r = 0; r<5; r++)
+		{
+			Map.Entry me = (Map.Entry)i.next();
+			String[] stockData = ((String) me.getValue()).split(",");
+			html += "<tr><td><a href='graphPage.jsp?sym="+ stockData[0] + "'>" + stockData[0] + "</a></td><td>"+stockData[1]+"</td><td>"+stockData[2]+"</td><td style='color:"+stockData[3]+"'>"+me.getKey()+"</td></tr>";
+		}
+		html += "</table>";
 		return html;
 	}
 }
