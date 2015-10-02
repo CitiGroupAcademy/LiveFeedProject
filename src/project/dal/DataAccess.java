@@ -489,7 +489,7 @@ public class DataAccess {
 		Connection cn = null;
 		try {
 			cn = getConnection();
-			PreparedStatement st = cn.prepareStatement("select avg(askPrice + bidPrice), count(stockSymbol) "
+			PreparedStatement st = cn.prepareStatement("select avg((askPrice + bidPrice )/2) "
 					+ "from ticker "
 					+ "where stockSymbol like ? " 
 					+ "and timestamp between DATE_SUB(NOW(), INTERVAL 5 MINUTE) "
@@ -501,7 +501,7 @@ public class DataAccess {
 			
 			while (rs.next()) {
 				
-				temp = rs.getDouble(1) / rs.getInt(2);
+				temp = rs.getDouble(1) ;
 				
 			}
 

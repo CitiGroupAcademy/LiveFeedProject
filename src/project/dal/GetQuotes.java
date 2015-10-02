@@ -107,7 +107,7 @@ public class GetQuotes {
 				stocksMap.put(s.getStockSymbol(), .0);
 			}
 
-			url.append("&f=sabp2opk4j5m3&e=.csv");
+			url.append("&f=sabp2opk4j5m3l1&e=.csv");
 
 			String theUrl = url.toString();
 
@@ -137,7 +137,7 @@ public class GetQuotes {
 				DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
 						Double.parseDouble(fields[1]),
 						Double.parseDouble(fields[2]),
-						Double.parseDouble(removeLastChar(fields[3]).replaceAll("\"", ""));
+						Double.parseDouble(removeLastChar(fields[9]).replaceAll("\"", "")));
 
 				fields[3] = removeLastChar(fields[3]).replaceAll("\"", "");
 				

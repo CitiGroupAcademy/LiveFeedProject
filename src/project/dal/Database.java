@@ -106,7 +106,7 @@ public class Database {
 			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('FB', 10.00, 8.00)");
 
 			Logger log = Logger.getLogger("DATABASE CREATION:");
-			log.debug("Database created");
+			log.info("Database created");
 			
 		} catch (SQLException ex) {
 			System.out.println("Database error " + ex);
