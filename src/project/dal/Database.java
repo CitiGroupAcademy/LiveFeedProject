@@ -132,12 +132,12 @@ public class Database {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection("jdbc:mysql://localhost", "root",
-					"rU1DDbaTWTSI");
+					"password");
 			Statement st = cn.createStatement();
 			st.executeUpdate("CREATE DATABASE IF NOT EXISTS livefeedproject");
 			cn = DriverManager.getConnection(
 					"jdbc:mysql://localhost/livefeedproject", "root",
-					"rU1DDbaTWTSI");
+					"password");
 			
  
 

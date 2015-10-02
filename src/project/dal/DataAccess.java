@@ -29,7 +29,7 @@ public class DataAccess {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(
 					"jdbc:mysql://localhost/livefeedproject", "root",
-					"rU1DDbaTWTSI");
+					"password");
 			
 		} catch (SQLException ex) {
 			System.out.println("Database Connection error: " + ex);
