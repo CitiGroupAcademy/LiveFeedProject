@@ -146,7 +146,8 @@ public class GetQuotes {
 						fields[4], fields[5], fields[6], fields[7], Double.parseDouble(fields[8]), Double.parseDouble(DataAccess.calculateMovingAverage(fields[0])));
 				
 			}
-
+				//Sleep thread to reduce processing
+				Thread.sleep(100);
 		}
 	}
 	
