@@ -103,11 +103,7 @@ public class Database {
 			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('MSFT', 10.00, 8.00)");
 			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('GOOG', 10.00, 8.00)");
 			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('VOW.DE', 10.00, 8.00)");
-			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('FB', 10.00, 8.00)");
-
-			Logger log = Logger.getLogger("DATABASE CREATION:");
-			log.debug("Database created");
-			
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('FB', 10.00, 8.00)");			
 		} catch (SQLException ex) {
 			System.out.println("Database error " + ex);
 			Logger log = Logger.getLogger("DATABASE CREATION:");

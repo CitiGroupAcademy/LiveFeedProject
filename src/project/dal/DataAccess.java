@@ -481,50 +481,6 @@ public class DataAccess {
 		}		
 	}
 	
-	
-	public static String calculateMovingAverage(String symbol){
-		
-		double temp = 0;
-		
-		Connection cn = null;
-		try {
-			cn = getConnection();
-			PreparedStatement st = cn.prepareStatement("select avg(askPrice + bidPrice), count(stockSymbol) "
-					+ "from ticker "
-					+ "where stockSymbol like ? " 
-					+ "and timestamp between DATE_SUB(NOW(), INTERVAL 5 MINUTE) "
-					+ "and NOW();");
-			
-			st.setString(1, symbol.replaceAll("\"", ""));
-			
-			ResultSet rs = st.executeQuery();
-			
-			while (rs.next()) {
-				
-				temp = rs.getDouble(1) / rs.getInt(2);
-				
-			}
-
-		} catch (SQLException ex) {
-			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
-			log.error("ERROR" + ex);
-			System.out.println("Error adding data " + ex);
-		} finally {
-
-			if (cn != null) {
-
-				try {
-					cn.close();
-				} catch (SQLException e) {
-					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
-					log.error("ERROR" + e);
-				}
-			}
-		}
-		return String.format("%.4f", temp);
-		
-	}
-	
 	/**
 	 * Method returns the last 10 percentage changes
 	 * @return
@@ -571,6 +527,49 @@ public static ArrayList<String> returnLast50PercentageChanges(String symbol){
 		return temp;
 		
 	}
+
+public static String calculateMovingAverage(String symbol){
+	
+	double temp = 0;
+	
+	Connection cn = null;
+	try {
+		cn = getConnection();
+		PreparedStatement st = cn.prepareStatement("select avg((askPrice + bidPrice )/2) "
+				+ "from ticker "
+				+ "where stockSymbol like ? " 
+				+ "and timestamp between DATE_SUB(NOW(), INTERVAL 5 MINUTE) "
+				+ "and NOW();");
+		
+		st.setString(1, symbol.replaceAll("\"", ""));
+		
+		ResultSet rs = st.executeQuery();
+		
+		while (rs.next()) {
+			
+			temp = rs.getDouble(1) ;
+			
+		}
+
+	} catch (SQLException ex) {
+		Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+		log.error("ERROR" + ex);
+		System.out.println("Error adding data " + ex);
+	} finally {
+
+		if (cn != null) {
+
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+				log.error("ERROR" + e);
+			}
+		}
+	}
+	return String.format("%.4f", temp);
+	
+}
 
 public static void main (String [] args){
 	
