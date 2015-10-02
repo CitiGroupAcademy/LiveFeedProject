@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.jboss.logging.*;
@@ -17,7 +15,6 @@ import project.dataObjects.Stock;
 import project.dataObjects.Ticker;
 
 public class DataAccess {
-
 
 	/**
 	 * Method gets the connection for the live feed project database
@@ -32,13 +29,12 @@ public class DataAccess {
 			cn = DriverManager.getConnection(
 					"jdbc:mysql://localhost/livefeedproject", "root",
 					"password");
-			
+
 		} catch (SQLException ex) {
 			System.out.println("Database Connection error: " + ex);
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
 			log.error("ERROR" + ex);
 
-			
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Class not found: " + ex);
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
@@ -60,7 +56,8 @@ public class DataAccess {
 	 * @param bid
 	 *            double
 	 */
-	public static void insertTicker(String symbol, double ask, double bid, double percentage) {
+	public static void insertTicker(String symbol, double ask, double bid,
+			double percentage) {
 
 		Connection cn = null;
 		try {
@@ -92,7 +89,7 @@ public class DataAccess {
 		}
 
 	}
-	
+
 	/**
 	 * Method returns an ArrayList of ticker objects
 	 */
@@ -107,7 +104,8 @@ public class DataAccess {
 			ResultSet rs = st.executeQuery("Select * from ticker");
 
 			while (rs.next()) {
-				temp.add(new Ticker(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getDouble(4), rs.getDate(5)));
+				temp.add(new Ticker(rs.getInt(1), rs.getString(2), rs
+						.getDouble(3), rs.getDouble(4), rs.getDate(5)));
 			}
 
 		} catch (SQLException ex) {
@@ -159,7 +157,7 @@ public class DataAccess {
 		}
 
 	}
-	
+
 	/**
 	 * Inserts stocks with their stock symbol and name into the stock table
 	 * 
@@ -234,13 +232,14 @@ public class DataAccess {
 		return temp;
 
 	}
-	
+
 	/**
 	 * Method gets the top 5 stocks based on the percentage change
+	 * 
 	 * @return
 	 */
-	public static ArrayList<String> getTop5(){
-		
+	public static ArrayList<String> getTop5() {
+
 		ArrayList<String> temp = new ArrayList<String>();
 
 		Connection cn = null;
@@ -271,13 +270,14 @@ public class DataAccess {
 		}
 		return temp;
 	}
-	
+
 	/**
 	 * Method gets the bottom 5 stocks based on the percentage change
+	 * 
 	 * @return
 	 */
-	public static ArrayList<String> getBottom5(){
-		
+	public static ArrayList<String> getBottom5() {
+
 		ArrayList<String> temp = new ArrayList<String>();
 
 		Connection cn = null;
@@ -309,7 +309,10 @@ public class DataAccess {
 		return temp;
 	}
 
-	public static void updateStockChange(String symbol, String percentageChange, String openPrice, String closePrice, String changeYearHigh, String changeYearLow, double fiftyDayMovingAverage, double fiveMinuteMovingAverage  ) {
+	public static void updateStockChange(String symbol,
+			String percentageChange, String openPrice, String closePrice,
+			String changeYearHigh, String changeYearLow,
+			double fiftyDayMovingAverage, double fiveMinuteMovingAverage) {
 		Connection cn = null;
 		try {
 			cn = getConnection();
@@ -342,17 +345,25 @@ public class DataAccess {
 			}
 		}
 	}
-	
+
 	/**
 	 * Method inserts a new tuple into the strategy table
-	 * @param userID int
-	 * @param stockSymbol String
-	 * @param type String
-	 * @param buy int
-	 * @param sell int
-	 * @param active String
+	 * 
+	 * @param userID
+	 *            int
+	 * @param stockSymbol
+	 *            String
+	 * @param type
+	 *            String
+	 * @param buy
+	 *            int
+	 * @param sell
+	 *            int
+	 * @param active
+	 *            String
 	 */
-	public static void insertStrategy(int userID, String stockSymbol, String type, int buy, int sell, String active){
+	public static void insertStrategy(int userID, String stockSymbol,
+			String type, int buy, int sell, String active) {
 
 		Connection cn = null;
 		try {
@@ -366,9 +377,8 @@ public class DataAccess {
 			st.setInt(5, sell);
 			st.setString(6, active);
 			st.executeUpdate();
-			
-			insertIntoFav(userID, stockSymbol);
 
+			insertIntoFav(userID, stockSymbol);
 
 		} catch (SQLException ex) {
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
@@ -388,19 +398,22 @@ public class DataAccess {
 		}
 
 	}
-	
-	
+
 	/**
 	 * Method inserts a new tuple into the strategy table
-	 * @param userID int
-	 * @param stockSymbol String
+	 * 
+	 * @param userID
+	 *            int
+	 * @param stockSymbol
+	 *            String
 	 */
-	public static void insertIntoFav(int userID, String stockSymbol){
+	public static void insertIntoFav(int userID, String stockSymbol) {
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
-			PreparedStatement st = cn.prepareStatement("INSERT INTO favourite(userID, stockSymbol) VALUES(?,?)");
+			PreparedStatement st = cn
+					.prepareStatement("INSERT INTO favourite(userID, stockSymbol) VALUES(?,?)");
 			st.setInt(1, userID);
 			st.setString(2, stockSymbol);
 			st.executeUpdate();
@@ -423,12 +436,13 @@ public class DataAccess {
 		}
 
 	}
-	
+
 	public static void insertProfit(int parseInt, double d, double e) {
 		Connection cn = null;
 		try {
 			cn = getConnection();
-			PreparedStatement st = cn.prepareStatement("INSERT INTO profit(profitID, dailyAmount, overallAmount) VALUES(?,?,?)");
+			PreparedStatement st = cn
+					.prepareStatement("INSERT INTO profit(profitID, dailyAmount, overallAmount) VALUES(?,?,?)");
 			st.setInt(1, parseInt);
 			st.setDouble(2, d);
 			st.setDouble(3, e);
@@ -449,14 +463,16 @@ public class DataAccess {
 					log.error("ERROR" + ex);
 				}
 			}
-		}		
+		}
 	}
-	
-	public static void insertProfit(int parseInt, double d, double e, String date) {
+
+	public static void insertProfit(int parseInt, double d, double e,
+			String date) {
 		Connection cn = null;
 		try {
 			cn = getConnection();
-			PreparedStatement st = cn.prepareStatement("INSERT INTO profit(profitID, dailyAmount, overallAmount, timeStamp) VALUES(?,?,?,?)");
+			PreparedStatement st = cn
+					.prepareStatement("INSERT INTO profit(profitID, dailyAmount, overallAmount, timeStamp) VALUES(?,?,?,?)");
 			st.setInt(1, parseInt);
 			st.setDouble(2, d);
 			st.setDouble(3, e);
@@ -478,34 +494,35 @@ public class DataAccess {
 					log.error("ERROR" + ex);
 				}
 			}
-		}		
+		}
 	}
-	
+
 	/**
 	 * Method returns the last 10 percentage changes
+	 * 
 	 * @return
 	 */
-public static ArrayList<String> returnLast50PercentageChanges(String symbol){
-		
-	ArrayList<String> temp = new ArrayList<String>();
-		
+	public static ArrayList<String> returnLast50PercentageChanges(String symbol) {
+
+		ArrayList<String> temp = new ArrayList<String>();
+
 		Connection cn = null;
 		try {
 			cn = getConnection();
-			PreparedStatement st = cn.prepareStatement("select percentchange, timestamp "
-					+ "from ticker "
-					+ "where stocksymbol like ? "
-					+ "order by timeStamp desc "
-					+ "limit 50 ");
-			
+			PreparedStatement st = cn
+					.prepareStatement("select percentchange, timestamp "
+							+ "from ticker " + "where stocksymbol like ? "
+							+ "order by timeStamp desc " + "limit 50 ");
+
 			st.setString(1, symbol.replaceAll("\"", ""));
-			
+
 			ResultSet rs = st.executeQuery();
-			
+
 			while (rs.next()) {
-				
-				temp.add(Double.toString(rs.getDouble(1)) + ","+ rs.getTimestamp(2).toString());
-				
+
+				temp.add(Double.toString(rs.getDouble(1)) + ","
+						+ rs.getTimestamp(2).toString());
+
 			}
 
 		} catch (SQLException ex) {
@@ -525,53 +542,54 @@ public static ArrayList<String> returnLast50PercentageChanges(String symbol){
 			}
 		}
 		return temp;
-		
+
 	}
 
-public static String calculateMovingAverage(String symbol){
-	
-	double temp = 0;
-	
-	Connection cn = null;
-	try {
-		cn = getConnection();
-		PreparedStatement st = cn.prepareStatement("select avg((askPrice + bidPrice )/2) "
-				+ "from ticker "
-				+ "where stockSymbol like ? " 
-				+ "and timestamp between DATE_SUB(NOW(), INTERVAL 5 MINUTE) "
-				+ "and NOW();");
-		
-		st.setString(1, symbol.replaceAll("\"", ""));
-		
-		ResultSet rs = st.executeQuery();
-		
-		while (rs.next()) {
-			
-			temp = rs.getDouble(1) ;
-			
-		}
+	public static String calculateMovingAverage(String symbol) {
 
-	} catch (SQLException ex) {
-		Logger log = Logger.getLogger("DATA ACCESS LAYER:");
-		log.error("ERROR" + ex);
-		System.out.println("Error adding data " + ex);
-	} finally {
+		double temp = 0;
 
-		if (cn != null) {
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("select avg((askPrice + bidPrice )/2) "
+							+ "from ticker "
+							+ "where stockSymbol like ? "
+							+ "and timestamp between DATE_SUB(NOW(), INTERVAL 5 MINUTE) "
+							+ "and NOW();");
 
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				Logger log = Logger.getLogger("DATA ACCESS LAYER:");
-				log.error("ERROR" + e);
+			st.setString(1, symbol.replaceAll("\"", ""));
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				temp = rs.getDouble(1);
+
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
 			}
 		}
-	}
-	return String.format("%.4f", temp);
-	
-}
+		return String.format("%.4f", temp);
 
-public static void main (String [] args){
-	
-}
+	}
+
+	public static void main(String[] args) {
+
+	}
 }
