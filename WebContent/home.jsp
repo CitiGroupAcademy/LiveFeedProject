@@ -77,7 +77,7 @@
     function top5update() {
 
         if (request != null) {
-            var url = "search/ztopsearch";
+            var url = "search/topsearch";
 
             request.open("GET", url, true);
             request.onreadystatechange = top5Callback;
