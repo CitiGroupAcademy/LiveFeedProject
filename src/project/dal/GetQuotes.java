@@ -147,7 +147,7 @@ public class GetQuotes {
 				
 			}
 				//Sleep thread to reduce processing
-				Thread.sleep(100);
+				Thread.sleep(1000);
 		}
 	}
 	
