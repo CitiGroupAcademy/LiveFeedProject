@@ -89,6 +89,10 @@ public class GetQuotes {
 		insertIntoTicker();
 	}
 	
+	/**
+	 * Runs indefinitely 
+	 * @throws Exception
+	 */
 	public static void insertIntoTicker() throws Exception{
 		
 		// clear data in database
@@ -154,13 +158,28 @@ public class GetQuotes {
 		}
 	}
 	
+	/**
+	 * Method calculates the moving average for strategies 
+	 */
 	private static void moivngAverageStrategy() {
 		
 		ArrayList <Strategy> movingAverageObjects = DataAccess.getActiveStatsMoving();
 		
 		for(Strategy s : movingAverageObjects){
 			
-			
+			for(Stock stock : DataAccess.getStocks()){
+				
+				if(s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())){
+					
+					
+					if(stock.getDifferenceInMovingAv() < 0){
+						
+						// buy
+					}else if(stock.getDifferenceInMovingAv() > 0){
+						// sell
+					}
+				}
+			}
 			
 		}
 	}
