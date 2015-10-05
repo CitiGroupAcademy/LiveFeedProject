@@ -247,6 +247,7 @@
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
+            						<br><br>
             						<input type="button" value="Create" onClick= "insertStrategy()" />					
 								
 								
