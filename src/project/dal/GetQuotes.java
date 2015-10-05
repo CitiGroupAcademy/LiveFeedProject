@@ -30,7 +30,7 @@ import project.dataObjects.Strategy;
  *
  */
 public class GetQuotes {
-	
+
 	/**
 	 * Symbol inputed by user
 	 */
@@ -47,62 +47,62 @@ public class GetQuotes {
 	public static int captureNumber = 0;
 
 	/**
-	 * Decrementor decrements with each loop iteration 
+	 * Decrementor decrements with each loop iteration
 	 */
 	public static int decrementor = 0;
 
 	/**
-	 *Bid moving average
+	 * Bid moving average
 	 */
 	public static double bidMovingAverage = 0;
 
 	/**
-	 *ask moving average
+	 * ask moving average
 	 */
 	public static double askMovingAverage = 0;
-	
+
 	/**
-	 *total bids
+	 * total bids
 	 */
 	public static double totalBids = 0;
-	
+
 	/**
-	 *total asks
+	 * total asks
 	 */
 	public static double totalForMovingAverage = 0;
-	
+
 	/**
 	 * Start time for moving average calculation
 	 */
 	public static LocalDateTime startTime;
-	
+
 	/**
 	 * Incrementing time for moving average calculation
 	 */
 	public static LocalDateTime currentTime;
-	
-	
+
 	/**
-	 *queue collection used to hold the bid averages, polls when there is the number equal to the moving average number
+	 * queue collection used to hold the bid averages, polls when there is the
+	 * number equal to the moving average number
 	 */
 	public static Queue<Double> shortMovingAverageCollection = null;
-	
+
 	public static HashMap<String, Double> stocksMap = new HashMap<>();
-	
 
 	public static void main(String[] args) throws Exception {
 		insertIntoTicker();
 	}
-	
+
 	/**
-	 * Runs indefinitely 
+	 * Runs indefinitely
+	 * 
 	 * @throws Exception
 	 */
-	public static void insertIntoTicker() throws Exception{
-		
+	public static void insertIntoTicker() throws Exception {
+
 		// clear data in database
 		DataAccess.clearTicker();
-		
+
 		startTime = LocalDateTime.now();
 
 		while (true) {
@@ -134,84 +134,71 @@ public class GetQuotes {
 			while ((inputLine = in.readLine()) != null) {
 
 				String[] fields = inputLine.split(",");
-				for(String key : stocksMap.keySet()){
-					if(key.equalsIgnoreCase(fields[0])){
-						stocksMap.put(key, calculateAskMovingAverage((Double.parseDouble(fields[2]) + Double.parseDouble(fields[3]))/2));
+				for (String key : stocksMap.keySet()) {
+					if (key.equalsIgnoreCase(fields[0])) {
+						stocksMap.put(key, calculateAskMovingAverage((Double
+								.parseDouble(fields[2]) + Double
+								.parseDouble(fields[3])) / 2));
 					}
 				}
-				
+
 				System.out.println(fields[0] + " " + fields[1] + " "
 						+ fields[2] + " " + fields[3] + " " + fields[4] + " "
-						+ fields[5] + fields[6] + " " + fields[7] + "   Fifty day:" + fields[8] + "  Short:"+ DataAccess.calculateMovingAverage(fields[0]));
+						+ fields[5] + fields[6] + " " + fields[7]
+						+ "   Fifty day:" + fields[8] + "  Short:"
+						+ DataAccess.calculateMovingAverage(fields[0]));
 
-				DataAccess.insertTicker(fields[0].replaceAll("\"", ""),
-						Double.parseDouble(fields[1]),
-						Double.parseDouble(fields[2]),
-						Double.parseDouble(removeLastChar(fields[9]).replaceAll("\"", "")));
+				DataAccess.insertTicker(fields[0].replaceAll("\"", ""), Double
+						.parseDouble(fields[1]), Double.parseDouble(fields[2]),
+						Double.parseDouble(removeLastChar(fields[9])
+								.replaceAll("\"", "")));
 
 				fields[3] = removeLastChar(fields[3]).replaceAll("\"", "");
-				
+
 				DataAccess.updateStockChange(fields[0].replaceAll("\"", ""),
-						fields[3],
-						fields[4], fields[5], fields[6], fields[7], Double.parseDouble(fields[8]), Double.parseDouble(DataAccess.calculateMovingAverage(fields[0])));
-				
+						fields[3], fields[4], fields[5], fields[6], fields[7],
+						Double.parseDouble(fields[8]), Double
+								.parseDouble(DataAccess
+										.calculateMovingAverage(fields[0])));
+
 				moivngAverageStrategy();
-				
+
 			}
-				//Sleep thread to reduce processing
-				Thread.sleep(1000);
+			// Sleep thread to reduce processing
+			Thread.sleep(1000);
 		}
 	}
-	
+
 	/**
-	 * Method calculates the moving average for strategies 
+	 * Method calculates the moving average for strategies
 	 */
 	private static void moivngAverageStrategy() {
-		
-		ArrayList <Strategy> movingAverageObjects = DataAccess.getActiveStatsMoving();
-		Connection con = null;
-		ResultSet rs = null;
-		ResultSet rs2 = null;
-		con = Database.getConnection();
-		for(Strategy s : movingAverageObjects)
-		{
-			for(Stock stock : DataAccess.getStocks())
-			{
-				if(s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol()))
-				{
-					if(stock.getDifferenceInMovingAv() < 0)
-					{
-						try 
-						{
-							Statement st = con.createStatement();
-							rs = st.executeQuery("SELECT t.askPrice FROM ticker t WHERE t.stockSymbol = '"+ stock.getStockSymbol() +"' ORDER BY t.timeStamp DESC LIMIT 1");
-							OrderResult or = OrderManager.getInstance().buyOrder(stock.getStockSymbol(), rs.getDouble("askPrice"), 10);
-						} 
-						catch (SQLException e) 
-						{
-							e.printStackTrace();
-						}
+
+		ArrayList<Strategy> movingAverageObjects = DataAccess
+				.getActiveStatsMoving();
+		for (Strategy s : movingAverageObjects) {
+			for (Stock stock : DataAccess.getStocks()) {
+				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
+					if (stock.getDifferenceInMovingAv() < 0) {
+						OrderResult or = OrderManager.getInstance().buyOrder(
+								stock.getStockSymbol(),
+								DataAccess.getMostRecentStockAskPrice(stock
+										.getStockSymbol()), 10);
+
 						// buy
+					} else if (stock.getDifferenceInMovingAv() > 0) {
+						OrderResult or = OrderManager.getInstance().sellOrder(
+								stock.getStockSymbol(),
+								DataAccess.getMostRecentStockAskPrice(stock
+										.getStockSymbol()),
+								DataAccess.amountOfOwnedStock(stock
+										.getStockSymbol()));
 					}
-					else if(stock.getDifferenceInMovingAv() > 0)
-					{
-						try 
-						{
-							Statement st = con.createStatement();
-							rs = st.executeQuery("SELECT t.askPrice FROM ticker t WHERE t.stockSymbol = '"+ stock.getStockSymbol() +"' ORDER BY t.timeStamp DESC LIMIT 1");
-							rs2 = st.executeQuery("SELECT o.amount FROM ownedStock o WHERE o.stockSymbol = '"+ stock.getStockSymbol() +"' ORDER BY t.timeStamp DESC LIMIT 1");
-							OrderResult or = OrderManager.getInstance().sellOrder(stock.getStockSymbol(), rs.getDouble("askPrice"), rs2.getInt("amount"));
-						}
-						catch (SQLException e) 
-						{
-							e.printStackTrace();
-						}
-						// sell
-					}
+					// sell
 				}
 			}
-			
 		}
+
 	}
 
 	/**
@@ -228,7 +215,9 @@ public class GetQuotes {
 	}
 
 	/**
-	 * Returns a list of stocks from yahoo with symbol, ask, bid, change in percentage
+	 * Returns a list of stocks from yahoo with symbol, ask, bid, change in
+	 * percentage
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
@@ -259,19 +248,18 @@ public class GetQuotes {
 		while ((inputLine = in.readLine()) != null) {
 
 			String[] fields = inputLine.split(",");
-			
-			temp.add(fields[0] + "," + fields[1] + "," +fields[2]+ "," + fields[3]);
-			
-	
+
+			temp.add(fields[0] + "," + fields[1] + "," + fields[2] + ","
+					+ fields[3]);
 
 		}
 		return temp;
 
 	}
 
-	
 	/**
 	 * Calculates the moving average with a queue collection
+	 * 
 	 * @param nextNumber
 	 * @return
 	 */
@@ -281,17 +269,16 @@ public class GetQuotes {
 
 		if (currentTime.isAfter(startTime.plusMinutes(1))) {
 			totalForMovingAverage = 0;
-		
+
 			shortMovingAverageCollection.poll();
 
 			for (double element : shortMovingAverageCollection) {
 				totalForMovingAverage += element;
 			}
-			
+
 		}
 
-		return totalForMovingAverage /shortMovingAverageCollection.size();
+		return totalForMovingAverage / shortMovingAverageCollection.size();
 	}
-
 
 }

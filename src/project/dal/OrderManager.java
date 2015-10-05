@@ -84,6 +84,7 @@ public class OrderManager
         o.price = price;
         o.shares = shares;
         o.longPosition = true;
+        DataAccess.insertTransaction(stock, shares, price, "buy", "sent");
         engine.sendNewBuyOrder (stock, price, shares);
         return o;
     }
@@ -95,6 +96,7 @@ public class OrderManager
         o.price = price;
         o.shares = shares;
         o.longPosition = false;
+        DataAccess.insertTransaction(stock, shares, price, "sell", "sent");
         engine.sendNewSellOrder (stock, price, shares);
         return o;
     }
