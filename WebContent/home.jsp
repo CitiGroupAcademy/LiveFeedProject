@@ -68,6 +68,26 @@
         }
     }
 
+    function stratupdate() {
+
+        if (request != null) {
+            var url = "search/stratupdate";
+
+            request.open("GET", url, true);
+            request.onreadystatechange = stratCallback;
+            request.send(null);
+        	//Logger log = Logger.getLogger("HOME:");
+			//log.info("TOP 5 UPDATE");
+        }
+    }
+
+    function stratCallback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("stratTable");
+            outputField.innerHTML = request.responseText;
+        }
+    }
 
     function stocksearch() {
 
@@ -250,6 +270,15 @@
             						<br><br>
             						<input type="button" value="Create" onClick= "insertStrategy()" />					
 								
+							</ul>
+						</div>
+						<div>
+							<h2>Current Strategies</h2>
+							<ul>
+								<p>								
+								<input type="button" id="stratbutton" value="Update" onclick="stratupdate()">
+							</p>
+							<p id="stratTable"> </p>
 							</ul>
 						</div>
 					</li>
