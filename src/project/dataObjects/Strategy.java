@@ -6,8 +6,7 @@ public class Strategy
 	private int userID;
 	private String stockSymbol;
 	private String type;
-	private int buy;
-	private int sell;
+	private String buySell;
 	private String active;
 	
 	public int getStratID() 
@@ -33,13 +32,12 @@ public class Strategy
 	 * @param active
 	 */
 	public Strategy(int stratID, int userID, String stockSymbol, String type,
-			int buy, int sell, String active) {
+			String buySell, String active) {
 		this.stratID = stratID;
 		this.userID = userID;
 		this.stockSymbol = stockSymbol;
 		this.type = type;
-		this.buy = buy;
-		this.sell = sell;
+		this.buySell = buySell;
 		this.active = active;
 	}
 	public void setUserID(int userID) 
@@ -62,22 +60,6 @@ public class Strategy
 	{
 		this.type = type;
 	}
-	public int getBuy() 
-	{
-		return buy;
-	}
-	public void setBuy(int buy) 
-	{
-		this.buy = buy;
-	}
-	public int getSell() 
-	{
-		return sell;
-	}
-	public void setSell(int sell) 
-	{
-		this.sell = sell;
-	}
 	
 	public String getActive() 
 	{
@@ -86,5 +68,21 @@ public class Strategy
 	public void setActive(String active) 
 	{
 		this.active = active;
+	}
+	/**
+	 * @return the buySell
+	 */
+	public String getBuySell() {
+		return buySell;
+	}
+	/**
+	 * @param buySell the buySell to set
+	 */
+	public void setBuySell(String buySell) {
+		this.buySell = buySell;
+	}
+	
+	public String toString(){
+		return this.stratID + " " + this.userID + " " + this.stockSymbol + " " + this.type + " " + this.buySell + " " + this.active;
 	}
 }
