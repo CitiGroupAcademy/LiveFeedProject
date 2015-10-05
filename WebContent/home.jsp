@@ -53,6 +53,22 @@
         return null;
     }
 
+    function insertStrategy() {
+
+        if (request != null) {
+        	var symbol = document.getElementById("sym");
+        	var status = document.getElementById("status");
+        	var buy = document.getElementById("buy");
+        	var sell = document.getElementById("sell");
+        	var type = document.getElementById("type");
+            var url = "search/insertStrat?str=" + symbol.value;
+
+            request.open("GET", url, true);
+            request.onreadystatechange = stockSearchCallback;
+            request.send(null);
+        }
+    }
+
 
     function stocksearch() {
 
@@ -201,7 +217,7 @@
 						<div>
 							<h2>Strategies</h2>
 							<ul>
-								<form action="" method="post">
+								<form action="insertStrategy()" method="post">
 									<h3>New Strategies</h3>
 									<select name="txtSymbol" id="sym" >
             						<option value="symbol" selected>Choose a Symbol</option>
@@ -229,7 +245,7 @@
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
-            						<input type="button" value="Create" onClick="insertStrategy"/>					
+            						<input type="button" value="Create" onClick="insertStrategy()"/>					
 								</form>
 							</ul>
 						</div>

@@ -9,11 +9,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
 import org.jboss.logging.*;
 
 import project.dataObjects.Stock;
 import project.dataObjects.Strategy;
 import project.dataObjects.Ticker;
+
+@Path("dataAccess")
 
 public class DataAccess {
 
@@ -363,6 +370,9 @@ public class DataAccess {
 	 * @param active
 	 *            String
 	 */
+	
+	@GET
+	@Produces("text/plain")
 	public static void insertStrategy(int userID, String stockSymbol,
 			String type, int buy, int sell, String active) {
 
@@ -503,6 +513,8 @@ public class DataAccess {
 	 * 
 	 * @return
 	 */
+	@GET
+	@Produces("text/plain")
 	public static ArrayList<String> returnLast50PercentageChanges(String symbol) {
 
 		ArrayList<String> temp = new ArrayList<String>();
