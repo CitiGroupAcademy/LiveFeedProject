@@ -211,7 +211,7 @@ public class DataAccess {
 			ResultSet rs = st.executeQuery("Select * from stock ");
 
 			while (rs.next()) {
-				temp.add(new Stock(rs.getString(1), rs.getString(2)));
+				temp.add(new Stock(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), rs.getDouble(9)));
 			}
 
 		} catch (SQLException ex) {
@@ -590,7 +590,7 @@ public class DataAccess {
 
 	}
 
-	public static ArrayList<Strategy> getActiveStats(){
+	public static ArrayList<Strategy> getActiveStatsMoving(){
 		
 		ArrayList<Strategy> temp = new ArrayList<>();
 		
@@ -599,7 +599,7 @@ public class DataAccess {
 		try {
 			cn = getConnection();
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select * from strategy where active = 'yes'");
+			ResultSet rs = st.executeQuery("Select * from strategy where active = 'yes' and type like 'moving'");
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getString(7)));
