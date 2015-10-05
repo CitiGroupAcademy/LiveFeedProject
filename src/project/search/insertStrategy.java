@@ -20,7 +20,7 @@ public class insertStrategy {
 	
 	@POST
 	@Produces("text/plain")
-	public void insertStrategy(@QueryParam("sym") String sym, @QueryParam("sta") String sta, @QueryParam("by") int by, @QueryParam("sl") int sl, @QueryParam("type") String type) throws SQLException{
+	public void insertStrategy(@QueryParam("sym") String sym, @QueryParam("sta") String sta, @QueryParam("bs") String bs, @QueryParam("type") String type) throws SQLException{
 		
 		String temp = "";
 		Connection cn = null;
@@ -36,7 +36,7 @@ public class insertStrategy {
 		catch(ClassNotFoundException ex){
 			System.out.println("Class not found: " + ex);
 		}
-			DataAccess.insertStrategy( 1, sym, type, by, sl, sta);
+			DataAccess.insertStrategy( 1, sym, type, bs, sta);
 			
 			
 			
