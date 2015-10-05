@@ -8,7 +8,7 @@ public class Strategy
 	private String type;
 	private int buy;
 	private int sell;
-	private boolean active;
+	private String active;
 	
 	public int getStratID() 
 	{
@@ -33,7 +33,7 @@ public class Strategy
 	 * @param active
 	 */
 	public Strategy(int stratID, int userID, String stockSymbol, String type,
-			int buy, int sell, boolean active) {
+			int buy, int sell, String active) {
 		this.stratID = stratID;
 		this.userID = userID;
 		this.stockSymbol = stockSymbol;
@@ -78,11 +78,12 @@ public class Strategy
 	{
 		this.sell = sell;
 	}
-	public boolean isActive() 
+	
+	public String getActive() 
 	{
 		return active;
 	}
-	public void setActive(boolean active) 
+	public void setActive(String active) 
 	{
 		this.active = active;
 	}

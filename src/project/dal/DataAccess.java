@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import org.jboss.logging.*;
 
 import project.dataObjects.Stock;
+import project.dataObjects.Strategy;
 import project.dataObjects.Ticker;
 
 public class DataAccess {
@@ -589,7 +590,44 @@ public class DataAccess {
 
 	}
 
-	public static void main(String[] args) {
+	public static ArrayList<Strategy> getActiveStats(){
+		
+		ArrayList<Strategy> temp = new ArrayList<>();
+		
 
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select * from strategy where active = 'yes'");
+
+			while (rs.next()) {
+				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getString(7)));
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
+	}
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
 	}
 }
