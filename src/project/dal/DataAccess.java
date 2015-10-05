@@ -364,19 +364,18 @@ public class DataAccess {
 	 *            String
 	 */
 	public static void insertStrategy(int userID, String stockSymbol,
-			String type, int buy, int sell, String active) {
+			String type, String buySell,  String active) {
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("INSERT INTO strategy (userID, stockSymbol, type, buy, sell, active) values(?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO strategy (userID, stockSymbol, type, buySell, active) values(?,?,?,?,?)");
 			st.setInt(1, userID);
 			st.setString(2, stockSymbol);
 			st.setString(3, type);
-			st.setInt(4, buy);
-			st.setInt(5, sell);
-			st.setString(6, active);
+			st.setString(4, buySell);
+			st.setString(5, active);
 			st.executeUpdate();
 
 			insertIntoFav(userID, stockSymbol);
@@ -602,7 +601,7 @@ public class DataAccess {
 			ResultSet rs = st.executeQuery("Select * from strategy where active = 'yes' and type like 'moving'");
 
 			while (rs.next()) {
-				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getString(7)));
+				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -663,6 +662,89 @@ public class DataAccess {
 		}
 
 	}
+	
+	public static double getMostRecentStockAskPrice(String symbol){
+		
+		double ask = 0;
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("SELECT askPrice FROM ticker WHERE stockSymbol = ? ORDER BY timeStamp DESC LIMIT 1");
+
+			st.setString(1, symbol);
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				ask = rs.getDouble(1);
+
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		
+		return ask;
+
+	}
+	
+	public static int amountOfOwnedStock(String symbol){
+	
+		int amount = 0;
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("SELECT amount FROM ownedStock WHERE stockSymbol = ? ORDER BY timeStamp DESC LIMIT 1");
+
+			st.setString(1, symbol);
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				amount = rs.getInt(1);
+
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		
+		return amount;
+
+	}
+	
 	
 	public static void main(String[] args) {
 	}
