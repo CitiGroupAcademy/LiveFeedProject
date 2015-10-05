@@ -598,7 +598,7 @@ public class DataAccess {
 		try {
 			cn = getConnection();
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select * from strategy where active = 'yes' and type like 'moving'");
+			ResultSet rs = st.executeQuery("Select * from strategy where active = 'active' and type like 'movingAvg'");
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
