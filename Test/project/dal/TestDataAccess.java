@@ -38,6 +38,7 @@ public class TestDataAccess {
 		DataAccess.insertTicker("AAPL", 20.20, 20.20,20.20);
 		assertNotNull(DataAccess.getTicker());
 		DataAccess.clearTicker();
+		
 	}
 	
 	/**

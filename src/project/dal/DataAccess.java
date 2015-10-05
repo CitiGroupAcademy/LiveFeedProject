@@ -746,6 +746,44 @@ public class DataAccess {
 	}
 	
 	
-	public static void main(String[] args) {
+	/**
+	 * Insert into owned stock 
+	 * @param stock
+	 * @param shares
+	 * @param price
+	 */
+	public static void insertOwnedStock(String stock, int shares, double price) {
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("INSERT INTO ownedStock(stockSymbol, buyPrice, amount) VALUES(?,?,?)");
+			st.setString(1, stock);
+			st.setDouble(2, price);
+			st.setInt(3, shares);
+			st.executeUpdate();
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+
 	}
+	
+	public static void main(String[] args) {
+		
+	}
+
 }
