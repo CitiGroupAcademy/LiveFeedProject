@@ -309,7 +309,40 @@ public class DataAccess {
 		}
 		return temp;
 	}
+	
+public static ArrayList<Strategy> getStrats(){
+		
+		ArrayList<Strategy> temp = new ArrayList<>();
+		
 
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select * from strategy");
+
+			while (rs.next()) {
+				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
+	}
 	public static void updateStockChange(String symbol,
 			String percentageChange, String openPrice, String closePrice,
 			String changeYearHigh, String changeYearLow,
