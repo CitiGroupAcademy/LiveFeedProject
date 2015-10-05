@@ -25,10 +25,16 @@ public class favouritesSearch
 			con = Database.getConnection();
 			Statement st = con.createStatement();
 	   
-			ResultSet rs = st.executeQuery("SELECT f.stockSymbol, s.stockName, s.percentageChange FROM favourite f JOIN stock s ON s.stockSymbol = f.stockSymbol ORDER BY s.percentageChange DESC LIMIT 5");
-			String[][] stocks = new String[5][3];
+			ResultSet rs = st.executeQuery("SELECT COUNT(f.stockSymbol) FROM favourite f");
+			
 			html += "<table class='standard'><th>Stock Symbol</th><th>Stock Name</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
 			int count = 0;
+			while(rs.next())
+			{
+				count++;
+			}
+			String[][] stocks = new String[count][3];
+			rs = st.executeQuery("SELECT f.stockSymbol, s.stockName, s.percentageChange FROM favourite f JOIN stock s ON s.stockSymbol = f.stockSymbol");
 			while(rs.next())
 			{
 				stocks[count][0] = rs.getString("stockSymbol");
