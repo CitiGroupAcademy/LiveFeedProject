@@ -16,6 +16,7 @@ import org.jboss.logging.*;
 import com.sun.xml.internal.ws.spi.db.FieldSetter;
 
 import project.dataObjects.Stock;
+import project.dataObjects.Strategy;
 
 /**
  * Quote class accesses Yahoo market data and saves to database ticker
@@ -145,12 +146,25 @@ public class GetQuotes {
 						fields[3],
 						fields[4], fields[5], fields[6], fields[7], Double.parseDouble(fields[8]), Double.parseDouble(DataAccess.calculateMovingAverage(fields[0])));
 				
+				moivngAverageStrategy();
+				
 			}
 				//Sleep thread to reduce processing
 				Thread.sleep(1000);
 		}
 	}
 	
+	private static void moivngAverageStrategy() {
+		
+		ArrayList <Strategy> movingAverageObjects = DataAccess.getActiveStatsMoving();
+		
+		for(Strategy s : movingAverageObjects){
+			
+			
+			
+		}
+	}
+
 	/**
 	 * Method deleted the last character in the string
 	 * 
