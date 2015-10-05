@@ -15,6 +15,7 @@ public class Database {
 
 			try {
 			Statement st = connect.createStatement();
+			st.executeUpdate("DROP TABLE IF EXISTS  transaction ");
 			st.executeUpdate("DROP TABLE IF EXISTS  strategy ");
 			st.executeUpdate("DROP TABLE IF EXISTS  favourite ");
 			st.executeUpdate("DROP TABLE IF EXISTS  profit ");
@@ -85,13 +86,12 @@ public class Database {
 			
 			st.executeUpdate("CREATE TABLE  transaction ( "
 					+ "transactionID INTEGER AUTO_INCREMENT NOT NULL, "
-					+ "amountBought INTEGER, "
-					+ "amountSold INTEGER, "
+					+ "amount INTEGER, "
 					+ "stockPrice DECIMAL(7,4), "
+					+ "action NVARCHAR(15), "
+					+ "status NVARCHAR(225), "
 					+ "timeStamp TIMESTAMP, "
-					+ "stratID INTEGER, "
-					+ "PRIMARY KEY (transactionID), "
-					+ "FOREIGN KEY (stratID) REFERENCES strategy (stratID)"
+					+ "PRIMARY KEY (transactionID) "
 					+ ");");
 			
 			st.executeUpdate("CREATE TABLE  profit ( "

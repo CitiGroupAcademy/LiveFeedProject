@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +19,7 @@ import org.jboss.logging.*;
 
 import com.sun.xml.internal.ws.spi.db.FieldSetter;
 
+import project.dal.OrderManager.OrderResult;
 import project.dataObjects.Stock;
 import project.dataObjects.Strategy;
 
@@ -89,6 +94,10 @@ public class GetQuotes {
 		insertIntoTicker();
 	}
 	
+	/**
+	 * Runs indefinitely 
+	 * @throws Exception
+	 */
 	public static void insertIntoTicker() throws Exception{
 		
 		// clear data in database
@@ -154,13 +163,53 @@ public class GetQuotes {
 		}
 	}
 	
+	/**
+	 * Method calculates the moving average for strategies 
+	 */
 	private static void moivngAverageStrategy() {
 		
 		ArrayList <Strategy> movingAverageObjects = DataAccess.getActiveStatsMoving();
-		
-		for(Strategy s : movingAverageObjects){
-			
-			
+		Connection con = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		con = Database.getConnection();
+		for(Strategy s : movingAverageObjects)
+		{
+			for(Stock stock : DataAccess.getStocks())
+			{
+				if(s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol()))
+				{
+					if(stock.getDifferenceInMovingAv() < 0)
+					{
+						try 
+						{
+							Statement st = con.createStatement();
+							rs = st.executeQuery("SELECT t.askPrice FROM ticker t WHERE t.stockSymbol = '"+ stock.getStockSymbol() +"' ORDER BY t.timeStamp DESC LIMIT 1");
+							OrderResult or = OrderManager.getInstance().buyOrder(stock.getStockSymbol(), rs.getDouble("askPrice"), 10);
+						} 
+						catch (SQLException e) 
+						{
+							e.printStackTrace();
+						}
+						// buy
+					}
+					else if(stock.getDifferenceInMovingAv() > 0)
+					{
+						try 
+						{
+							Statement st = con.createStatement();
+							rs = st.executeQuery("SELECT t.askPrice FROM ticker t WHERE t.stockSymbol = '"+ stock.getStockSymbol() +"' ORDER BY t.timeStamp DESC LIMIT 1");
+							rs2 = st.executeQuery("SELECT o.amount FROM ownedStock o WHERE o.stockSymbol = '"+ stock.getStockSymbol() +"' ORDER BY t.timeStamp DESC LIMIT 1");
+							OrderResult or = OrderManager.getInstance().sellOrder(stock.getStockSymbol(), rs.getDouble("askPrice"), rs2.getInt("amount"));
+						}
+						catch (SQLException e) 
+						{
+							e.printStackTrace();
+						}
+						// sell
+					}
+				}
+			}
 			
 		}
 	}

@@ -624,9 +624,44 @@ public class DataAccess {
 		return temp;
 	}
 	
-	
-	
-	
+	/**
+	 * Method inserts tuple into transaction table 
+	 * @param amount int
+	 * @param stockPrice double
+	 * @param action String
+	 * @param status String
+	 */
+	public static void insertTransaction(int amount, double stockPrice,  String action, String status){
+		
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("INSERT INTO transaction(amount, stockPrice, action, status) values(?,?,?,?)");
+			st.setInt(1, amount);
+			st.setDouble(2, stockPrice);
+			st.setString(3, action);
+			st.setString(4, status);
+			st.executeUpdate();
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+
+	}
 	
 	public static void main(String[] args) {
 	}

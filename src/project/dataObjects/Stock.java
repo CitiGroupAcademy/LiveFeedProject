@@ -10,6 +10,7 @@ public class Stock {
 	private String changeYearLow;
 	private double shortMovingAverage;
 	private double longMovingAverage;
+	private double differenceInMovingAv;
 
 	/**
 	 * @param stockSymbol
@@ -113,4 +114,12 @@ public class Stock {
 		return String.format(" %s %s %s %s %s %s %s %.4f %.4f ", this.stockSymbol, this.stockName, this.percentageChange, this.openingPrice, this.closePrice, this.changeYearLow, this.changeYearHigh, this.shortMovingAverage, this.longMovingAverage );
 		
 	}
+
+	/**
+	 * @return the differenceInMovingAv
+	 */
+	public double getDifferenceInMovingAv() {
+		return this.shortMovingAverage - this.longMovingAverage ;
+	}
+
 }
