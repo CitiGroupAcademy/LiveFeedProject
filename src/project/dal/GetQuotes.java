@@ -25,6 +25,8 @@ import project.dataObjects.Strategy;
 
 /**
  * Quote class accesses Yahoo market data and saves to database ticker
+ *
+ * regards to yahoo market data for for their services
  * 
  * @author Citi 2015
  *
