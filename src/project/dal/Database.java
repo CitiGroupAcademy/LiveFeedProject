@@ -83,6 +83,17 @@ public class Database {
 					+ "FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 					+ ");");
 			
+			st.executeUpdate("CREATE TABLE  transaction ( "
+					+ "transactionID INTEGER AUTO_INCREMENT NOT NULL, "
+					+ "amountBought INTEGER, "
+					+ "amountSold INTEGER, "
+					+ "stockPrice DECIMAL(7,4), "
+					+ "timeStamp TIMESTAMP, "
+					+ "stratID INTEGER, "
+					+ "PRIMARY KEY (transactionID), "
+					+ "FOREIGN KEY (stratID) REFERENCES strategy (stratID)"
+					+ ");");
+			
 			st.executeUpdate("CREATE TABLE  profit ( "
 					+ "profitID INTEGER AUTO_INCREMENT NOT NULL, "
 					+ "dailyAmount DECIMAL(5,2), "
