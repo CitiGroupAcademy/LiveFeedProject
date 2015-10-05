@@ -250,9 +250,6 @@
             						<br><br>
             						<input type="button" value="Create" onClick= "insertStrategy()" />					
 								
-								
-						
-							</p>
 							</ul>
 						</div>
 					</li>
