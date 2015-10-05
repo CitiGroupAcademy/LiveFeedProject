@@ -86,12 +86,14 @@ public class Database {
 			
 			st.executeUpdate("CREATE TABLE  transaction ( "
 					+ "transactionID INTEGER AUTO_INCREMENT NOT NULL, "
+					+ "stockSymbol NVARCHAR(10) NOT NULL, " 
 					+ "amount INTEGER, "
 					+ "stockPrice DECIMAL(7,4), "
 					+ "action NVARCHAR(15), "
 					+ "status NVARCHAR(225), "
 					+ "timeStamp TIMESTAMP, "
-					+ "PRIMARY KEY (transactionID) "
+					+ "PRIMARY KEY (transactionID), "
+					+ "FOREIGN KEY (stockSymbol) REFERENCES stock (stockSymbol)"
 					+ ");");
 			
 			st.executeUpdate("CREATE TABLE  profit ( "

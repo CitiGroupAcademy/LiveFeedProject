@@ -631,17 +631,18 @@ public class DataAccess {
 	 * @param action String
 	 * @param status String
 	 */
-	public static void insertTransaction(int amount, double stockPrice,  String action, String status){
+	public static void insertTransaction(String stockSymbol, int amount, double stockPrice,  String action, String status){
 		
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("INSERT INTO transaction(amount, stockPrice, action, status) values(?,?,?,?)");
-			st.setInt(1, amount);
-			st.setDouble(2, stockPrice);
-			st.setString(3, action);
-			st.setString(4, status);
+					.prepareStatement("INSERT INTO transaction(stockSymbol, amount, stockPrice, action, status) values(?,?,?,?,?)");
+			st.setString(1, stockSymbol);
+			st.setInt(2, amount);
+			st.setDouble(3, stockPrice);
+			st.setString(4, action);
+			st.setString(5, status);
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
