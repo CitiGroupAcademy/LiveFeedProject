@@ -53,6 +53,22 @@
         return null;
     }
 
+    function insertStrategy() {
+
+        if (request != null) {
+        	var symbol = document.getElementById("sym");
+        	var status = document.getElementById("status");
+        	var buy = document.getElementById("buy");
+        	var sell = document.getElementById("sell");
+        	var type = document.getElementById("type");
+            var url = "search/insertStrat?sym=" + symbol.value + "&sta=" + status.value
+            + "&by=" + buy.value + "&sl=" + sell.value + "&type=" + type.value; 
+
+            request.open("POST", url, true);
+            request.send(null);
+        }
+    }
+
 
     function stocksearch() {
 
@@ -201,7 +217,7 @@
 						<div>
 							<h2>Strategies</h2>
 							<ul>
-								<form action="" method="post">
+								
 									<h3>New Strategies</h3>
 									<select name="txtSymbol" id="sym" >
             						<option value="symbol" selected>Choose a Symbol</option>
@@ -221,16 +237,19 @@
             						<option value="bollinger">Bollinger Band</option>        						
             						</select>
             						<br><br>
-            						<input type="checkbox" name="buy" id="buy" value="1" checked> Buy
-  									<input type="checkbox" name="sell" id="sell" value="1" checked> Sell    
+            						<input type="checkbox" name="buy" id="buy" value="1" checked value="0" unchecked> Buy
+  									<input type="checkbox" name="sell" id="sell" value="1" checked value="0" unchecked> Sell    
   									<br><br>
   									<select name="txtstatus" id="status" >
             						
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
-            						<input type="button" value="Create" onClick="insertStrategy"/>					
-								</form>
+            						<input type="button" value="Create" onClick= "insertStrategy()" />					
+								
+								
+						
+							</p>
 							</ul>
 						</div>
 					</li>
