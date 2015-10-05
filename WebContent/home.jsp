@@ -58,11 +58,10 @@
         if (request != null) {
         	var symbol = document.getElementById("sym");
         	var status = document.getElementById("status");
-        	var buy = document.getElementById("buy");
-        	var sell = document.getElementById("sell");
+        	var buySell = document.getElementById("buySell");
         	var type = document.getElementById("type");
             var url = "search/insertStrat?sym=" + symbol.value + "&sta=" + status.value
-            + "&by=" + buy.value + "&sl=" + sell.value + "&type=" + type.value; 
+            + "&bs=" + buySell.value + "&type=" + type.value; 
 
             request.open("POST", url, true);
             request.send(null);
@@ -237,9 +236,12 @@
             						<option value="bollinger">Bollinger Band</option>        						
             						</select>
             						<br><br>
-            						<input type="checkbox" name="buy" id="buy" value="1" checked value="0" unchecked> Buy
-  									<input type="checkbox" name="sell" id="sell" value="1" checked value="0" unchecked> Sell    
-  									<br><br>
+            						<select name="txtbuySell" id="buySell" >
+            						
+            						<option value="buy">Buy</option>
+            						<option value="sell">Sell</option>        						
+            						</select>
+            						<br><br>
   									<select name="txtstatus" id="status" >
             						
             						<option value="active">Active</option>
