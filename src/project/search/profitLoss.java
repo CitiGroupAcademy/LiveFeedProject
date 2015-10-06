@@ -7,11 +7,18 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
 import project.dal.DataAccess;
 import project.dal.Database;
 
+@Path("/profitloss")
 public class profitLoss 
 {
+	@GET
+	@Produces("text/plain")
 	public String getText() throws SQLException
 	{
 		Connection con = null;
