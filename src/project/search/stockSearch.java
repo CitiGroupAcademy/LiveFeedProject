@@ -27,7 +27,7 @@ public class stockSearch
 			con = Database.getConnection();
 			Statement st = con.createStatement();
 			ArrayList<String> stocks = new ArrayList<>();
-			ResultSet rs = st.executeQuery("SELECT stockSymbol, stockName FROM stock WHERE stockName LIKE '" + str + "%'");
+			ResultSet rs = st.executeQuery("SELECT stockSymbol, stockName FROM stock WHERE stockName LIKE '" + str + "%' OR stockSymbol LIKE '" + str + "%'");
 			html += "<table class='standard'><th>Stock Symbol</th><th>Stock Name</th>";
 			while(rs.next())
 			{
