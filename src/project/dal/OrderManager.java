@@ -199,11 +199,15 @@ class FixEngine extends quickfix.fix42.MessageCracker implements
 		Price price = new Price(px);
 		OrderQty qty = new OrderQty(shares);
 
-		if (buy == true)
+		if (buy == true){
 			s = new Side(Side.BUY);
-		else
+		Logger log = Logger.getLogger(this.getClass());
+		log.info("INFO BUY: " + stock + "ASK: " + px + "AMOUNT: " + shares);
+		}else{
 			s = new Side(Side.SELL);
-
+		Logger log = Logger.getLogger(this.getClass());
+		log.info("INFO SELL: " + stock + "BID: " + px + "AMOUNT: " + shares);
+		}
 		NewOrderSingle no = new NewOrderSingle(orderId, handInst, sym, s, tt, o);
 		no.set(price);
 		no.set(qty);
