@@ -34,7 +34,7 @@ public class DataAccess {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(
 					"jdbc:mysql://localhost/livefeedproject", "root",
-					"password");
+					"rU1DDbaTWTSI");
 
 		} catch (SQLException ex) {
 			System.out.println("Database Connection error: " + ex);
@@ -823,10 +823,7 @@ public static ArrayList<Strategy> getStrats(){
 	
 	public static void main(String[] args) 
 	{
-		for(Strategy s: getStrats())
-		{
-			System.out.println(s.toString());
-		}
+	
 	}
 
 }
