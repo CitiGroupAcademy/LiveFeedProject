@@ -59,10 +59,9 @@
             var url = "search/stratsearch";
 
             request.open("GET", url, true);
-            request.onreadystatechange = stratCallback;
+            request.onreadystatechange = stratCallback();
             request.send(null);
-        	//Logger log = Logger.getLogger("HOME:");
-			//log.info("TOP 5 UPDATE");
+        	
         }
     }
 
@@ -279,7 +278,7 @@
 								<b>Strategy Update</b>
 								<input type="button" id="stratupdate" value="Update" onclick="stratupdate()">
 							</p>
-							<p id="stratable">
+							<p id="strattable">
 							
 							</p>
 						</ul>
