@@ -60,7 +60,7 @@ public class BuyServlet extends HttpServlet {
 			{
 				OrderResult or = OrderManager.getInstance().buyOrder(stock, ask, amount);
 			}
-        	
         }
+        response.sendRedirect(response.encodeRedirectURL("/home.jsp"));
 	}
 }
