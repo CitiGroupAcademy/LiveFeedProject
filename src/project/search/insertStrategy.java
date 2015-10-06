@@ -18,7 +18,7 @@ import project.dal.Database;
 @Path("/insertStrat")
 public class insertStrategy {
 	
-	@POST
+	@GET
 	@Produces("text/plain")
 	public void insertStrategy(@QueryParam("sym") String sym, @QueryParam("sta") String sta, @QueryParam("bs") String bs, @QueryParam("type") String type) throws SQLException{
 		

@@ -57,9 +57,9 @@
 
         if (request != null) {
             var url = "search/stratsearch";
-
+            alert(url);
             request.open("GET", url, true);
-            request.onreadystatechange = stratCallback();
+            request.onreadystatechange = stratCallback;
             request.send(null);
         	
         }
@@ -69,6 +69,7 @@
 
         if (request.readyState == 4 && request.status == 200) {
             var outputField = document.getElementById("strattable");
+            alert(request.responseText);
             outputField.innerHTML = request.responseText;
         }
     }
@@ -82,8 +83,8 @@
         	var status = document.getElementById("status");
         	  	
             var url = "search/insertStrat?sym=" + sym.value + "&sta=" + status.value + "&bs=" + bs.value + "&type=" + type.value;
-
-            request.open("POST", url, true);
+			
+            request.open("GET", url, true);
             request.send(null);
         }
     }
@@ -285,7 +286,7 @@
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
-            						<input type="button" value="Create" onClick="insertStrat()"/>					
+            						<input type="button" value="Create" onClick="insertStrat();alert(Confirm Strategy)"/>					
 								</form>
 							</ul>
 						</div>
@@ -295,9 +296,9 @@
 								<b>Strategy Update</b>
 								<input type="button" id="stratupdate" value="Update" onclick="stratupdate()">
 							</p>
-							<p id="strattable">
+							<div id="strattable">
 							
-							</p>
+							</div>
 						</ul>
 						
 						</div>

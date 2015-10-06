@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
@@ -34,6 +35,7 @@ public class strategySearch
 		try 
 		{
 			strategies = DataAccess.getStrats();
+			
 		} 
 		catch (Exception e) 
 		{
@@ -51,5 +53,6 @@ public class strategySearch
 		}
 		html += "</table>";
 		return html;
+		
 	}
 }

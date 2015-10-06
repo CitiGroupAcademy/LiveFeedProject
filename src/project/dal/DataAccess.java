@@ -866,7 +866,7 @@ public static ArrayList<Strategy> getStrats(){
 	
 	public static void main(String[] args) 
 	{
-		for(OwnedStock s : getOwnedStocks()){
+		for(Strategy s : getStrats()){
 			
 			System.out.println(s.toString());
 		}
