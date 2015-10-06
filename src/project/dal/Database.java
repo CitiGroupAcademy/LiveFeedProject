@@ -105,25 +105,40 @@ public class Database {
 
 			st.executeUpdate("INSERT INTO user(email, password) VALUES('user@gmail.com', 'password')");
 
-			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('AAPL', 'Apple Inc.', 0)");
-			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('MSFT', 'Microsoft Corporation', 0)");
-			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('GOOG', 'Google Inc.', 0)");
-			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('VOW.DE', 'Volkswagon AG', 0)");
-			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('FB', 'Facebook, Inc', 0)");
-
-			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('AAPL', 10.00, 8.00)");
-			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('MSFT', 10.00, 8.00)");
-			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('GOOG', 10.00, 8.00)");
-			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('VOW.DE', 10.00, 8.00)");
-			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('FB', 10.00, 8.00)");			
-		} catch (SQLException ex) {
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('GLEN.L', 'GLENCORE', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('RWA.L', 'ROBERT WALT.', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('UKM.L', 'UK MAIL GROUP', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('VOW.F', 'Volkswagon AG', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('PHI.L', 'PACIFIC HORIZON', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('MRW.L', 'Morrison Supermarkets PLC', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('BP.L', 'BP PLC', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('VOD.L', 'Vodafone Group PLC', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('TSCO.L', 'Tesco PLC', 0)");
+			st.executeUpdate("INSERT INTO stock(stockSymbol, stockName, percentageChange) VALUES('LLOY.L', 'Lloyds Banking Group PLC', 0)");
+			
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('GLEN.L', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('RWA.L', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('UKM.L', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('VOW.F', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('PHI.L', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('MRW.L', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('BP.L', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('VOD.L', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('TSCO.L', 10.00, 8.00)");
+			st.executeUpdate("INSERT INTO ticker(stockSymbol, askPrice, bidPrice) VALUES('LLOY.L', 10.00, 8.00)");
+		} 
+			catch (SQLException ex) 
+			{
 			System.out.println("Database error " + ex);
 			Logger log = Logger.getLogger("DATABASE CREATION:");
 			log.error("ERROR" + ex);
 
 			
-		} finally {
-			if (connect != null) {
+		} 
+			finally 
+			{
+			if (connect != null) 
+			{
 				connect.close();
 			}
 		}
