@@ -25,6 +25,8 @@ public class topFiveSearch
 	@Produces("text/html")
 	public String getText() throws SQLException
 	{
+		Connection con = null;
+		ResultSet rs = null;
 		TreeMap<Double, String> tmap = new TreeMap<>(Collections.reverseOrder());
 		String html = "";
 		ArrayList<String> quotes = null;
@@ -36,7 +38,7 @@ public class topFiveSearch
 		{
 			e.printStackTrace();
 		}
-		html += "<table class='standard'><th>Stock Symbol</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
+		html += "<table class='standard'><th>Stock Symbol</th><th>Ask</th><th>Bid</th><th>Percentage Change</th><th></th>";
 		for(String quote : quotes)
 		{
 			String colour = "";
@@ -65,7 +67,32 @@ public class topFiveSearch
 		{
 			Map.Entry me = (Map.Entry)i.next();
 			String[] stockData = ((String) me.getValue()).split(",");
-			html += "<tr><td><a href='graphPage.jsp?sym="+ stockData[0] + "'>" + stockData[0] + "</a></td><td>"+stockData[1]+"</td><td>"+stockData[2]+"</td><td style='color:"+stockData[3]+"'>"+me.getKey()+"</td></tr>";
+			html += "<tr><td><a href='graphPage.jsp?sym="+ stockData[0] + "'>" + stockData[0] + "</a></td><td>"+stockData[1]+"</td><td>"+stockData[2]+"</td><td style='color:"+stockData[3]+"'>"+me.getKey()+"</td>";
+			
+			try
+			{
+				con = Database.getConnection();
+				Statement st = con.createStatement();
+		   
+				rs = st.executeQuery("SELECT f.stockSymbol FROM favourite f WHERE f.stockSymbol='"+stockData[0]+"'");
+				int count = 0;
+				while(rs.next())
+				{
+					count++;
+				}
+				if(count==0)
+				{
+					html+="<td><button id='"+stockData[0]+"' style='width:40px; height:40px;' onclick='addFav(this.id)'><img src='Images/star.png'></button></td></tr>";
+				}
+				else
+				{
+					html+="<td><button id='"+stockData[0]+"' style='width:40px; height:40px;' onclick='delFav(this.id)'><img src='Images/bin.png'></button></td></tr>";
+				}
+			}
+			catch (SQLException ex) 
+			{
+				System.out.println("Database error " + ex);
+			}
 		}
 		html += "</table>";
 		return html;

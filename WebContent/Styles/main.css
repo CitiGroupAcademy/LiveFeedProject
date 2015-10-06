@@ -252,6 +252,18 @@ ul.dropdown-menu > li > a:focus {
 	width: 173px;
 }
 
+.star {
+	width: 30px;
+	height: 30px;
+	background-image: url("Images/star.png")
+}
+
+.bin {
+	width: 30px;
+	height: 30px;
+	background-image: url("Images/bin.png")
+}
+
 /*.branding a {
 	float: left;
 }*/
@@ -820,18 +832,18 @@ table.standard {
 	border: 3px solid #D0E9FC;
 	border-collapse: separate;
 	border-spacing: 3px;
-	table-layout: fixed;
+	/*table-layout: fixed;*/
 	width: 99%;
 }
 
 table.standard th, table.standard td {
 	padding: 0.375em 6px;
+	text-align: center;
 }
 
 table.standard th {
 	background-color: #D0E9FC;
 	color: #0D0348;
-	text-align: left;
 	vertical-align: top;
 }
 
