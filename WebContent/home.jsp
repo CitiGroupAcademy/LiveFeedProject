@@ -130,6 +130,25 @@
         }
     }
 
+    function addFav(id) 
+    {
+        if (request != null) 
+        {
+            var url = "search/addFavourite?sym=" + id;
+            request.open("GET", url, true);
+            request.send(null);
+        }
+    }
+
+    function delFav() {
+
+        if (request != null) {
+        	 var url = "search/deleteFavourite?sym=" + id;
+             request.open("GET", url, true);
+             request.send(null);
+        }
+    }
+    
     function bot5update() {
 
         if (request != null) {
