@@ -799,12 +799,16 @@ public static ArrayList<Strategy> getStrats(){
 		Connection cn = null;
 		try {
 			cn = getConnection();
-			PreparedStatement st = cn
-					.prepareStatement("INSERT INTO ownedStock(stockSymbol, buyPrice, amount) VALUES(?,?,?)");
+			PreparedStatement st = cn.prepareStatement("SELECT amount FROM ownedStock WHERE stockSymbol= ?");
 			st.setString(1, stock);
-			st.setDouble(2, price);
-			st.setInt(3, shares);
-			st.executeUpdate();
+			ResultSet rs = st.executeQuery();
+			while(rs.next())
+			{
+				PreparedStatement st2 = cn.prepareStatement("UPDATE ownedStock SET amount = ? WHERE stockSymbol = ?");
+				st2.setInt(1, (rs.getInt(1)+shares));
+				st2.setString(2, stock);
+				st2.executeUpdate();
+			}
 
 		} catch (SQLException ex) {
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
