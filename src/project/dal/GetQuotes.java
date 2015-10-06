@@ -4,20 +4,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
-import org.jboss.logging.*;
-
-import com.sun.xml.internal.ws.spi.db.FieldSetter;
+import org.jboss.logging.Logger;
 
 import project.dal.OrderManager.OrderResult;
 import project.dataObjects.Stock;
@@ -76,21 +71,23 @@ public class GetQuotes {
 	/**
 	 * Start time for moving average calculation
 	 */
-	public static LocalDateTime startTime;
+	public static Date startTime;
+
+	/**
+	 * Start time plus 5 minutes
+	 */
+	public static Date startPlus5Min;
 
 	/**
 	 * Incrementing time for moving average calculation
 	 */
-	public static LocalDateTime currentTime;
+	public static Date currentTime = new Date();
 
 	/**
-	 * queue collection used to hold the bid averages, polls when there is the
-	 * number equal to the moving average number
+	 * Main method to start 
+	 * @param args
+	 * @throws Exception
 	 */
-	public static Queue<Double> shortMovingAverageCollection = null;
-
-	public static HashMap<String, Double> stocksMap = new HashMap<>();
-
 	public static void main(String[] args) throws Exception {
 		insertIntoTicker();
 	}
@@ -105,18 +102,21 @@ public class GetQuotes {
 		// clear data in database
 		DataAccess.clearTicker();
 
-		startTime = LocalDateTime.now();
+		startTime = new Date();
+
+		startPlus5Min = new Date(System.currentTimeMillis() + 1 * 60 * 1000);
 
 		while (true) {
 
-			currentTime = LocalDateTime.now();
+			currentTime = new Date();
+
+			System.out.println(currentTime.toString());
 
 			StringBuilder url = new StringBuilder(
 					"http://finance.yahoo.com/d/quotes.csv?s=");
 
 			for (Stock s : DataAccess.getStocks()) {
 				url.append(s.getStockSymbol() + ",");
-				stocksMap.put(s.getStockSymbol(), .0);
 			}
 
 			url.append("&f=sabp2opk4j5m3l1&e=.csv");
@@ -136,12 +136,11 @@ public class GetQuotes {
 			while ((inputLine = in.readLine()) != null) {
 
 				String[] fields = inputLine.split(",");
-				for (String key : stocksMap.keySet()) {
-					if (key.equalsIgnoreCase(fields[0])) {
-						stocksMap.put(key, calculateAskMovingAverage((Double
-								.parseDouble(fields[2]) + Double
-								.parseDouble(fields[3])) / 2));
-					}
+
+				if (fields[1].equalsIgnoreCase("N/A")
+						|| fields[2].equalsIgnoreCase("N/A")) {
+
+					continue;
 				}
 
 				System.out.println(fields[0] + " " + fields[1] + " "
@@ -163,7 +162,12 @@ public class GetQuotes {
 								.parseDouble(DataAccess
 										.calculateMovingAverage(fields[0])));
 
-				moivngAverageStrategy();
+				// start strategies after 5 minutes (so 5 minute moving average
+				// is calculated)
+				if (currentTime.after(startPlus5Min)) {
+
+					moivngAverageStrategy();
+				}
 
 			}
 			// Sleep thread to reduce processing
@@ -179,33 +183,52 @@ public class GetQuotes {
 		// arraylist of moving average strategies from database
 		ArrayList<Strategy> movingAverageObjects = DataAccess
 				.getActiveStatsMoving();
-		
-		
+
 		for (Strategy s : movingAverageObjects) {
 			for (Stock stock : DataAccess.getStocks()) {
-				
-				// get stock objects for the strategy 
-				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
-					
-					// if stock difference in moving average less than 0 buy 
-					if (stock.getDifferenceInMovingAv() < 0) {
-						
-						
-						OrderResult or = OrderManager.getInstance().buyOrder(
-								stock.getStockSymbol(),
-								DataAccess.getMostRecentStockAskPrice(stock
-										.getStockSymbol()), 10);
 
-						// else id difference in moving averages more than 0 sell
+				// get stock objects for the strategy
+				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
+
+					// if stock difference in moving average less than 0 buy
+					if (stock.getDifferenceInMovingAv() < 0) {
+
+						try {
+
+							OrderResult or = OrderManager.getInstance()
+									.buyOrder(
+											stock.getStockSymbol(),
+											returnAskOrBid(
+													stock.getStockSymbol(),
+													"buy"), 10);
+
+						} catch (Exception e) {
+							Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+							log.error("ERROR" + e);
+							e.printStackTrace();
+						}
+
+						// else id difference in moving averages more than 0
+						// sell
 					} else if (stock.getDifferenceInMovingAv() > 0) {
-						
-						
-						OrderResult or = OrderManager.getInstance().sellOrder(
-								stock.getStockSymbol(),
-								DataAccess.getMostRecentStockAskPrice(stock
-										.getStockSymbol()),
-								DataAccess.amountOfOwnedStock(stock
-										.getStockSymbol()));
+
+						try {
+
+							OrderResult or = OrderManager.getInstance()
+									.sellOrder(
+											stock.getStockSymbol(),
+											returnAskOrBid(
+													stock.getStockSymbol(),
+													"sell"),
+											DataAccess.amountOfOwnedStock(stock
+													.getStockSymbol()));
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+							log.error("ERROR" + e);
+						}
 					}
 					// sell
 				}
@@ -269,21 +292,18 @@ public class GetQuotes {
 		return temp;
 
 	}
-	
-	public static double returnAskOrBid(String stock, String cmd) throws Exception 
-	{
+
+	public static double returnAskOrBid(String stock, String cmd)
+			throws Exception {
 		double temp = 0.0;
 		StringBuilder url = new StringBuilder(
 				"http://finance.yahoo.com/d/quotes.csv?s=");
 
 		url.append(stock + ",");
 
-		if(cmd.equals("buy"))
-		{
+		if (cmd.equals("buy")) {
 			url.append("&f=a&e=.csv");
-		}
-		else if(cmd.equals("sell"))
-		{
+		} else if (cmd.equals("sell")) {
 			url.append("&f=b&e=.csv");
 		}
 
@@ -299,35 +319,10 @@ public class GetQuotes {
 				con.getInputStream()));
 		String inputLine;
 
-		while ((inputLine = in.readLine()) != null) 
-		{
+		while ((inputLine = in.readLine()) != null) {
 			temp = Double.parseDouble(inputLine);
 		}
 		return temp;
-	}
-
-	/**
-	 * Calculates the moving average with a queue collection
-	 * 
-	 * @param nextNumber
-	 * @return
-	 */
-	public static double calculateAskMovingAverage(double nextNumber) {
-
-		shortMovingAverageCollection.add(nextNumber);
-
-		if (currentTime.isAfter(startTime.plusMinutes(1))) {
-			totalForMovingAverage = 0;
-
-			shortMovingAverageCollection.poll();
-
-			for (double element : shortMovingAverageCollection) {
-				totalForMovingAverage += element;
-			}
-
-		}
-
-		return totalForMovingAverage / shortMovingAverageCollection.size();
 	}
 
 }
