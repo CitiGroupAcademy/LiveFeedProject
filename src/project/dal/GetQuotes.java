@@ -15,6 +15,7 @@ import java.util.Queue;
 import org.jboss.logging.Logger;
 
 import project.dal.OrderManager.OrderResult;
+import project.dataObjects.OwnedStock;
 import project.dataObjects.Stock;
 import project.dataObjects.Strategy;
 
@@ -84,7 +85,8 @@ public class GetQuotes {
 	public static Date currentTime = new Date();
 
 	/**
-	 * Main method to start 
+	 * Main method to start
+	 * 
 	 * @param args
 	 * @throws Exception
 	 */
@@ -213,16 +215,20 @@ public class GetQuotes {
 					} else if (stock.getDifferenceInMovingAv() > 0) {
 
 						try {
+							
+							if (checkStockToSell(stock.getStockSymbol())) {
 
-							OrderResult or = OrderManager.getInstance()
-									.sellOrder(
-											stock.getStockSymbol(),
-											returnAskOrBid(
-													stock.getStockSymbol(),
-													"sell"),
-											DataAccess.amountOfOwnedStock(stock
-													.getStockSymbol()));
-
+								OrderResult or = OrderManager
+										.getInstance()
+										.sellOrder(
+												stock.getStockSymbol(),
+												returnAskOrBid(
+														stock.getStockSymbol(),
+														"sell"),
+												DataAccess
+														.amountOfOwnedStock(stock
+																.getStockSymbol()));
+							}
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -324,4 +330,26 @@ public class GetQuotes {
 		return temp;
 	}
 
+	/**
+	 * Method checks that stocks are owned in a company
+	 * 
+	 * @param symbol
+	 * @return boolean
+	 */
+	public static boolean checkStockToSell(String symbol) {
+
+		boolean sell = false;
+
+		for (OwnedStock os : DataAccess.getOwnedStocks()) {
+
+			if (os.getStockSymbol().equalsIgnoreCase(symbol)) {
+
+				if (os.getAmount() != 0) {
+					sell = true;
+				}
+			}
+		}
+
+		return sell;
+	}
 }

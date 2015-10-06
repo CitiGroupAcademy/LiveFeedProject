@@ -3,6 +3,7 @@ package project.dal;
 
 import org.jboss.logging.Logger;
 
+import project.dataObjects.OwnedStock;
 import quickfix.ConfigError;
 import quickfix.Dictionary;
 import quickfix.DoNotSend;
@@ -184,6 +185,7 @@ class FixEngine extends quickfix.fix42.MessageCracker implements
 
 	// Send new sell limit order to exchange
 	public void sendNewSellOrder(String stock, double px, int shares) {
+		
 		sendNewOrder(false, stock, px, shares);
 	}
 
@@ -199,12 +201,20 @@ class FixEngine extends quickfix.fix42.MessageCracker implements
 		Price price = new Price(px);
 		OrderQty qty = new OrderQty(shares);
 
+		
+		
+		
 		if (buy == true){
 			s = new Side(Side.BUY);
+			
+			DataAccess.insertOwnedStock(stock, shares, px);
+			
 		Logger log = Logger.getLogger(this.getClass());
 		log.info("INFO BUY: " + stock + "ASK: " + px + "AMOUNT: " + shares);
 		}else{
+			
 			s = new Side(Side.SELL);
+			
 		Logger log = Logger.getLogger(this.getClass());
 		log.info("INFO SELL: " + stock + "BID: " + px + "AMOUNT: " + shares);
 		}
@@ -272,4 +282,6 @@ class QuickFixConfigBuilder {
 
 	private final SessionSettings settings;
 	private final SessionSettings fileStoreSettings;
+	
+
 }
