@@ -258,6 +258,42 @@ public class GetQuotes {
 		return temp;
 
 	}
+	
+	public static double returnAskOrBid(String stock, String cmd) throws Exception 
+	{
+		double temp = 0.0;
+		StringBuilder url = new StringBuilder(
+				"http://finance.yahoo.com/d/quotes.csv?s=");
+
+		url.append(stock + ",");
+
+		if(cmd.equals("buy"))
+		{
+			url.append("&f=a&e=.csv");
+		}
+		else if(cmd.equals("sell"))
+		{
+			url.append("&f=b&e=.csv");
+		}
+
+		String theUrl = url.toString();
+
+		URL obj = new URL(theUrl);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		con.setRequestMethod("GET");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+		int responseCode = con.getResponseCode();
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				con.getInputStream()));
+		String inputLine;
+
+		while ((inputLine = in.readLine()) != null) 
+		{
+			temp = Double.parseDouble(inputLine);
+		}
+		return temp;
+	}
 
 	/**
 	 * Calculates the moving average with a queue collection

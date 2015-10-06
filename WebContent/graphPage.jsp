@@ -37,7 +37,17 @@
 <!--[if lt IE 9]>
 		<script src="js/html5shiv.js"></script>
 	<![endif]-->
-
+<%
+String symbol = "";
+if(request.getParameter("sym")==null)
+{
+	out.println("Invalid Navigation");
+}
+else
+{
+	symbol = request.getParameter("sym");
+}
+%>
 <script type="text/javascript">
 	(function() {
 		var ga = document.createElement('script');
@@ -228,10 +238,10 @@
 								<div>
 									<h2>Buy/Sell</h2>
 									<ul>
-										<form>
+										<form action="BuyServlet" method="post">
 											<h3>Buy</h3>
-											Price: £<input type="text" /> <br>
-											<br> Number of Stocks: <input type="text" /> <br>
+											<input type="hidden" name="stockSymbol" value="<%=symbol%>"/>
+											<br> Number of Stocks: <input type="text" name="stockAmount"/> <br>
 											<br>
 											<br> <input type="submit" value="Buy" />
 										</form>
@@ -240,10 +250,10 @@
 								</div>
 								<div>
 									<ul>
-										<form>
+										<form action="SellServlet" method="post">
 											<h3>Sell</h3>
-											Price: £<input type="text" /> <br>
-											<br> Number of Stocks: <input type="text" /> <br>
+											<input type="hidden" name="stockSymbol" value="<%=symbol%>"/>
+											<br> Number of Stocks: <input type="text" name="stockAmount"/> <br>
 											<br>
 											<br> <input type="submit" value="Sell" />
 										</form>

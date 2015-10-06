@@ -17,29 +17,8 @@ public class AddFavourite
 {
 	@GET
 	@Produces("text/plain")
-	public String getText(@QueryParam("sym") String str) throws SQLException
+	public void getText(@QueryParam("sym") String str) throws SQLException
 	{
-		Connection con = null;
-		String html = "";
-		try
-		{
-			con = Database.getConnection();
-			PreparedStatement st = con.prepareStatement("INSERT INTO favourite(userID, stockSymbol) values(?,?)");
-			st.setInt(1, 1);
-			st.setString(2, str);
-			st.executeUpdate();
-		}
-		catch (SQLException ex) 
-		{
-			System.out.println("Database error " + ex);
-		}
-		finally
-		{
-			if(con!=null)
-			{
-				con.close();
-			}
-		}
-		return html;
-	 }
+		DataAccess.insertIntoFav(1, str);
+	}
 }
