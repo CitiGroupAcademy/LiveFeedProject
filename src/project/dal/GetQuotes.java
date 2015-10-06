@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+
 import org.jboss.logging.Logger;
 
 import project.dal.OrderManager.OrderResult;
@@ -21,7 +22,7 @@ import project.dataObjects.Strategy;
  * @author Citi 2015
  *
  */
-public class GetQuotes {
+public class GetQuotes extends Thread {
 
 	/**
 	 * Symbol inputed by user
@@ -84,8 +85,17 @@ public class GetQuotes {
 	 * @param args
 	 * @throws Exception
 	 */
-	public static void main(String[] args) throws Exception {
-		insertIntoTicker();
+	@Override
+	public void run() 
+	{
+		try 
+		{
+			insertIntoTicker();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
