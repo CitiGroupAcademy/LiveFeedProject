@@ -138,7 +138,7 @@ else
 												var timeStamp = [];
 												var change = true;
 
-												$.get("search/dataAccess",
+												$.get(("search/dataAccess?sym="<%=symbol%>),
 												function(temp) 
 												{
 													temp = temp.split(',');
