@@ -59,7 +59,6 @@ public class topFiveSearch
 			fields[3] = fields[3].replaceAll("%", "");
 			tmap.put(Double.parseDouble(fields[3]),fields[0]+","+fields[1]+","+fields[2]+","+colour);
 		}
-		System.out.println(tmap);
 		Set set = tmap.entrySet();
 		  // Get an iterator
 		Iterator i = set.iterator();
