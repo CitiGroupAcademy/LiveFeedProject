@@ -8,14 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import org.jboss.logging.Logger;
 
-import org.jboss.logging.*;
-
+import project.dataObjects.OwnedStock;
 import project.dataObjects.Stock;
 import project.dataObjects.Strategy;
 import project.dataObjects.Ticker;
@@ -544,7 +541,6 @@ public static ArrayList<Strategy> getStrats(){
 	public static ArrayList<String> returnLast50PercentageChanges(String symbol) {
 
 		ArrayList<String> temp = new ArrayList<String>();
-
 		Connection cn = null;
 		try {
 			cn = getConnection();
@@ -580,6 +576,9 @@ public static ArrayList<Strategy> getStrats(){
 				}
 			}
 		}
+		
+		Collections.reverse(temp);
+		System.out.println(temp.toString());
 		return temp;
 
 	}
@@ -743,6 +742,11 @@ public static ArrayList<Strategy> getStrats(){
 
 	}
 	
+	/**
+	 * Method returns a list of the amount of stocks owned 
+	 * @param symbol
+	 * @return
+	 */
 	public static int amountOfOwnedStock(String symbol){
 	
 		int amount = 0;
@@ -821,9 +825,51 @@ public static ArrayList<Strategy> getStrats(){
 
 	}
 	
+	/**
+	 * Get the total amount of stock owned in each company 
+	 * @return
+	 */
+	public static ArrayList<OwnedStock>getOwnedStocks(){
+	ArrayList<OwnedStock> temp = new ArrayList<>();
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("select stockSymbol, sum(amount) as 'Amount of Stocks' "
+					+ "from ownedstock group by "
+					+ "stockSymbol order by amount");
+
+			while (rs.next()) {
+				temp.add(new OwnedStock(0, rs.getString(1), rs.getInt(2)));
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
+		
+	}
+	
 	public static void main(String[] args) 
 	{
-	
+		for(OwnedStock s : getOwnedStocks()){
+			
+			System.out.println(s.toString());
+		}
 	}
 
 }
