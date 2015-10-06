@@ -95,6 +95,8 @@ public class OrderManager {
 		o.price = price;
 		o.shares = shares;
 		o.longPosition = false;
+		
+		
 		DataAccess.insertTransaction(stock, shares, price, "sell", "sent");
 		DataAccess.insertOwnedStock(stock, -shares, price);
 
