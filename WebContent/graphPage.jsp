@@ -137,8 +137,8 @@ else
 												var percentChange = [];
 												var timeStamp = [];
 												var change = true;
-
-												$.get(("search/dataAccess?sym="<%=symbol%>),
+												var symbol = '<%=symbol%>';
+												$.get("search/getgraphdata?sym="+symbol,
 												function(temp) 
 												{
 													temp = temp.split(',');
@@ -219,7 +219,7 @@ else
 														},
 														series : 
 														[ {
-															name : 'AAPL',
+															name : symbol,
 															data : percentChange
 														} ]
 													});
