@@ -17,10 +17,9 @@ public class DeleteFavourite
 {
 	@GET
 	@Produces("text/plain")
-	public String getText(@QueryParam("sym") String str) throws SQLException
+	public void getText(@QueryParam("sym") String str) throws SQLException
 	{
 		Connection con = null;
-		String html = "";
 		try
 		{
 			con = Database.getConnection();
@@ -39,6 +38,5 @@ public class DeleteFavourite
 				con.close();
 			}
 		}
-		return html;
 	 }
 }
