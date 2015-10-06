@@ -53,6 +53,27 @@
         return null;
     }
 
+    function stratupdate() {
+
+        if (request != null) {
+            var url = "search/stratsearch";
+
+            request.open("GET", url, true);
+            request.onreadystatechange = stratCallback;
+            request.send(null);
+        	//Logger log = Logger.getLogger("HOME:");
+			//log.info("TOP 5 UPDATE");
+        }
+    }
+
+    function stratCallback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("strattable");
+            outputField.innerHTML = request.responseText;
+        }
+    }
+
 
     function stocksearch() {
 
@@ -251,6 +272,18 @@
             						<input type="button" value="Create" onClick="insertStrategy"/>					
 								</form>
 							</ul>
+						</div>
+						<div>
+						<ul>
+							<p>
+								<b>Strategy Update</b>
+								<input type="button" id="stratupdate" value="Update" onclick="stratupdate()">
+							</p>
+							<p id="stratable">
+							
+							</p>
+						</ul>
+						
 						</div>
 					</li>
 					<li class="seperater">
