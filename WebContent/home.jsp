@@ -53,41 +53,6 @@
         return null;
     }
 
-    function insertStrategy() {
-
-        if (request != null) {
-        	var symbol = document.getElementById("sym");
-        	var status = document.getElementById("status");
-        	var buySell = document.getElementById("buySell");
-        	var type = document.getElementById("type");
-            var url = "search/insertStrat?sym=" + symbol.value + "&sta=" + status.value
-            + "&bs=" + buySell.value + "&type=" + type.value; 
-
-            request.open("POST", url, true);
-            request.send(null);
-        }
-    }
-
-    function stratupdate() {
-
-        if (request != null) {
-            var url = "search/stratupdate";
-
-            request.open("GET", url, true);
-            request.onreadystatechange = stratCallback;
-            request.send(null);
-        	//Logger log = Logger.getLogger("HOME:");
-			//log.info("TOP 5 UPDATE");
-        }
-    }
-
-    function stratCallback() {
-
-        if (request.readyState == 4 && request.status == 200) {
-            var outputField = document.getElementById("stratTable");
-            outputField.innerHTML = request.responseText;
-        }
-    }
 
     function stocksearch() {
 
@@ -255,7 +220,7 @@
 						<div>
 							<h2>Strategies</h2>
 							<ul>
-								
+								<form action="" method="post">
 									<h3>New Strategies</h3>
 									<select name="txtSymbol" id="sym" >
             						<option value="symbol" selected>Choose a Symbol</option>
@@ -275,29 +240,16 @@
             						<option value="bollinger">Bollinger Band</option>        						
             						</select>
             						<br><br>
-            						<select name="txtbuySell" id="buySell" >
-            						
-            						<option value="buy">Buy</option>
-            						<option value="sell">Sell</option>        						
-            						</select>
-            						<br><br>
+            						<input type="checkbox" name="buy" id="buy" value="1" checked> Buy
+  									<input type="checkbox" name="sell" id="sell" value="1" checked> Sell    
+  									<br><br>
   									<select name="txtstatus" id="status" >
             						
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
-            						<br><br>
-            						<input type="button" value="Create" onClick= "insertStrategy()" />					
-								
-							</ul>
-						</div>
-						<div>
-							<h2>Current Strategies</h2>
-							<ul>
-								<p>								
-								<input type="button" id="stratbutton" value="Update" onclick="stratupdate()">
-							</p>
-							<p id="stratTable"> </p>
+            						<input type="button" value="Create" onClick="insertStrategy"/>					
+								</form>
 							</ul>
 						</div>
 					</li>
