@@ -20,7 +20,6 @@ import project.dataObjects.Stock;
 import project.dataObjects.Strategy;
 import project.dataObjects.Ticker;
 
-@Path("/dataAccess")
 public class DataAccess {
 
 	/**
@@ -541,9 +540,8 @@ public static ArrayList<Strategy> getStrats(){
 	 * 
 	 * @return
 	 */
-	@GET
-	@Produces("text/html")
-	public static ArrayList<String> returnLast50PercentageChanges(@QueryParam("sym") String symbol) {
+
+	public static ArrayList<String> returnLast50PercentageChanges(String symbol) {
 
 		ArrayList<String> temp = new ArrayList<String>();
 

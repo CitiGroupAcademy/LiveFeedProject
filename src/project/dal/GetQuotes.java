@@ -259,7 +259,7 @@ public class GetQuotes {
 		String inputLine;
 
 		while ((inputLine = in.readLine()) != null) {
-
+			System.out.println(inputLine);
 			String[] fields = inputLine.split(",");
 
 			temp.add(fields[0] + "," + fields[1] + "," + fields[2] + ","
