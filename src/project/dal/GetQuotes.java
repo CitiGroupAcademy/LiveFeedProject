@@ -176,19 +176,30 @@ public class GetQuotes {
 	 */
 	private static void moivngAverageStrategy() {
 
+		// arraylist of moving average strategies from database
 		ArrayList<Strategy> movingAverageObjects = DataAccess
 				.getActiveStatsMoving();
+		
+		
 		for (Strategy s : movingAverageObjects) {
 			for (Stock stock : DataAccess.getStocks()) {
+				
+				// get stock objects for the strategy 
 				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
+					
+					// if stock difference in moving average less than 0 buy 
 					if (stock.getDifferenceInMovingAv() < 0) {
+						
+						
 						OrderResult or = OrderManager.getInstance().buyOrder(
 								stock.getStockSymbol(),
 								DataAccess.getMostRecentStockAskPrice(stock
 										.getStockSymbol()), 10);
 
-						// buy
+						// else id difference in moving averages more than 0 sell
 					} else if (stock.getDifferenceInMovingAv() > 0) {
+						
+						
 						OrderResult or = OrderManager.getInstance().sellOrder(
 								stock.getStockSymbol(),
 								DataAccess.getMostRecentStockAskPrice(stock
