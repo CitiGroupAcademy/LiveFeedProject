@@ -252,13 +252,24 @@
 								</form>
 							</ul>
 						</div>
+						<div>					
+							<ul>
+								<p>
+								<b>Strategy Update</b>
+								<input type="button" id="stratupdate" value="Update" onclick="favupdate()">
+							</p>
+							
+							<p id="stratTable">						 
+							</p>	
+							</ul>
+						</div>
 					</li>
 					<li class="seperater">
 						<h2>LiveFeed</h2>
 						<ul>
 							<p>
 								<b>Favourites</b>
-								<input type="button" id="favbutton" value="Update" onclick="favupdate()">
+								<input type="button" id="favbutton" value="Update" onclick="">
 							</p>
 							
 							<p id="favtable">
