@@ -105,7 +105,7 @@
         }
     }
 
-    function delFav() {
+    function delFav(id) {
 
         if (request != null) {
         	 var url = "search/deleteFavourite?sym=" + id;
