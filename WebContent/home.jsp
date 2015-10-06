@@ -73,6 +73,20 @@
         }
     }
 
+    function insertStrat() {
+
+        if (request != null) {
+        	var symbol = document.getElementById("sym");
+        	var type = document.getElementById("type");
+        	var bs = document.getElementById("buysell");
+        	var status = document.getElementById("status");
+        	  	
+            var url = "search/insertStrat?sym=" + sym + "&type=" + type + "&bs=" + bs + "&sta=" + status;
+
+            request.open("GET", url, true);
+            request.send(null);
+        }
+    }
 
     function stocksearch() {
 
@@ -260,15 +274,18 @@
             						<option value="bollinger">Bollinger Band</option>        						
             						</select>
             						<br><br>
-            						<input type="checkbox" name="buy" id="buy" value="1" checked> Buy
-  									<input type="checkbox" name="sell" id="sell" value="1" checked> Sell    
+            						<select name="buy/sell" id="buysell" >
+            						
+            						<option value="buy">Buy</option>
+            						<option value="sell">Sell</option>        						
+            						</select>  
   									<br><br>
   									<select name="txtstatus" id="status" >
             						
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
-            						<input type="button" value="Create" onClick="insertStrategy"/>					
+            						<input type="button" value="Create" onClick="insertStrat()"/>					
 								</form>
 							</ul>
 						</div>
