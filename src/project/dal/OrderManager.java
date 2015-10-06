@@ -85,6 +85,7 @@ public class OrderManager {
 		o.longPosition = true;
 		DataAccess.insertTransaction(stock, shares, price, "buy", "sent");
 		DataAccess.insertOwnedStock(stock, shares, price);
+		
 		engine.sendNewBuyOrder(stock, price, shares);
 		return o;
 	}
@@ -95,12 +96,10 @@ public class OrderManager {
 		o.price = price;
 		o.shares = shares;
 		o.longPosition = false;
-		
-		
+
 		DataAccess.insertTransaction(stock, shares, price, "sell", "sent");
 		DataAccess.insertOwnedStock(stock, -shares, price);
 
-		
 		engine.sendNewSellOrder(stock, price, shares);
 		return o;
 	}
@@ -199,10 +198,18 @@ class FixEngine extends quickfix.fix42.MessageCracker implements
 		Price price = new Price(px);
 		OrderQty qty = new OrderQty(shares);
 
-		if (buy == true)
+		if (buy == true) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.info("INFO" + "Buy: " + buy + " stock: " + stock + "AskPrice: "
+					+ px);
 			s = new Side(Side.BUY);
-		else
+		} else {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.info("INFO" + "Sell: " + buy + " stock: " + stock
+					+ "As"
+					+ "BidPrice: " + px);
 			s = new Side(Side.SELL);
+		}
 
 		NewOrderSingle no = new NewOrderSingle(orderId, handInst, sym, s, tt, o);
 		no.set(price);
@@ -240,7 +247,7 @@ class QuickFixConfigBuilder {
 				"127.0.0.1");
 		sessionDict.setString(Initiator.SETTING_SOCKET_CONNECT_PORT, "9898");
 		sessionDict.setString(Session.SETTING_RESET_ON_LOGON, "Y");
-		
+
 		quickfix.SessionID sessId = new quickfix.SessionID(
 				new quickfix.field.BeginString("FIX.4.2"),
 				new quickfix.field.SenderCompID("EQUITY-TRADER"),
@@ -251,7 +258,7 @@ class QuickFixConfigBuilder {
 		} catch (ConfigError ce) {
 			Logger logerr = Logger.getLogger("DATA ACCESS LAYER:");
 			logerr.error("ERROR config error" + ce);
-			
+
 			System.out.println("Error setting quickfix settings < "
 					+ ce.getMessage() + " >");
 		}
