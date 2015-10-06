@@ -81,9 +81,9 @@
         	var bs = document.getElementById("buysell");
         	var status = document.getElementById("status");
         	  	
-            var url = "search/insertStrat?sym=" + sym + "&type=" + type + "&bs=" + bs + "&sta=" + status;
+            var url = "search/insertStrat?sym=" + sym.value + "&sta=" + status.value + "&bs=" + bs.value + "&type=" + type.value;
 
-            request.open("GET", url, true);
+            request.open("POST", url, true);
             request.send(null);
         }
     }
