@@ -165,7 +165,9 @@ public class GetQuotes extends Thread {
 						fields[3], fields[4], fields[5], fields[6], fields[7],
 						Double.parseDouble(fields[8]), Double
 								.parseDouble(DataAccess
-										.calculateMovingAverage(fields[0])));
+										.calculateMovingAverage(fields[0])),
+						DataAccess.calculateStockSTD(fields[0].replaceAll("\"",
+								"")));
 
 			}
 			// Sleep thread to reduce processing
@@ -175,6 +177,7 @@ public class GetQuotes extends Thread {
 
 				moivngAverageStrategy();
 				moivngAverageExponential();
+				bollingerStrat();
 			}
 			Thread.sleep(5000);
 		}
@@ -196,8 +199,9 @@ public class GetQuotes extends Thread {
 				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
 
 					// if stock difference in moving average less than 0 buy
-					if (stock.getDifferenceInMovingAv() < 0 && DataAccess.amountOfOwnedStock(stock
-							.getStockSymbol()) == 0) {
+					if (stock.getDifferenceInMovingAv() < 0
+							&& DataAccess.amountOfOwnedStock(stock
+									.getStockSymbol()) == 0) {
 
 						try {
 
@@ -262,8 +266,8 @@ public class GetQuotes extends Thread {
 				// get stock objects for the strategy
 				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
 
-					// if stock difference in moving average less than 0 
-						// and we are flat on (have 0 stocks)
+					// if stock difference in moving average less than 0
+					// and we are flat on (have 0 stocks)
 					if (stock.getDifferenceInMovingAv() < 0
 							&& DataAccess.amountOfOwnedStock(stock
 									.getStockSymbol()) == 0) {
@@ -287,6 +291,76 @@ public class GetQuotes extends Thread {
 						// else id difference in moving averages more than 0
 						// sell
 					} else if (stock.getDifferenceInMovingAv() > 0) {
+
+						try {
+
+							if (checkStockToSell(stock.getStockSymbol())) {
+
+								OrderResult or = OrderManager
+										.getInstance()
+										.sellOrder(
+												stock.getStockSymbol(),
+												returnAskOrBid(
+														stock.getStockSymbol(),
+														"sell"),
+												DataAccess
+														.amountOfOwnedStock(stock
+																.getStockSymbol()));
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+							log.error("ERROR" + e);
+						}
+					}
+					// sell
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * Method calculates the moving average for strategies and buys difference
+	 */
+	private static void bollingerStrat() {
+
+		// arraylist of moving average strategies from database
+		ArrayList<Strategy> movingAverageObjects = DataAccess
+				.getBollingerBandStrats();
+
+		for (Strategy s : movingAverageObjects) {
+			for (Stock stock : DataAccess.getStocks()) {
+
+				// get stock objects for the strategy
+				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
+
+					// if ask price is between 1 and 2 std buy
+					if (stock.getShortMovingAverage() > stock.stdPlus1()
+							&& stock.getShortMovingAverage() < stock.stdPlus2()) {
+
+						try {
+
+							OrderResult or = OrderManager.getInstance()
+									.buyOrder(
+											stock.getStockSymbol(),
+											returnAskOrBid(
+													stock.getStockSymbol(),
+													"buy"),
+											stock.getStocksToBuyForExpon());
+
+						} catch (Exception e) {
+							Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+							log.error("ERROR" + e);
+							e.printStackTrace();
+						}
+
+						// if ask price is between -1 and -2 std sell
+					} else if (stock.getShortMovingAverage() > stock
+							.stdMinus1()
+							&& stock.getShortMovingAverage() < stock
+									.stdMinus2()) {
 
 						try {
 

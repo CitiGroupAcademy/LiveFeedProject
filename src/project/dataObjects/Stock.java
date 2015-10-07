@@ -11,6 +11,7 @@ public class Stock {
 	private double shortMovingAverage;
 	private double longMovingAverage;
 	private double differenceInMovingAv;
+	private double std;
 
 	/**
 	 * @param stockSymbol
@@ -26,7 +27,7 @@ public class Stock {
 	public Stock(String stockSymbol, String stockName, String percentageChange,
 			String openingPrice, String closePrice, String changeYearHigh,
 			String changeYearLow, double shortMovingAverage,
-			double longMovingAverage) {
+			double longMovingAverage, double std) {
 		this.stockSymbol = stockSymbol;
 		this.stockName = stockName;
 		this.percentageChange = percentageChange;
@@ -36,6 +37,7 @@ public class Stock {
 		this.changeYearLow = changeYearLow;
 		this.shortMovingAverage = shortMovingAverage;
 		this.longMovingAverage = longMovingAverage;
+		this.std = std;
 	}
 
 	public String getStockSymbol() {
@@ -131,5 +133,35 @@ public class Stock {
 		}
 		return temp;
 	}
+
+	/**
+	 * @return the std
+	 */
+	public double getStd() {
+		return std;
+	}
+
+	public double stdPlus1(){
+		return this.shortMovingAverage + this.std;
+	}
+	
+	public double stdPlus2(){
+		return this.shortMovingAverage + (this.std * 2);
+	}
+	
+	public double stdMinus1(){
+		return this.shortMovingAverage - this.std;
+	}
+	
+	public double stdMinus2(){
+		return this.shortMovingAverage - (this.std * 2);
+	}
+	/**
+	 * @param std the std to set
+	 */
+	public void setStd(double std) {
+		this.std = std;
+	}
+	
 
 }
