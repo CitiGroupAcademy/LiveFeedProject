@@ -84,6 +84,7 @@
         	var type = document.getElementById("type");
         	var bs = document.getElementById("buysell");
         	var status = document.getElementById("status");
+        	alert("A New Strategy has been Created");
         	  	
             var url = "search/insertStrat?sym=" + sym.value + "&sta=" + status.value + "&bs=" + bs.value + "&type=" + type.value;
 
@@ -136,6 +137,7 @@
     function delStrat(id) {
 
         if (request != null) {
+        	
         	 var url = "search/deleteStrategy?id=" + id;
              request.open("GET", url, true);
              request.send(null);
@@ -146,6 +148,7 @@
     {
         if (request != null) 
         {
+            
             var url = "search/addFavourite?sym=" + id;
             request.open("GET", url, true);
             request.send(null);
@@ -155,6 +158,7 @@
     function delFav(id) {
 
         if (request != null) {
+        	 
         	 var url = "search/deleteFavourite?sym=" + id;
              request.open("GET", url, true);
              request.send(null);
@@ -298,7 +302,7 @@
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
-            						<input type="button" value="Create" onClick="insertStrat()"/>					
+            						<input type="button" value="Create" onClick="insertStrat()"; onclick="return confirm('Are you sure you want to delete?')"/>					
 								</form>
 							</ul>
 						</div>
