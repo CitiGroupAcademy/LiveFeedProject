@@ -24,22 +24,8 @@ public class insertStrategy {
 		
 		String temp = "";
 		Connection cn = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection("jdbc:mysql://localhost/montestdb", "root", "password");
-			
-		}
-		catch(SQLException ex){
-			System.out.println("Database Connection Error: " + ex);
-			
-		}
-		catch(ClassNotFoundException ex){
-			System.out.println("Class not found: " + ex);
-		}
-			DataAccess.insertStrategy( 1, sym, type, bs, sta);
-			
-			
-			
+		cn = DataAccess.getConnection();
+		DataAccess.insertStrategy( 1, sym, type, bs, sta);
 	}
 }
 
