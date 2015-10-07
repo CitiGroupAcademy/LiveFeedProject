@@ -213,7 +213,10 @@ public class DataAccess {
 			ResultSet rs = st.executeQuery("Select * from stock ");
 
 			while (rs.next()) {
-				temp.add(new Stock(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getDouble(8), rs.getDouble(9)));
+				temp.add(new Stock(rs.getString(1), rs.getString(2), rs
+						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(6), rs.getString(7), rs.getDouble(8), rs
+						.getDouble(9)));
 			}
 
 		} catch (SQLException ex) {
@@ -311,11 +314,10 @@ public class DataAccess {
 		}
 		return temp;
 	}
-	
-public static ArrayList<Strategy> getStrats(){
-		
+
+	public static ArrayList<Strategy> getStrats() {
+
 		ArrayList<Strategy> temp = new ArrayList<>();
-		
 
 		Connection cn = null;
 		try {
@@ -324,7 +326,9 @@ public static ArrayList<Strategy> getStrats(){
 			ResultSet rs = st.executeQuery("Select * from strategy");
 
 			while (rs.next()) {
-				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
+						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -345,6 +349,7 @@ public static ArrayList<Strategy> getStrats(){
 		}
 		return temp;
 	}
+
 	public static void updateStockChange(String symbol,
 			String percentageChange, String openPrice, String closePrice,
 			String changeYearHigh, String changeYearLow,
@@ -399,7 +404,7 @@ public static ArrayList<Strategy> getStrats(){
 	 *            String
 	 */
 	public static void insertStrategy(int userID, String stockSymbol,
-			String type, String buySell,  String active) {
+			String type, String buySell, String active) {
 
 		Connection cn = null;
 		try {
@@ -576,7 +581,7 @@ public static ArrayList<Strategy> getStrats(){
 				}
 			}
 		}
-		
+
 		Collections.reverse(temp);
 		System.out.println(temp.toString());
 		return temp;
@@ -627,19 +632,21 @@ public static ArrayList<Strategy> getStrats(){
 
 	}
 
-	public static ArrayList<Strategy> getActiveStatsMoving(){
-		
+	public static ArrayList<Strategy> getActiveStatsMoving() {
+
 		ArrayList<Strategy> temp = new ArrayList<>();
-		
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select * from strategy where active = 'active' and type like 'movingAvg'");
+			ResultSet rs = st
+					.executeQuery("Select * from strategy where active = 'active' and type like 'movingAvg'");
 
 			while (rs.next()) {
-				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
+						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -660,16 +667,22 @@ public static ArrayList<Strategy> getStrats(){
 		}
 		return temp;
 	}
-	
+
 	/**
-	 * Method inserts tuple into transaction table 
-	 * @param amount int
-	 * @param stockPrice double
-	 * @param action String
-	 * @param status String
+	 * Method inserts tuple into transaction table
+	 * 
+	 * @param amount
+	 *            int
+	 * @param stockPrice
+	 *            double
+	 * @param action
+	 *            String
+	 * @param status
+	 *            String
 	 */
-	public static void insertTransaction(String stockSymbol, int amount, double stockPrice,  String action, String status){
-		
+	public static void insertTransaction(String stockSymbol, int amount,
+			double stockPrice, String action, String status) {
+
 		Connection cn = null;
 		try {
 			cn = getConnection();
@@ -700,9 +713,9 @@ public static ArrayList<Strategy> getStrats(){
 		}
 
 	}
-	
-	public static double getMostRecentStockAskPrice(String symbol){
-		
+
+	public static double getMostRecentStockAskPrice(String symbol) {
+
 		double ask = 0;
 
 		Connection cn = null;
@@ -737,25 +750,26 @@ public static ArrayList<Strategy> getStrats(){
 				}
 			}
 		}
-		
+
 		return ask;
 
 	}
-	
+
 	/**
-	 * Method returns a list of the amount of stocks owned 
+	 * Method returns a list of the amount of stocks owned
+	 * 
 	 * @param symbol
 	 * @return
 	 */
-	public static int amountOfOwnedStock(String symbol){
-	
+	public static int amountOfOwnedStock(String symbol) {
+
 		int amount = 0;
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("SELECT amount FROM ownedStock WHERE stockSymbol = ? ORDER BY timeStamp DESC LIMIT 1");
+					.prepareStatement("SELECT sum(amount) FROM ownedStock WHERE stockSymbol = ? ORDER BY timeStamp DESC LIMIT 1");
 
 			st.setString(1, symbol);
 
@@ -783,14 +797,14 @@ public static ArrayList<Strategy> getStrats(){
 				}
 			}
 		}
-		
+
 		return amount;
 
 	}
-	
-	
+
 	/**
-	 * Insert into owned stock 
+	 * Insert into owned stock
+	 * 
 	 * @param stock
 	 * @param shares
 	 * @param price
@@ -824,21 +838,23 @@ public static ArrayList<Strategy> getStrats(){
 		}
 
 	}
-	
+
 	/**
-	 * Get the total amount of stock owned in each company 
+	 * Get the total amount of stock owned in each company
+	 * 
 	 * @return
 	 */
-	public static ArrayList<OwnedStock>getOwnedStocks(){
-	ArrayList<OwnedStock> temp = new ArrayList<>();
+	public static ArrayList<OwnedStock> getOwnedStocks() {
+		ArrayList<OwnedStock> temp = new ArrayList<>();
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select stockSymbol, sum(amount) as 'Amount of Stocks' "
-					+ "from ownedstock group by "
-					+ "stockSymbol order by amount");
+			ResultSet rs = st
+					.executeQuery("select stockSymbol, sum(amount) as 'Amount of Stocks' "
+							+ "from ownedstock group by "
+							+ "stockSymbol order by amount");
 
 			while (rs.next()) {
 				temp.add(new OwnedStock(0, rs.getString(1), rs.getInt(2)));
@@ -861,34 +877,30 @@ public static ArrayList<Strategy> getStrats(){
 			}
 		}
 		return temp;
-		
-	}
-	
-	public static void main(String[] args) 
-	{
-		for(OwnedStock s : getOwnedStocks()){
-			
-			System.out.println(s.toString());
-		}
+
 	}
 
 	/**
-	 * Method returns an arraylist of active moving average exponential strategies
+	 * Method returns an arraylist of active moving average exponential
+	 * strategies
+	 * 
 	 * @return
 	 */
 	public static ArrayList<Strategy> getActiveStatsMovingExp() {
 
 		ArrayList<Strategy> temp = new ArrayList<>();
-		
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select * from strategy where active = 'active' and type like 'movAvgExp'");
+			ResultSet rs = st
+					.executeQuery("Select * from strategy where active = 'active' and type like 'movAvgExp'");
 
 			while (rs.next()) {
-				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
+						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -910,4 +922,36 @@ public static ArrayList<Strategy> getStrats(){
 		return temp;
 	}
 
+
+	
+	public static void confirmOrder() {
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("UPDATE transaction set status = 'Confirmed' where transactionID != -1");
+			st.executeUpdate();
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException ex) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + ex);
+				}
+
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+	}
 }

@@ -57,6 +57,7 @@ public class OrderManager {
 					qfConfig.GetSessionSettings(), logFactory, messageFactory);
 			fixConnection.start(); // This starts the connection in another
 									// thread, so it doesn't block
+			
 		} catch (quickfix.ConfigError ce) {
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
 			log.error("ERROR setting socket acceptor " + ce);
@@ -85,6 +86,7 @@ public class OrderManager {
 		o.longPosition = true;
 		DataAccess.insertTransaction(stock, shares, price, "buy", "sent");
 		DataAccess.insertOwnedStock(stock, shares, price);
+		DataAccess.confirmOrder();
 		engine.sendNewBuyOrder(stock, price, shares);
 		return o;
 	}
@@ -99,6 +101,7 @@ public class OrderManager {
 		
 		DataAccess.insertTransaction(stock, shares, price, "sell", "sent");
 		DataAccess.insertOwnedStock(stock, -shares, price);
+		DataAccess.confirmOrder();
 
 		
 		engine.sendNewSellOrder(stock, price, shares);
@@ -205,8 +208,6 @@ class FixEngine extends quickfix.fix42.MessageCracker implements
 		
 		if (buy == true){
 			s = new Side(Side.BUY);
-			
-			DataAccess.insertOwnedStock(stock, shares, px);
 			
 		Logger log = Logger.getLogger(this.getClass());
 		log.info("INFO BUY: " + stock + "ASK: " + px + "AMOUNT: " + shares);
