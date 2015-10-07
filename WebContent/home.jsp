@@ -231,7 +231,9 @@
 							<nav class="topnav">
 								<ul>
 									<li><a href="home.jsp">Home</a></li>
+									<li><a href="portfolio.jsp">Portfolio</a></li>
 									<li><a href="aboutus.jsp">About Us</a></li>
+									
 									<!--<li class="dropdown">
 										<a data-target="#" href="principles.html" class="dropdown-toggle" data-toggle="dropdown">Principles<b class="caret"></b></a>						
 									</li>-->
@@ -302,6 +304,7 @@
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
+            						<br><br>
             						<input type="button" value="Create" onClick="insertStrat()"; onclick="return confirm('Are you sure you want to delete?')"/>					
 								</form>
 							</ul>
