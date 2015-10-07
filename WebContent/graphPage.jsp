@@ -111,13 +111,14 @@ else
 						</a>
 
 						<div class="brand">
-							<img src="Images/logo.jpg" alt="name" width="120" height="28" />
+							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
 						</div>
 
 						<div class="nav-collapse collapse">
 							<nav class="topnav">
 								<ul>
 									<li><a href="home.jsp">Home</a></li>
+									<li><a href="portfolio.jsp">Portfolio</a></li>
 									<li><a href="aboutus.jsp">About Us</a></li>
 									<!--<li class="dropdown">
 										<a data-target="#" href="principles.html" class="dropdown-toggle" data-toggle="dropdown">Principles<b class="caret"></b></a>						
@@ -130,13 +131,8 @@ else
 			</div>
 
 			<div class="brandingLogo">
-				<img class="logo" src="Images/logo.jpg" alt="name" width="173"
+				<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
 					height="57" />
-				<div class="service-name">
-					Stock Meet</br>
-					</br>
-					<span>Stocking you with Information</span>
-				</div>
 			</div>
 		</header>
 
