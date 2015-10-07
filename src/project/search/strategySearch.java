@@ -47,7 +47,7 @@ public class strategySearch
 			String type = strategy.getType();
 			String buysell = strategy.getBuySell();
 			String active = strategy.getActive();
-			html += "<tr><td><a href='graphPage.jsp?sym="+ symbol + "'>" + symbol + "</a></td><td>"+type+"</td><td>"+buysell+"</td><td>"+active+"</td><td><a href='strategyedit.jsp?id="+ id + "'>edit</a></td><td><a href='search/deletestrategy?id="+ id + "'>remove</a></td>";
+			html += "<tr><td><a href='graphPage.jsp?sym="+ symbol + "'>" + symbol + "</a></td><td>"+type+"</td><td>"+buysell+"</td><td>"+active+"</td><td><a href='strategyedit.jsp?id="+ id + "'>edit</a></td><td><a href='search/deletestrategy?id="+ id + "'onclick='delStrat(this.id);'>remove</a></td>";
 		}
 		html += "</table>";
 		return html;
