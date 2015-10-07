@@ -63,7 +63,7 @@
             var url = "search/stratsearch";
 
             request.open("GET", url, true);
-            request.onreadystatechange = stratCallback();
+            request.onreadystatechange = stratCallback;
             request.send(null);
         	
         }
@@ -84,6 +84,7 @@
         	var type = document.getElementById("type");
         	var bs = document.getElementById("buysell");
         	var status = document.getElementById("status");
+        	alert("A New Strategy has been Created");
         	  	
             var url = "search/insertStrat?sym=" + sym.value + "&sta=" + status.value + "&bs=" + bs.value + "&type=" + type.value;
 
@@ -133,10 +134,21 @@
         }
     }
 
+    function delStrat(id) {
+
+        if (request != null) {
+        	
+        	 var url = "search/deleteStrategy?id=" + id;
+             request.open("GET", url, true);
+             request.send(null);
+        }
+    }
+
     function addFav(id) 
     {
         if (request != null) 
         {
+            
             var url = "search/addFavourite?sym=" + id;
             request.open("GET", url, true);
             request.send(null);
@@ -146,6 +158,7 @@
     function delFav(id) {
 
         if (request != null) {
+        	 
         	 var url = "search/deleteFavourite?sym=" + id;
              request.open("GET", url, true);
              request.send(null);
@@ -218,7 +231,9 @@
 							<nav class="topnav">
 								<ul>
 									<li><a href="home.jsp">Home</a></li>
+									<li><a href="portfolio.jsp">Portfolio</a></li>
 									<li><a href="aboutus.jsp">About Us</a></li>
+									
 									<!--<li class="dropdown">
 										<a data-target="#" href="principles.html" class="dropdown-toggle" data-toggle="dropdown">Principles<b class="caret"></b></a>						
 									</li>-->
@@ -289,7 +304,8 @@
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
-            						<input type="button" value="Create" onClick="insertStrat()"/>					
+            						<br><br>
+            						<input type="button" value="Create" onClick="insertStrat()"; onclick="return confirm('Are you sure you want to delete?')"/>					
 								</form>
 							</ul>
 						</div>

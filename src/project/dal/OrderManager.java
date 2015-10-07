@@ -3,7 +3,6 @@ package project.dal;
 
 import org.jboss.logging.Logger;
 
-import project.dataObjects.OwnedStock;
 import quickfix.ConfigError;
 import quickfix.Dictionary;
 import quickfix.DoNotSend;

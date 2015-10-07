@@ -110,13 +110,11 @@ public class GetQuotes extends Thread {
 
 		startTime = new Date();
 
-		startPlus5Min = new Date(System.currentTimeMillis() + 1 * 60 * 1000);
+		startPlus5Min = new Date(System.currentTimeMillis() + 1* 60 * 1000);
 
 		while (true) {
 
 			currentTime = new Date();
-
-			System.out.println(currentTime.toString());
 
 			StringBuilder url = new StringBuilder(
 					"http://finance.yahoo.com/d/quotes.csv?s=");
@@ -149,11 +147,6 @@ public class GetQuotes extends Thread {
 					continue;
 				}
 
-				System.out.println(fields[0] + " " + fields[1] + " "
-						+ fields[2] + " " + fields[3] + " " + fields[4] + " "
-						+ fields[5] + fields[6] + " " + fields[7]
-						+ "   Fifty day:" + fields[8] + "  Short:"
-						+ DataAccess.calculateMovingAverage(fields[0]));
 
 				DataAccess.insertTicker(fields[0].replaceAll("\"", ""), Double
 						.parseDouble(fields[1]), Double.parseDouble(fields[2]),
@@ -177,7 +170,7 @@ public class GetQuotes extends Thread {
 
 			}
 			// Sleep thread to reduce processing
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 		}
 	}
 
