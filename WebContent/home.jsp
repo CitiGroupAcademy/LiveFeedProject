@@ -20,10 +20,6 @@
 
 	<title>Title</title>
 
-	<!--<link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-	<link rel="apple-touch-icon" href="favicon.ico" />-->
-
 	<link href="Styles/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen, projection" />
 	<link href="Styles/bootstrap-responsive.css" rel="stylesheet" type="text/css" media="screen, projection" />
 	<link href="Styles/main.css" rel="stylesheet" type="text/css" media="screen, projection" />
@@ -51,7 +47,7 @@
 	$(document).ready(function () {
 		// remove the no-js class
 		$('body').removeClass('no-js');
-		var message = '<%=message%>';
+		var message = <%=message%>;
 		if(message!="")
 		{ 
 			alert(message);
@@ -68,7 +64,7 @@
         try { return new XMLHttpRequest(); } catch (e) { }
         return null;
     }
-    
+  
     function stratupdate() {
 
         if (request != null) {
@@ -80,7 +76,7 @@
         	
         }
     }
-    
+
     function stratCallback() {
 
         if (request.readyState == 4 && request.status == 200) {
@@ -89,12 +85,6 @@
         }
     }
 
-    var intervalFunctions = [ top5update, bot5update, favupdate, stratupdate ];
-    var intervalIndex = 0;
-    window.setInterval(function(){
-      intervalFunctions[intervalIndex++ % intervalFunctions.length]();
-    }, 500);
-    
     function insertStrat() {
 
         if (request != null) {
@@ -130,7 +120,7 @@
             outputField.innerHTML = request.responseText;
         }
     }
-    
+
     function top5update() {
 
         if (request != null) {
@@ -242,7 +232,7 @@
 						</a>
 						
 						<div class="brand">
-							<!--<img src="Images/logo.jpg" alt="name"  width="120" height="28" />  -->
+							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -263,8 +253,8 @@
 			</div>
 
 			<div class="brandingLogo">
-				<!--<img class="logo" src="Images/logo.jpg" alt="name" width="173" height="57" />-->
-				<div class="service-name">Stock Meet</br></br><span>Stocking you with Information</span></div>
+				<img class="logo" src="Images/Banner_Logo2.png" width="1000" height="300" />
+				
 			</div>
 		</header>
 		
@@ -308,7 +298,8 @@
             						<select name="txtStrategy" id="type" >
             						
             						<option value="movingAvg">Moving Average</option>
-            						<option value="bollinger">Bollinger Band</option>        						
+            						<option value="bollinger">Bollinger Band</option>
+            						<option value="moveAvgExp">Moving Average Expo</option>        						
             						</select>
             						<br><br>
             						<select name="buy/sell" id="buysell" >
@@ -388,7 +379,7 @@
 	<script language="JavaScript1.2">
 
 	//Specify the marquee's width (in pixels)
-	var marqueewidth="100%"
+	var marqueewidth="300px"
 	//Specify the marquee's height
 	var marqueeheight="25px"
 	//Specify the marquee's marquee speed (larger is faster 1-10)
