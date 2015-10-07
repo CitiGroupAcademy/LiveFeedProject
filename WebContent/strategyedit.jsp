@@ -46,7 +46,7 @@ if(request.getParameter("id")==null)
 else
 {
 	id = Integer.parseInt(request.getParameter("id"));
-	System.out.println(id);
+	
 }
 %>
 <script type="text/javascript">
@@ -63,11 +63,37 @@ else
 </script>
 
 <script type="text/javascript">
+var request = myCreateXMLHttpRequest();
+
+function myCreateXMLHttpRequest() {
+    try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e) { }
+    try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch (e) { }
+    try { return new XMLHttpRequest(); } catch (e) { }
+    return null;
+}
+
 	$(document).ready(function() {
 		// remove the no-js class
 		$('body').removeClass('no-js');
 	});
+
+	function updateStrat() {
+
+        	var sym = document.getElementById("sym");
+        	var type = document.getElementById("type");
+        	var bs = document.getElementById("buysell");
+        	var status = document.getElementById("status");
+        	var id = <%=id%>;
+        	alert("The Strategy has been Updated");
+        	  	
+            var url = "search/updateStrat?sym=" + sym.value + "&sta=" + status.value + "&bs=" + bs.value + "&type=" + type.value + "&id=" + id;
+			alert(url);
+            request.open("GET", url, true);
+            //request.send(null);
+        }
+    
 </script>
+
 
 
 </head>
@@ -148,7 +174,8 @@ else
             						<select name="txtStrategy" id="type" >
             						
             						<option value="movingAvg">Moving Average</option>
-            						<option value="bollinger">Bollinger Band</option>        						
+            						<option value="bollinger">Bollinger Band</option>   
+            						<option value="moveAvgExp">Moving Average Expo</option>    						
             						</select>
             						<br><br>
             						<select name="buy/sell" id="buysell" >
@@ -163,7 +190,7 @@ else
             						<option value="inactive">Inactive</option>        						
             						</select>
             						<br><br>
-            						<input type="button" value="Update" onClick="insertStrat()"; onclick="return confirm('Are you sure you want to delete?')"/>					
+            						<input type="button" value="Update" onClick="updateStrat()"; onclick="return confirm('Are you sure you want to delete?')"/>					
 								</form>
 							</ul>
 						</div>
