@@ -20,10 +20,6 @@
 
 	<title>Title</title>
 
-	<!--<link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-	<link rel="apple-touch-icon" href="favicon.ico" />-->
-
 	<link href="Styles/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen, projection" />
 	<link href="Styles/bootstrap-responsive.css" rel="stylesheet" type="text/css" media="screen, projection" />
 	<link href="Styles/main.css" rel="stylesheet" type="text/css" media="screen, projection" />
@@ -236,7 +232,7 @@
 						</a>
 						
 						<div class="brand">
-							<img src="Images/logo.jpg" alt="name"  width="120" height="28" />
+							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -257,8 +253,8 @@
 			</div>
 
 			<div class="brandingLogo">
-				<img class="logo" src="Images/logo.jpg" alt="name" width="173" height="57" />
-				<div class="service-name">Stock Meet</br></br><span>Stocking you with Information</span></div>
+				<img class="logo" src="Images/Banner_Logo2.png" width="1000" height="300" />
+				
 			</div>
 		</header>
 		
