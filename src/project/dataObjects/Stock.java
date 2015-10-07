@@ -121,5 +121,15 @@ public class Stock {
 	public double getDifferenceInMovingAv() {
 		return this.shortMovingAverage - this.longMovingAverage ;
 	}
+	
+	public int getStocksToBuyForExpon(){
+		
+		int temp = (int) (this.shortMovingAverage - this.longMovingAverage);
+		if(temp<0)
+		{
+			temp = (temp*-1);
+		}
+		return temp;
+	}
 
 }
