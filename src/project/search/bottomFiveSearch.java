@@ -40,23 +40,11 @@ public class bottomFiveSearch
 		html += "<table class='standard'><th>Stock Symbol</th><th>Ask</th><th>Bid</th><th>Percentage Change</th><th></th>";
 		for(String quote : quotes)
 		{
-			String colour = "";
 			String[] fields = quote.split(",");
 			fields[0] = fields[0].replaceAll("\"", "");
 			fields[3] = fields[3].replaceAll("\"", "");
-			if(fields[3].startsWith("+"))
-			{
-				fields[3] = fields[3].replaceAll("\\+", "");
-				
-				colour = "green";
-			}
-			if(fields[3].startsWith("-"))
-			{
-				fields[3] = fields[3].replaceAll("\\-", "");
-				colour = "red";
-			}
 			fields[3] = fields[3].replaceAll("%", "");
-			tmap.put(Double.parseDouble(fields[3]),fields[0]+","+fields[1]+","+fields[2]+","+colour);
+			tmap.put(Double.parseDouble(fields[3]),fields[0]+","+fields[1]+","+fields[2]);
 		}
 		Set set = tmap.entrySet();
 		  // Get an iterator
@@ -65,7 +53,20 @@ public class bottomFiveSearch
 		{
 			Map.Entry me = (Map.Entry)i.next();
 			String[] stockData = ((String) me.getValue()).split(",");
-			html += "<tr><td><a href='graphPage.jsp?sym="+ stockData[0] + "'>" + stockData[0] + "</a></td><td>"+stockData[1]+"</td><td>"+stockData[2]+"</td><td style='color:"+stockData[3]+"'>"+me.getKey()+"</td>";
+			String colour = "";
+			String key = me.getKey().toString();
+			
+			if(key.startsWith("-"))
+			{
+				key = key.replaceAll("\\-", "");
+				colour = "red";
+			}
+			else
+			{
+				colour = "green";
+			}
+			
+			html += "<tr><td><a href='graphPage.jsp?sym="+ stockData[0] + "'>" + stockData[0] + "</a></td><td>"+stockData[1]+"</td><td>"+stockData[2]+"</td><td style='color:"+colour+"'>"+key+"</td>";
 			
 			try
 			{

@@ -89,7 +89,7 @@ function myCreateXMLHttpRequest() {
             var url = "search/updateStrat?sym=" + sym.value + "&sta=" + status.value + "&bs=" + bs.value + "&type=" + type.value + "&id=" + id;
 			alert(url);
             request.open("GET", url, true);
-            //request.send(null);
+            request.send(null);
         }
     
 </script>
