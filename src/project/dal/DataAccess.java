@@ -799,16 +799,12 @@ public static ArrayList<Strategy> getStrats(){
 		Connection cn = null;
 		try {
 			cn = getConnection();
-			PreparedStatement st = cn.prepareStatement("SELECT amount FROM ownedStock WHERE stockSymbol= ?");
+			PreparedStatement st = cn
+					.prepareStatement("INSERT INTO OwnedStock(stockSymbol, buyPrice, amount) values(?,?,?)");
 			st.setString(1, stock);
-			ResultSet rs = st.executeQuery();
-			while(rs.next())
-			{
-				PreparedStatement st2 = cn.prepareStatement("UPDATE ownedStock SET amount = ? WHERE stockSymbol = ?");
-				st2.setInt(1, (rs.getInt(1)+shares));
-				st2.setString(2, stock);
-				st2.executeUpdate();
-			}
+			st.setDouble(2, price);
+			st.setInt(3, shares);
+			st.executeUpdate();
 
 		} catch (SQLException ex) {
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
@@ -874,6 +870,44 @@ public static ArrayList<Strategy> getStrats(){
 			
 			System.out.println(s.toString());
 		}
+	}
+
+	/**
+	 * Method returns an arraylist of active moving average exponential strategies
+	 * @return
+	 */
+	public static ArrayList<Strategy> getActiveStatsMovingExp() {
+
+		ArrayList<Strategy> temp = new ArrayList<>();
+		
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select * from strategy where active = 'active' and type like 'movAvgExp'");
+
+			while (rs.next()) {
+				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
 	}
 
 }
