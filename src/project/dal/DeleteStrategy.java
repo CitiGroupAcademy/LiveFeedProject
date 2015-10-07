@@ -17,14 +17,15 @@ public class DeleteStrategy
 {
 	@GET
 	@Produces("text/plain")
-	public void getText(@QueryParam("id") String str) throws SQLException
+	public void getText(@QueryParam("id") int str) throws SQLException
 	{
 		Connection con = null;
 		try
-		{
+		{	
+			
 			con = Database.getConnection();
 			PreparedStatement st = con.prepareStatement("DELETE FROM strategy WHERE stratID = ?");
-			st.setString(1, str);
+			st.setInt(1, str);
 			st.executeUpdate();
 		}
 		catch (SQLException ex) 
