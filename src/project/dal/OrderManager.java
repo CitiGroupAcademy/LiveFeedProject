@@ -84,7 +84,7 @@ public class OrderManager {
 		o.price = price;
 		o.shares = shares;
 		o.longPosition = true;
-		DataAccess.insertTransaction(stock, shares, price, "buy", "sent");
+		DataAccess.insertTransaction(stock, shares, price, "buy", "Pending");
 		DataAccess.insertOwnedStock(stock, shares, price);
 		DataAccess.confirmOrder();
 		engine.sendNewBuyOrder(stock, price, shares);
@@ -99,7 +99,7 @@ public class OrderManager {
 		o.longPosition = false;
 		
 		
-		DataAccess.insertTransaction(stock, shares, price, "sell", "sent");
+		DataAccess.insertTransaction(stock, shares, price, "sell", "Pending");
 		DataAccess.insertOwnedStock(stock, -shares, price);
 		DataAccess.confirmOrder();
 
