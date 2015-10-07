@@ -122,10 +122,27 @@
 									<ul>
 
 									</ul>
-								</div>
-								
+								</div>								
 							</li>
-						</ul>
+						</ul>					
+					</div>
+					<div>
+						<ul class="tilelinks clearfix">
+							<li>
+								<div>
+									<h2>Transaction</h2>
+									<ul>
+										
+									</ul>
+					</div>
+					<div>
+						<ul class="tilelinks clearfix">
+							<li>
+								<div>
+									<h2>Profit/Loss</h2>
+									<ul>
+										
+									</ul>
 					</div>
 
 					<footer id="footnote">
