@@ -81,11 +81,11 @@ public class topFiveSearch
 				}
 				if(count==0)
 				{
-					html+="<td><button id='"+stockData[0]+"' style='width:40px; height:40px;' onclick='addFav(this.id);favupdate();top5update();bot5update();'><img src='Images/star.png'></button></td></tr>";
+					html+="<td><button id='"+stockData[0]+"' style='width:40px; height:40px;' onclick='addFav(this.id);'><img src='Images/star.png'></button></td></tr>";
 				}
 				else
 				{
-					html+="<td><button id='"+stockData[0]+"' style='width:40px; height:40px;' onclick='delFav(this.id);favupdate();top5update();bot5update();'><img src='Images/bin.png'></button></td></tr>";
+					html+="<td><button id='"+stockData[0]+"' style='width:40px; height:40px;' onclick='delFav(this.id);'><img src='Images/bin.png'></button></td></tr>";
 				}
 			}
 			catch (SQLException ex) 

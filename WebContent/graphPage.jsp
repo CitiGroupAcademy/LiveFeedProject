@@ -131,7 +131,7 @@ else
 									<ul>
 
 										<script type="text/javascript">
-											$(function() 
+										setInterval(function() 
 											{
 
 												var percentChange = [];
@@ -224,7 +224,7 @@ else
 														} ]
 													});
 												});
-											});
+											}, 1000);
 										</script>
 									</ul>
 								</div>
