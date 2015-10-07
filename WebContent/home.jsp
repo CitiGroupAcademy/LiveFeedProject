@@ -88,14 +88,12 @@
             outputField.innerHTML = request.responseText;
         }
     }
-
-    var timer = 1000;
+    
     var intervalFunctions = [ top5update, bot5update ];
     var intervalIndex = 0;
     window.setInterval(function(){
       intervalFunctions[intervalIndex++ % intervalFunctions.length]();
-      timer=50000;
-    }, timer);
+    }, 1000);
     
     function insertStrat() {
 

@@ -37,7 +37,7 @@ public class bottomFiveSearch
 		{
 			e.printStackTrace();
 		}
-		html += "<table class='standard'><th>Stock Symbol</th><th>Ask</th><th>Bid</th><th>Percentage Change</th><th></th>";
+		html += "<table class='standard'><th>Stock Symbol</th><th>Ask</th><th>Bid</th><th>Percentage Change</th>";
 		for(String quote : quotes)
 		{
 			String[] fields = quote.split(",");
