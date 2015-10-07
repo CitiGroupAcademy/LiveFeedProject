@@ -38,14 +38,15 @@
 		<script src="js/html5shiv.js"></script>
 	<![endif]-->
 <%
-String symbol = "";
-if(request.getParameter("sym")==null)
+int id = 0;
+if(request.getParameter("id")==null)
 {
 	out.println("Invalid Navigation");
 }
 else
 {
-	symbol = request.getParameter("sym");
+	id = Integer.parseInt(request.getParameter("id"));
+	System.out.println(id);
 }
 %>
 <script type="text/javascript">
@@ -119,147 +120,53 @@ else
 		</header>
 
 		<div class="content container">
-			<h1 id="skip-dest" style="text-align: center;">Stock Information</h1>
+			<h1 id="skip-dest" style="text-align: center;">Strategy Edit</h1>
 
 			<ul class="tilelinks clearfix">
 				<div>
 					<div>
 						<ul class="tilelinks clearfix">
 							<li>
-								<div id="graph">
-									<h2>Graph</h2>
-									<ul>
-
-										<script type="text/javascript">
-										setInterval(function() 
-											{
-
-												var percentChange = [];
-												var timeStamp = [];
-												var change = true;
-												var symbol = '<%=symbol%>';
-												$.get("search/getgraphdata?sym="+symbol,
-												function(temp) 
-												{
-													temp = temp.split(',');
-
-													for ( var i in temp) 
-													{
-														if (i == 0) 
-														{
-															var goodPC = temp[i].replace("[","");
-															percentChange.push(parseFloat(goodPC));
-															change = false;
-														} 
-														else if (i == (temp.length - 1)) 
-														{
-															var goodTS = temp[i].replace("]","");
-															goodTS = goodTS.replace(".0","");
-															timeStamp.push(goodTS);
-														} 
-														else 
-														{
-															if (change == true) 
-															{
-																percentChange.push(parseFloat(temp[i]));
-																change = false;
-															} 
-															else 
-																{
-																	var goodTS = temp[i].replace(".0","");
-																	timeStamp.push(goodTS);
-																	change = true;
-																}
-														}
-													}
-
-													$('#graph').highcharts(
-													{
-														title : 
-														{
-															text : 'Stock Table',
-															x : -20 //center
-														},
-														subtitle : 
-														{
-															text : 'Stock Information',
-															x : -20
-														},
-														xAxis : 
-														{
-															title : 
-															{
-																text : 'Time'
-															},
-															categories : timeStamp
-														},
-														yAxis : 
-														{
-															title : 
-															{
-																text : 'Change(%)'
-															},
-															plotLines : 
-															[ {
-																value : 0,
-																width : 1,
-																color : '#808080'
-															} ]
-														},
-														tooltip : 
-														{
-															valueSuffix : '%'
-														},
-														legend : 
-														{
-															layout : 'vertical',
-															align : 'right',
-															verticalAlign : 'middle',
-															borderWidth : 0
-														},
-														series : 
-														[ {
-															name : symbol,
-															data : percentChange
-														} ]
-													});
-												});
-											}, 1000);
-										</script>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</div>
-
-					<div>
-						<ul class="tilelinks clearfix">
-							<li>
 								<div>
-									<h2>Buy/Sell</h2>
-									<ul>
-										<form action="BuyServlet" method="post">
-											<h3>Buy</h3>
-											<input type="hidden" name="stockSymbol" value="<%=symbol%>"/>
-											<br> Number of Stocks: <input type="text" name="stockAmount"/> <br>
-											<br>
-											<br> <input type="submit" value="Buy" />
-										</form>
-
-									</ul>
-								</div>
-								<div>
-									<ul>
-										<form action="SellServlet" method="post">
-											<h3>Sell</h3>
-											<input type="hidden" name="stockSymbol" value="<%=symbol%>"/>
-											<br> Number of Stocks: <input type="text" name="stockAmount"/> <br>
-											<br>
-											<br> <input type="submit" value="Sell" />
-										</form>
-
-									</ul>
-								</div>
+							<h2>Strategy Edit</h2>
+							
+							<ul>
+								<form action="" method="post">
+									<h3>New Strategies</h3>
+									<select name="txtSymbol" id="sym" >
+            						<option value="symbol" selected>Choose a Symbol</option>
+            						<%
+            							//Generate the rest of the options from the database
+            							List<Stock> stocks = DataAccess.getStocks();
+            							for(Stock s: stocks){
+            								out.println("<option value=\"" + s.getStockSymbol() + "\">" + s.getStockName() + "</option>");
+            							}
+           	
+            						%>
+            						</select>
+            						<br><br>
+            						<select name="txtStrategy" id="type" >
+            						
+            						<option value="movingAvg">Moving Average</option>
+            						<option value="bollinger">Bollinger Band</option>        						
+            						</select>
+            						<br><br>
+            						<select name="buy/sell" id="buysell" >
+            						
+            						<option value="buy">Buy</option>
+            						<option value="sell">Sell</option>        						
+            						</select>  
+  									<br><br>
+  									<select name="txtstatus" id="status" >
+            						
+            						<option value="active">Active</option>
+            						<option value="inactive">Inactive</option>        						
+            						</select>
+            						<br><br>
+            						<input type="button" value="Update" onClick="insertStrat()"; onclick="return confirm('Are you sure you want to delete?')"/>					
+								</form>
+							</ul>
+						</div>
 							</li>
 						</ul>
 					</div>
