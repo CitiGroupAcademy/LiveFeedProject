@@ -63,7 +63,7 @@
             var url = "search/stratsearch";
 
             request.open("GET", url, true);
-            request.onreadystatechange = stratCallback();
+            request.onreadystatechange = stratCallback;
             request.send(null);
         	
         }
@@ -130,6 +130,15 @@
         if (request.readyState == 4 && request.status == 200) {
             var outputField = document.getElementById("top5table");
             outputField.innerHTML = request.responseText;
+        }
+    }
+
+    function delStrat(id) {
+
+        if (request != null) {
+        	 var url = "search/deleteStrategy?id=" + id;
+             request.open("GET", url, true);
+             request.send(null);
         }
     }
 
