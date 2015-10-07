@@ -216,7 +216,7 @@ public class DataAccess {
 				temp.add(new Stock(rs.getString(1), rs.getString(2), rs
 						.getString(3), rs.getString(4), rs.getString(5), rs
 						.getString(6), rs.getString(7), rs.getDouble(8), rs
-						.getDouble(9)));
+						.getDouble(9), rs.getDouble(10)));
 			}
 
 		} catch (SQLException ex) {
@@ -353,12 +353,12 @@ public class DataAccess {
 	public static void updateStockChange(String symbol,
 			String percentageChange, String openPrice, String closePrice,
 			String changeYearHigh, String changeYearLow,
-			double fiftyDayMovingAverage, double fiveMinuteMovingAverage) {
+			double fiftyDayMovingAverage, double fiveMinuteMovingAverage, double STD) {
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("UPDATE stock SET percentagechange = ?, openingPrice = ?, closePrice = ?, changeYearHigh = ?, changeYearLow = ?, longMovingAverage = ?, shortMovingAverage = ? WHERE stockSymbol = ?");
+					.prepareStatement("UPDATE stock SET percentagechange = ?, openingPrice = ?, closePrice = ?, changeYearHigh = ?, changeYearLow = ?, longMovingAverage = ?, shortMovingAverage = ?, StdDev = ? WHERE stockSymbol = ?");
 			st.setString(1, percentageChange);
 			st.setString(2, openPrice);
 			st.setString(3, closePrice);
@@ -366,7 +366,8 @@ public class DataAccess {
 			st.setString(5, changeYearLow);
 			st.setDouble(6, fiftyDayMovingAverage);
 			st.setDouble(7, fiveMinuteMovingAverage);
-			st.setString(8, symbol);
+			st.setDouble(8, STD);
+			st.setString(9, symbol);
 			st.executeUpdate();
 
 		} catch (SQLException ex) {
@@ -958,6 +959,49 @@ public class DataAccess {
 		}
 		return temp;
 	}
+	
+	/**
+	 * Method returns an arraylist of active moving average exponential
+	 * strategies
+	 * 
+	 * @return
+	 */
+	public static ArrayList<Strategy> getBollingerBandStrats() {
+
+		ArrayList<Strategy> temp = new ArrayList<>();
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st
+					.executeQuery("Select * from strategy where active = 'active' and type like 'bollinger'");
+
+			while (rs.next()) {
+				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
+						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(6)));
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
+	}
+
 
 
 	
@@ -988,7 +1032,51 @@ public class DataAccess {
 			}
 		}
 	}
+	
+	public static double calculateStockSTD (String symbol){
+
+			double temp = 0;
+
+			Connection cn = null;
+			try {
+				cn = getConnection();
+				PreparedStatement st = cn
+						.prepareStatement("select stddev((askPrice + bidPrice)/2) "
+								+ "from ticker where stockSymbol like ? "
+								+ "and timestamp between DATE_SUB(NOW(), INTERVAL 1 hour) and NOW();");
+
+				st.setString(1, symbol.replaceAll("\"", ""));
+
+				ResultSet rs = st.executeQuery();
+
+				while (rs.next()) {
+
+					temp = rs.getDouble(1);
+
+				}
+
+			} catch (SQLException ex) {
+				Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+				log.error("ERROR" + ex);
+				System.out.println("Error adding data " + ex);
+			} finally {
+
+				if (cn != null) {
+
+					try {
+						cn.close();
+					} catch (SQLException e) {
+						Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+						log.error("ERROR" + e);
+					}
+				}
+			}
+			return temp;
+
+		
+	}
 
 	public static void main(String[] args) {
+
 	}
 }

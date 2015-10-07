@@ -39,6 +39,7 @@ public class Database {
 					+ "changeYearLow NVARCHAR(10), "
 					+ "shortMovingAverage DECIMAL(8,4),"
 					+ "longMovingAverage DECIMAL(8,4),"
+					+ "StdDev DECIMAL (8,6), "
 					+ "PRIMARY KEY (stockSymbol)" + ");");
 
 			st.executeUpdate("CREATE TABLE  strategy ( "
