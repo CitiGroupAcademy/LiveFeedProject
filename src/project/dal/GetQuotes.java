@@ -110,13 +110,11 @@ public class GetQuotes extends Thread {
 
 		startTime = new Date();
 
-		startPlus5Min = new Date(System.currentTimeMillis() + 5 * 60 * 1000);
+		startPlus5Min = new Date(System.currentTimeMillis() + 1* 60 * 1000);
 
 		while (true) {
 
 			currentTime = new Date();
-
-			System.out.println(currentTime.toString());
 
 			StringBuilder url = new StringBuilder(
 					"http://finance.yahoo.com/d/quotes.csv?s=");
