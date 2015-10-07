@@ -6,6 +6,13 @@
 <%
    		GetQuotes getQuotesInstance = new GetQuotes();
 		getQuotesInstance.start();
+		
+		
+		String message = "";
+		if(request.getAttribute("message")!=null)
+		{
+			message = request.getParameter("msg");
+		}
 %>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,6 +51,11 @@
 	$(document).ready(function () {
 		// remove the no-js class
 		$('body').removeClass('no-js');
+		var message = <%=message%>;
+		if(message!="")
+		{ 
+			alert(message);
+		}
 	});
 	</script>
 	
@@ -355,16 +367,7 @@
 						</ul>
 					</li>
 				</ul>
-			</div>
-			
-		<footer id="footnote">
-			<div class="clearfix">
-				<p>
-					&#169; Copyright TEAM NAME. All Rights Reserved.
-				</p>
-		</footer>
-	</div>
-	<a class="twitter-timeline" href="https://twitter.com/FinancialTimes" data-widget-id="651731116228018176">Tweets by @FinancialTimes</a>
+					<a class="twitter-timeline" href="https://twitter.com/FinancialTimes" data-widget-id="651731116228018176">Tweets by @FinancialTimes</a>
 	<script>
 	!function(d,s,id)
 	{
@@ -467,6 +470,15 @@
 		}
 	}
 </script>
+			</div>
+			
+		<footer id="footnote">
+			<div class="clearfix">
+				<p>
+					&#169; Copyright TEAM NAME. All Rights Reserved.
+				</p>
+		</footer>
+	</div>
 	<script type="text/javascript" src="js/scrolltopcontrol.js">
 	</script>
 	

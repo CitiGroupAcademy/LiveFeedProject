@@ -66,6 +66,28 @@ else
 		// remove the no-js class
 		$('body').removeClass('no-js');
 	});
+
+	function stockdata() {
+
+        if (request != null) {
+            var sym = <%=symbol%>
+            var url = "search/stockdata?sym="+sym;
+
+            request.open("GET", url, true);
+            request.onreadystatechange = stockdataCallback;
+            request.send(null);
+        	
+        }
+    }
+
+    function stockdataCallback() 
+    {
+        if (request.readyState == 4 && request.status == 200) 
+        {
+            var outputField = document.getElementById("datatable");
+            outputField.innerHTML = request.responseText;
+        }
+    }
 </script>
 
 
@@ -224,7 +246,7 @@ else
 														} ]
 													});
 												});
-											}, 1000);
+											}, 3000);
 										</script>
 									</ul>
 								</div>
@@ -235,6 +257,20 @@ else
 					<div>
 						<ul class="tilelinks clearfix">
 							<li>
+								<div>
+									<h2>Stock Data Table:</h2>
+									<ul>
+										<ul>
+											<p>
+												<input type="button" id="stockupdate" value="Update" onclick="stockdata()">
+											</p>
+											
+											<p id="datatable">
+											 
+											</p>
+										</ul>
+									</ul>
+								</div>
 								<div>
 									<h2>Buy/Sell</h2>
 									<ul>
