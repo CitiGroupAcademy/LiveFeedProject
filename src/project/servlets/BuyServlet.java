@@ -32,7 +32,9 @@ public class BuyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("Hello");
 	}
 
 	/**
@@ -42,7 +44,7 @@ public class BuyServlet extends HttpServlet {
 	{
 		response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+        out.println("Hello");
         if(request.getParameter("stockAmount")!=null && request.getParameter("stockSymbol")!=null)
         {
         	String stock = request.getParameter("stockSymbol");
@@ -61,6 +63,6 @@ public class BuyServlet extends HttpServlet {
 				OrderResult or = OrderManager.getInstance().buyOrder(stock, ask, amount);
 			}
         }
-        response.sendRedirect(response.encodeRedirectURL("/home.jsp"));
+        response.sendRedirect(response.encodeRedirectURL("home.jsp"));
 	}
 }
