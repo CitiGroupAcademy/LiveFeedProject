@@ -116,7 +116,7 @@ function myCreateXMLHttpRequest() {
 						</a>
 
 						<div class="brand">
-							<img src="Images/logo.jpg" alt="name" width="120" height="28" />
+							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
 						</div>
 
 						<div class="nav-collapse collapse">
