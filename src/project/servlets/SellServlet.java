@@ -3,6 +3,7 @@ package project.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,7 +61,10 @@ public class SellServlet extends HttpServlet {
 			{
 				OrderResult or = OrderManager.getInstance().sellOrder(stock, ask, amount);
 			}
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
+	        rd.forward(request, response);
+	        request.setAttribute("message", "You have sold " + amount + " shares in: " + stock);
         }
-        response.sendRedirect(response.encodeRedirectURL("home.jsp"));
 	}
 }
