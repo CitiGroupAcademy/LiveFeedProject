@@ -86,20 +86,15 @@ public class GetQuotes extends Thread {
 	 * @throws Exception
 	 */
 	@Override
-	public void run() 
-	{
-		try 
-		{
+	public void run() {
+		try {
 			insertIntoTicker();
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	
-	public static void main (String [] args){
+	public static void main(String[] args) {
 		try {
 			insertIntoTicker();
 		} catch (Exception e) {
@@ -107,7 +102,7 @@ public class GetQuotes extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Runs indefinitely
 	 * 
@@ -120,8 +115,8 @@ public class GetQuotes extends Thread {
 
 		startTime = new Date();
 
-		startPlus5Min = new Date(System.currentTimeMillis() + 1* 60 * 1000);
-		
+		startPlus5Min = new Date(System.currentTimeMillis() + 5 * 60 * 1000);
+
 		System.out.println("running");
 
 		while (true) {
@@ -159,7 +154,6 @@ public class GetQuotes extends Thread {
 					continue;
 				}
 
-
 				DataAccess.insertTicker(fields[0].replaceAll("\"", ""), Double
 						.parseDouble(fields[1]), Double.parseDouble(fields[2]),
 						Double.parseDouble(removeLastChar(fields[9])
@@ -173,13 +167,12 @@ public class GetQuotes extends Thread {
 								.parseDouble(DataAccess
 										.calculateMovingAverage(fields[0])));
 
-
 			}
 			// Sleep thread to reduce processing
 			// start strategies after 5 minutes (so 5 minute moving average
 			// is calculated)
 			if (currentTime.after(startPlus5Min)) {
-				
+
 				moivngAverageStrategy();
 				moivngAverageExponential();
 			}
@@ -203,7 +196,8 @@ public class GetQuotes extends Thread {
 				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
 
 					// if stock difference in moving average less than 0 buy
-					if (stock.getDifferenceInMovingAv() < 0) {
+					if (stock.getDifferenceInMovingAv() < 0 && DataAccess.amountOfOwnedStock(stock
+							.getStockSymbol()) == 0) {
 
 						try {
 
@@ -225,7 +219,7 @@ public class GetQuotes extends Thread {
 					} else if (stock.getDifferenceInMovingAv() > 0) {
 
 						try {
-							
+
 							if (checkStockToSell(stock.getStockSymbol())) {
 
 								OrderResult or = OrderManager
@@ -252,9 +246,9 @@ public class GetQuotes extends Thread {
 		}
 
 	}
-	
+
 	/**
-	 * Method calculates the moving average for strategies and buys difference 
+	 * Method calculates the moving average for strategies and buys difference
 	 */
 	private static void moivngAverageExponential() {
 
@@ -268,8 +262,11 @@ public class GetQuotes extends Thread {
 				// get stock objects for the strategy
 				if (s.getStockSymbol().equalsIgnoreCase(stock.getStockSymbol())) {
 
-					// if stock difference in moving average less than 0 buy
-					if (stock.getDifferenceInMovingAv() < 0) {
+					// if stock difference in moving average less than 0 
+						// and we are flat on (have 0 stocks)
+					if (stock.getDifferenceInMovingAv() < 0
+							&& DataAccess.amountOfOwnedStock(stock
+									.getStockSymbol()) == 0) {
 
 						try {
 
@@ -278,7 +275,8 @@ public class GetQuotes extends Thread {
 											stock.getStockSymbol(),
 											returnAskOrBid(
 													stock.getStockSymbol(),
-													"buy"), stock.getStocksToBuyForExpon());
+													"buy"),
+											stock.getStocksToBuyForExpon());
 
 						} catch (Exception e) {
 							Logger log = Logger.getLogger("DATA ACCESS LAYER:");
@@ -291,7 +289,7 @@ public class GetQuotes extends Thread {
 					} else if (stock.getDifferenceInMovingAv() > 0) {
 
 						try {
-							
+
 							if (checkStockToSell(stock.getStockSymbol())) {
 
 								OrderResult or = OrderManager
