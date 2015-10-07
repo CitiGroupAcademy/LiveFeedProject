@@ -433,6 +433,43 @@ public static ArrayList<Strategy> getStrats(){
 		}
 
 	}
+	
+	public static void updateStrategy(int userID, String stockSymbol,
+			String type, String buySell, String active, int stratID) {
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("UPDATE strategy SET userID = ?, stockSymbol = ?, type = ?, buySell = ?, active = ? WHERE stratID = ?");
+			st.setInt(1, userID);
+			st.setString(2, stockSymbol);
+			st.setString(3, type);
+			st.setString(4, buySell);
+			st.setString(5, active);
+			st.setInt(6, stratID);
+			st.executeUpdate();
+
+			insertIntoFav(userID, stockSymbol);
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+
+	}
 
 	/**
 	 * Method inserts a new tuple into the strategy table
