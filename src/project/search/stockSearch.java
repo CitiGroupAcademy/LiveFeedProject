@@ -38,7 +38,7 @@ public class stockSearch
 			{
 				String[] fields = stock.split(",");
 				rs2 = st.executeQuery("SELECT f.stockSymbol FROM favourite f WHERE f.stockSymbol='"+fields[0]+"'");
-				html += "<tr><td><a href='graphPage.jsp?sym="+ fields[0] + "'>" + fields[0] + "</a></td><td>"+fields[1]+"</td></tr>";
+				html += "<tr><td><a href='graphPage.jsp?sym="+ fields[0] + "'>" + fields[0] + "</a></td><td>"+fields[1]+"</td>";
 				int count = 0;
 				while(rs2.next())
 				{
