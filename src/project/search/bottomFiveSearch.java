@@ -55,7 +55,6 @@ public class bottomFiveSearch
 			String[] stockData = ((String) me.getValue()).split(",");
 			String colour = "";
 			String key = me.getKey().toString();
-			System.out.println(key);
 			
 			if(key.startsWith("-"))
 			{
