@@ -186,7 +186,7 @@ public class GetQuotes extends Thread {
 	/**
 	 * Method calculates the moving average for strategies
 	 */
-	private static void moivngAverageStrategy() {
+	public static void moivngAverageStrategy() {
 
 		// arraylist of moving average strategies from database
 		ArrayList<Strategy> movingAverageObjects = DataAccess
@@ -258,7 +258,7 @@ public class GetQuotes extends Thread {
 	/**
 	 * Method calculates the moving average for strategies and buys difference
 	 */
-	private static void moivngAverageExponential() {
+	public static void moivngAverageExponential() {
 
 		// arraylist of moving average strategies from database
 		ArrayList<Strategy> movingAverageObjects = DataAccess
@@ -329,7 +329,7 @@ public class GetQuotes extends Thread {
 	/**
 	 * Method calculates the moving average for strategies and buys difference
 	 */
-	private static void bollingerStrat() {
+	public static void bollingerStrat() {
 
 		// arraylist of moving average strategies from database
 		ArrayList<Strategy> movingAverageObjects = DataAccess

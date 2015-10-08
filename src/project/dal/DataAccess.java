@@ -13,7 +13,6 @@ import java.util.Collections;
 import org.jboss.logging.Logger;
 
 import project.dataObjects.OwnedStock;
-import project.dataObjects.Profit;
 import project.dataObjects.Stock;
 import project.dataObjects.Strategy;
 import project.dataObjects.Ticker;
@@ -94,39 +93,6 @@ public class DataAccess {
 		}
 
 	}
-	
-	public static ArrayList<Profit> getProfit() {
-
-		ArrayList<Profit> temp = new ArrayList<Profit>();
-
-		Connection cn = null;
-		try {
-			cn = getConnection();
-			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select * from profit");
-
-			while (rs.next()) {
-				temp.add(new Profit(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), rs.getTimestamp(4)));
-			}
-
-		} catch (SQLException ex) {
-			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
-			log.error("ERROR" + ex);
-			System.out.println("Error adding data " + ex);
-		} finally {
-
-			if (cn != null) {
-
-				try {
-					cn.close();
-				} catch (SQLException e) {
-					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
-					log.error("ERROR" + e);
-				}
-			}
-		}
-		return temp;
-	}
 
 	/**
 	 * Method returns an ArrayList of ticker objects
@@ -164,7 +130,7 @@ public class DataAccess {
 		}
 		return temp;
 	}
-	
+
 	public static ArrayList<Transaction> getTransaction() {
 
 		ArrayList<Transaction> temp = new ArrayList<Transaction>();
@@ -177,7 +143,8 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Transaction(rs.getInt(1), rs.getString(2), rs
-						.getInt(3), rs.getDouble(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7)));
+						.getInt(3), rs.getDouble(4), rs.getString(5), rs
+						.getString(6), rs.getTimestamp(7)));
 			}
 
 		} catch (SQLException ex) {
@@ -244,7 +211,7 @@ public class DataAccess {
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("INSERT INTO stock(stockSymbol, name) values(?,?)");
+					.prepareStatement("INSERT INTO stock(stockSymbol, stockName) values(?,?)");
 			st.setString(1, symbol);
 			st.setString(2, name);
 			st.executeUpdate();
@@ -307,7 +274,7 @@ public class DataAccess {
 		return temp;
 
 	}
-	
+
 	/**
 	 * Method returns an ArrayList of stocks from database
 	 */
@@ -319,7 +286,8 @@ public class DataAccess {
 		try {
 			cn = getConnection();
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("Select stockSymbol from favourite ");
+			ResultSet rs = st
+					.executeQuery("Select stockSymbol from favourite ");
 
 			while (rs.next()) {
 				temp.add(rs.getString(1));
@@ -433,8 +401,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4),  rs
-						.getString(6)));
+						.getString(3), rs.getString(4), rs.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -455,13 +422,12 @@ public class DataAccess {
 		}
 		return temp;
 	}
-	
-	
 
 	public static void updateStockChange(String symbol,
 			String percentageChange, String openPrice, String closePrice,
 			String changeYearHigh, String changeYearLow,
-			double fiftyDayMovingAverage, double fiveMinuteMovingAverage, double STD) {
+			double fiftyDayMovingAverage, double fiveMinuteMovingAverage,
+			double STD) {
 		Connection cn = null;
 		try {
 			cn = getConnection();
@@ -513,7 +479,7 @@ public class DataAccess {
 	 *            String
 	 */
 	public static void insertStrategy(int userID, String stockSymbol,
-			String type,String active) {
+			String type, String active) {
 
 		Connection cn = null;
 		try {
@@ -526,12 +492,11 @@ public class DataAccess {
 			st.setString(4, active);
 			st.executeUpdate();
 
-			
-				if(!getFavourites().contains(stockSymbol)){
-				
+			if (!getFavourites().contains(stockSymbol)) {
+
 				insertIntoFav(userID, stockSymbol);
 			}
-				
+
 		} catch (SQLException ex) {
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
 			log.error("ERROR" + ex);
@@ -550,7 +515,7 @@ public class DataAccess {
 		}
 
 	}
-	
+
 	public static void updateStrategy(int userID, String stockSymbol,
 			String type, String buySell, String active, int stratID) {
 
@@ -605,7 +570,7 @@ public class DataAccess {
 					.prepareStatement("INSERT INTO favourite(userID, stockSymbol) VALUES(?,?)");
 			st.setInt(1, userID);
 			st.setString(2, stockSymbol);
-			
+
 			st.executeUpdate();
 		} catch (SQLException ex) {
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
@@ -794,8 +759,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4),  rs
-						.getString(6)));
+						.getString(3), rs.getString(4), rs.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -1048,8 +1012,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4),  rs
-						.getString(6)));
+						.getString(3), rs.getString(4), rs.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -1070,7 +1033,7 @@ public class DataAccess {
 		}
 		return temp;
 	}
-	
+
 	/**
 	 * Method returns an arraylist of active moving average exponential
 	 * strategies
@@ -1090,8 +1053,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4),  rs
-						.getString(6)));
+						.getString(3), rs.getString(4), rs.getString(6)));
 			}
 
 		} catch (SQLException ex) {
@@ -1113,9 +1075,6 @@ public class DataAccess {
 		return temp;
 	}
 
-
-
-	
 	public static void confirmOrder() {
 
 		Connection cn = null;
@@ -1143,51 +1102,166 @@ public class DataAccess {
 			}
 		}
 	}
-	
-	public static double calculateStockSTD (String symbol){
 
-			double temp = 0;
+	public static double calculateStockSTD(String symbol) {
 
-			Connection cn = null;
-			try {
-				cn = getConnection();
-				PreparedStatement st = cn
-						.prepareStatement("select stddev((askPrice + bidPrice)/2) "
-								+ "from ticker where stockSymbol like ? "
-								+ "and timestamp between DATE_SUB(NOW(), INTERVAL 1 hour) and NOW();");
+		double temp = 0;
 
-				st.setString(1, symbol.replaceAll("\"", ""));
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			PreparedStatement st = cn
+					.prepareStatement("select stddev((askPrice + bidPrice)/2) "
+							+ "from ticker where stockSymbol like ? "
+							+ "and timestamp between DATE_SUB(NOW(), INTERVAL 1 hour) and NOW();");
 
-				ResultSet rs = st.executeQuery();
+			st.setString(1, symbol.replaceAll("\"", ""));
 
-				while (rs.next()) {
+			ResultSet rs = st.executeQuery();
 
-					temp = rs.getDouble(1);
+			while (rs.next()) {
 
-				}
+				temp = rs.getDouble(1);
 
-			} catch (SQLException ex) {
-				Logger log = Logger.getLogger("DATA ACCESS LAYER:");
-				log.error("ERROR" + ex);
-				System.out.println("Error adding data " + ex);
-			} finally {
+			}
 
-				if (cn != null) {
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
 
-					try {
-						cn.close();
-					} catch (SQLException e) {
-						Logger log = Logger.getLogger("DATA ACCESS LAYER:");
-						log.error("ERROR" + e);
-					}
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
 				}
 			}
-			return temp;
+		}
+		return temp;
 
-		
 	}
 
+	public static void removeStrategy(String symbol) {
+		Connection con = null;
+		try {
+
+			con = Database.getConnection();
+			PreparedStatement st = con
+					.prepareStatement("DELETE FROM strategy WHERE stockSymbol = ?");
+			st.setString(1, symbol);
+			st.executeUpdate();
+		} catch (SQLException ex) {
+			System.out.println("Database error " + ex);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void removeStock(String symbol) {
+		Connection con = null;
+		try {
+
+			con = Database.getConnection();
+			PreparedStatement st = con
+					.prepareStatement("DELETE FROM stock WHERE stockSymbol = ?");
+			st.setString(1, symbol);
+			st.executeUpdate();
+		} catch (SQLException ex) {
+			System.out.println("Database error " + ex);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void removeFavourite(String symbol) {
+		Connection con = null;
+		try {
+
+			con = Database.getConnection();
+			PreparedStatement st = con
+					.prepareStatement("DELETE FROM favourite WHERE stockSymbol = ?");
+			st.setString(1, symbol);
+			st.executeUpdate();
+		} catch (SQLException ex) {
+			System.out.println("Database error " + ex);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	
+	public static void removeTransaction(String symbol) {
+		Connection con = null;
+		try {
+
+			con = Database.getConnection();
+			PreparedStatement st = con
+					.prepareStatement("DELETE FROM transaction WHERE stockSymbol = ?");
+			st.setString(1, symbol);
+			st.executeUpdate();
+		} catch (SQLException ex) {
+			System.out.println("Database error " + ex);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
+	
+	public static void removeOwnedStock(String symbol) {
+		Connection con = null;
+		try {
+
+			con = Database.getConnection();
+			PreparedStatement st = con
+					.prepareStatement("DELETE FROM ownedstock WHERE stockSymbol = ?");
+			st.setString(1, symbol);
+			st.executeUpdate();
+		} catch (SQLException ex) {
+			System.out.println("Database error " + ex);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
+	
 	public static void main(String[] args) {
-
 	}
+
 }
