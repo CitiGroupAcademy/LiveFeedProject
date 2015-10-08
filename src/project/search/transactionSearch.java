@@ -31,7 +31,7 @@ public class transactionSearch
 		{
 			e.printStackTrace();
 		}
-		html += "<table class='standard' class='tableSection'><th>TransID</th><th>Stock Symbol</th><th>Amount</th><th>Price</th><th>Action</th><th>Status</th><th>TimeStamp</th>";
+		html += "<table class='standard' class='tableSection'><th>TransID</th><th>Stock Symbol</th><th>Amount</th><th>Price</th><th>Total</th><th>Action</th><th>Status</th><th>TimeStamp</th>";
 		for(Transaction t : trans)
 		{
 			int id = t.getTransID();
@@ -41,7 +41,7 @@ public class transactionSearch
 			String action = t.getAction();
 			String status = t.getStatus();
 			Timestamp timestamp = t.getTimestamp();
-			html += "<tr><td>"+id+"</td><td><a href='graphPage.jsp?sym="+ symbol + "'>" + symbol + "</a></td><td>"+amount+"</td><td>"+price+"</td><td>"+action+"</td><td>"+status+"</td><td>"+timestamp+"</td>";
+			html += "<tr><td>"+id+"</td><td><a href='graphPage.jsp?sym="+ symbol + "'>" + symbol + "</a></td><td>"+amount+"</td><td>"+price+"</td><td>"+(price*amount)+"</td><td>"+action+"</td><td>"+status+"</td><td>"+timestamp+"</td>";
 		}
 		html += "</table>";
 		return html;
