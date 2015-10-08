@@ -51,23 +51,23 @@ public class SellServlet extends HttpServlet {
         {
         	String stock = request.getParameter("stockSymbol");
         	int amount = Integer.parseInt(request.getParameter("stockAmount"));
-        	double ask = 0.0;
+        	double bid = 0.0;
 			try 
 			{
-				ask = GetQuotes.returnAskOrBid(stock, "sell");
+				bid = GetQuotes.returnAskOrBid(stock, "sell");
 			} 
 			catch (Exception e) 
 			{
 				e.printStackTrace();
 			}
-			if(ask>0)
+			if(bid>0)
 			{
 				if(amount>DataAccess.amountOfOwnedStock(stock))
 				{
-					OrderResult or = OrderManager.getInstance().sellOrder(stock, ask, amount);
+					OrderResult or = OrderManager.getInstance().sellOrder(stock, bid, amount);
 					Logger log = Logger.getLogger(this.getClass());
-					log.info("INFO MANUAL SELL: " + stock + "ASK: " + ask + "AMOUNT: " + amount);
-					request.setAttribute("message", "You have sold " + amount + " shares in: " + stock);
+					log.info("INFO MANUAL SELL: " + stock + "BID: " + bid + "AMOUNT: " + amount);
+					request.setAttribute("message", "You have sold " + amount + " shares in: " + stock + " for £"+ (bid*amount));
 				}
 				else
 				{
