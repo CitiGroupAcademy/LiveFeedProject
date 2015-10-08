@@ -211,6 +211,7 @@ public class GetQuotes extends Thread {
 											returnAskOrBid(
 													stock.getStockSymbol(),
 													"buy"), 10);
+							
 
 						} catch (Exception e) {
 							Logger log = Logger.getLogger("DATA ACCESS LAYER:");
@@ -236,6 +237,9 @@ public class GetQuotes extends Thread {
 												DataAccess
 														.amountOfOwnedStock(stock
 																.getStockSymbol()));
+								
+								
+								
 							}
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -281,6 +285,7 @@ public class GetQuotes extends Thread {
 													stock.getStockSymbol(),
 													"buy"),
 											stock.getStocksToBuyForExpon());
+							
 
 						} catch (Exception e) {
 							Logger log = Logger.getLogger("DATA ACCESS LAYER:");
@@ -499,5 +504,11 @@ public class GetQuotes extends Thread {
 		}
 
 		return sell;
+	}
+	
+	public static void infoLogTransaction(String strat,  String buySell, String stock, int amount, double price){
+		
+		Logger log = Logger.getLogger("GETQUOTES: ");
+		log.info(String.format("INFO: %s %s %s, AMOUNT: %d, PRICE: %.2f", strat.toUpperCase(), buySell.toUpperCase(), stock.toUpperCase(), amount, price));
 	}
 }
