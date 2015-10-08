@@ -68,9 +68,9 @@ public class BuyServlet extends HttpServlet {
 				log.info("INFO MANUAL BUY: " + stock + "ASK: " + ask + "AMOUNT: " + amount);
 			}
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
-	        rd.forward(request, response);
-	        request.setAttribute("message", "You have bought " + amount + " shares in: " + stock);
+			request.setAttribute("message", "You have bought " + amount + " shares in: " + stock);
+	        RequestDispatcher dis = getServletContext().getRequestDispatcher("/home.jsp");
+	        dis.forward(request, response);
         }
 	}
 }

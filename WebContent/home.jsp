@@ -61,6 +61,7 @@
 		if(message!="")
 		{ 
 			alert(message);
+			<%request.setAttribute("message", null);%>
 		}
 	});
 	
