@@ -17,7 +17,7 @@
 		String message = "";
 		if(request.getAttribute("message")!=null)
 		{
-			message = request.getParameter("msg");
+			message = (String)request.getAttribute("message");
 		}
 %>
 	<meta charset="utf-8" />
@@ -382,19 +382,50 @@
 						</ul>
 					</li>
 				</ul>
-					<a class="twitter-timeline" href="https://twitter.com/FinancialTimes" data-widget-id="651731116228018176">Tweets by @FinancialTimes</a>
-	<script>
-	!function(d,s,id)
-	{
-		var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-		if(!d.getElementById(id))
-		{
-			js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
-			fjs.parentNode.insertBefore(js,fjs);
-		}
-	}
-	(document,"script","twitter-wjs");
-	</script>
+				<ul class="tilelinks clearfix">
+					<li>
+						<a class="twitter-timeline" href="https://twitter.com/FinancialTimes" data-widget-id="651731116228018176">Tweets by @FinancialTimes</a>
+						<script>
+							!function(d,s,id)
+							{
+								var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+								if(!d.getElementById(id))
+								{
+									js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+									fjs.parentNode.insertBefore(js,fjs);
+								}
+							}
+							(document,"script","twitter-wjs");
+						</script>
+					</li>
+					<li class="seperater">
+					<table class="standard"><tr><td>
+					<!-- TradingView Widget BEGIN -->
+					<script type="text/javascript" src="https://d33t3vvu2t2yu5.cloudfront.net/tv.js"></script>
+					<script type="text/javascript">
+					new TradingView.widget({
+					  "width": '400',
+					  "height": '300',
+					  "symbol": "INDEX:FTSE",
+					  "interval": "D",
+					  "timezone": "Europe/London",
+					  "theme": "White",
+					  "style": "2",
+					  "locale": "en",
+					  "toolbar_bg": "#f1f3f6",
+					  "allow_symbol_change": true,
+					  "hideideas": true,
+					  "show_popup_button": true,
+					  "popup_width": "1000",
+					  "popup_height": "650"
+					});
+					</script>
+					<!-- TradingView Widget END -->
+					</td>
+					</tr>
+					</table>
+					</li>
+				</ul>
 			</div>
 			
 		<footer id="footnote">
