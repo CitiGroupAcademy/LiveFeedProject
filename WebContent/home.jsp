@@ -272,7 +272,7 @@
 				</div>
 			</div>
 
-			<<div class="brandingLogo">
+			<div class="brandingLogo">
 				<img class="logo" src="Images/Banner_Logo2.png" alt="name" width="800" height="200" />
 
 			</div>
