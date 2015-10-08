@@ -120,7 +120,7 @@ function myCreateXMLHttpRequest()
 						</a>
 
 						<div class="brand">
-							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
+							<img src="Images/Banner_Logo2.png" width="800" height="300" />
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -140,8 +140,8 @@ function myCreateXMLHttpRequest()
 			</div>
 
 			<div class="brandingLogo">
-				<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
-					height="57" />
+				<img class="logo" src="Images/Banner_Logo2.png" alt="name" width="800" height="200" />
+
 			</div>
 		</header>
 
@@ -211,7 +211,7 @@ function myCreateXMLHttpRequest()
 														},
 														subtitle : 
 														{
-															text : 'Stock Information',
+															text : symbol+': Stock Information',
 															x : -20
 														},
 														xAxis : 
