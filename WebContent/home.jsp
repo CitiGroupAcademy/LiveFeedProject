@@ -165,6 +165,7 @@
         	 var url = "search/deleteStrategy?id=" + id;
              request.open("GET", url, true);
              request.send(null);
+             alert("Your strategy has been removed from your favourites");
         }
     }
 
