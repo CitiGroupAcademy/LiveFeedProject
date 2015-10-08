@@ -61,7 +61,7 @@ public class BuyServlet extends HttpServlet {
 			}
 			if(ask>0)
 			{
-				OrderResult or = OrderManager.getInstance().buyOrder(stock, ask, amount);
+				OrderResult or = OrderManager.getInstance().buyOrder(stock, ask, amount, "MANUAL");
 			}
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
