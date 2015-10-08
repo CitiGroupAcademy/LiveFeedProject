@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jboss.logging.Logger;
+
 import project.dal.GetQuotes;
 import project.dal.OrderManager;
 import project.dal.OrderManager.OrderResult;
@@ -59,7 +61,9 @@ public class SellServlet extends HttpServlet {
 			}
 			if(ask>0)
 			{
-				OrderResult or = OrderManager.getInstance().sellOrder(stock, ask, amount, "MANUAL");
+				OrderResult or = OrderManager.getInstance().sellOrder(stock, ask, amount);
+				Logger log = Logger.getLogger(this.getClass());
+				log.info("INFO MANUAL SELL: " + stock + "ASK: " + ask + "AMOUNT: " + amount);
 			}
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
