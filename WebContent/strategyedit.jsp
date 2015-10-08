@@ -162,8 +162,8 @@ function myCreateXMLHttpRequest() {
 							<ul>
 								<form action="" method="post">
 									<h3>New Strategies</h3>
-									<select name="txtSymbol" id="sym" value=<%=symbol%>>
-            						<option value="symbol" selected>Choose a Symbol</option>
+									<select name="txtSymbol" id="sym">
+            						<option value="symbol" selected><%=symbol%></option>
             						<%
             							//Generate the rest of the options from the database
             							List<Stock> stocks = DataAccess.getStocks();
@@ -174,21 +174,21 @@ function myCreateXMLHttpRequest() {
             						%>
             						</select>
             						<br><br>
-            						<select name="txtStrategy" id="type" placeholder=<%=type%> >
-            						
+            						<select name="txtStrategy" id="type" >
+            						<option><%=type%></option>
             						<option value="movingAvg">Moving Average</option>
             						<option value="bollinger">Bollinger Band</option>   
             						<option value="movAvgExp">Moving Average Expo</option>    						
             						</select>
             						<br><br>
             						<select name="buy/sell" id="buysell" >
-            						
+            						<option><%=buysell%></option>
             						<option value="buy">Buy</option>
             						<option value="sell">Sell</option>        						
             						</select>  
   									<br><br>
   									<select name="txtstatus" id="status" >
-            						
+            						<option><%=active%></option>
             						<option value="active">Active</option>
             						<option value="inactive">Inactive</option>        						
             						</select>
