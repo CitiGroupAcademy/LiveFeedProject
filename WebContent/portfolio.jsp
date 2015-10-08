@@ -166,6 +166,19 @@
 									</ul>
 								</div>								
 							</li>
+							<li class="seperater">
+						<h2>Profit/Loss</h2>
+						<ul>
+							<li>
+							<div id="profit-loss">								
+									<ul>
+
+									</ul>
+								</div>								
+							</li>
+						</ul>
+					</li>
+							
 						</ul>					
 					</div>
 					<div>
@@ -181,20 +194,6 @@
 							</li>
 						</ul>					
 					</div>
-					<div>
-						<ul class="tilelinks clearfix">
-							<li>
-							<div id="profit-loss">
-									<h2>Profit/Loss</h2>
-									<ul>
-
-									</ul>
-								</div>								
-							</li>
-						</ul>					
-					</div>
-					
-					
 
 					<footer id="footnote">
 						<div class="clearfix">
