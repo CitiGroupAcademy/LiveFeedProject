@@ -13,6 +13,7 @@ import java.util.Collections;
 import org.jboss.logging.Logger;
 
 import project.dataObjects.OwnedStock;
+import project.dataObjects.Profit;
 import project.dataObjects.Stock;
 import project.dataObjects.Strategy;
 import project.dataObjects.Ticker;
@@ -92,6 +93,39 @@ public class DataAccess {
 			}
 		}
 
+	}
+	
+	public static ArrayList<Profit> getProfit() {
+
+		ArrayList<Profit> temp = new ArrayList<Profit>();
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select * from profit");
+
+			while (rs.next()) {
+				temp.add(new Profit(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), rs.getTimestamp(4)));
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
 	}
 
 	/**
