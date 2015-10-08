@@ -56,6 +56,35 @@
 		// remove the no-js class
 		$('body').removeClass('no-js');
 	});
+
+	var request = myCreateXMLHttpRequest();
+
+    function myCreateXMLHttpRequest() {
+        try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e) { }
+        try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch (e) { }
+        try { return new XMLHttpRequest(); } catch (e) { }
+        return null;
+    }
+
+    function ownstock() {
+
+        if (request != null) {
+            var url = "search/ownsearch";
+
+            request.open("GET", url, true);
+            request.onreadystatechange = ownstockCallback;
+            request.send(null);
+        	
+        }
+    }
+
+    function ownstockCallback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("ostock");
+            outputField.innerHTML = request.responseText;
+        }
+    }
 </script>
 
 
@@ -97,16 +126,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="brandingLogo">
-				<img class="logo" src="Images/logo.jpg" alt="name" width="173"
-					height="57" />
-				<div class="service-name">
-					Stock Meet</br>
-					</br>
-					<span>Stocking you with Information</span>
-				</div>
-			</div>
 		</header>
 
 		<div class="content container">
@@ -120,13 +139,41 @@
 							<div id="ownedstock">
 									<h2>Current Stock</h2>
 									<ul>
+									<input type="button" id="ownupdate" value="Update" onclick="ownstock()">
+									<div id="ostock">
+									</div>
 
 									</ul>
-								</div>
-								
+								</div>								
 							</li>
-						</ul>
+						</ul>					
 					</div>
+					<div>
+						<ul class="tilelinks clearfix">
+							<li>
+							<div id="transaction">
+									<h2>Transaction</h2>
+									<ul>
+
+									</ul>
+								</div>								
+							</li>
+						</ul>					
+					</div>
+					<div>
+						<ul class="tilelinks clearfix">
+							<li>
+							<div id="profit-loss">
+									<h2>Profit/Loss</h2>
+									<ul>
+
+									</ul>
+								</div>								
+							</li>
+						</ul>					
+					</div>
+					
+					
 
 					<footer id="footnote">
 						<div class="clearfix">
