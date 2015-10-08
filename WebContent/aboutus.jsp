@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>TradeSpotter - Portfolio</title>
+<title>TradeSpotter - About Us</title>
 
 <!--<link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
@@ -65,66 +65,6 @@
         try { return new XMLHttpRequest(); } catch (e) { }
         return null;
     }
-
-    function ownstock() {
-
-        if (request != null) {
-            var url = "search/ownsearch";
-
-            request.open("GET", url, true);
-            request.onreadystatechange = ownstockCallback;
-            request.send(null);
-        	
-        }
-    }
-
-    function ownstockCallback() {
-
-        if (request.readyState == 4 && request.status == 200) {
-            var outputField = document.getElementById("ostockTable");
-            outputField.innerHTML = request.responseText;
-        }
-    }
-
-    function owntransaction() {
-
-        if (request != null) {
-            var url = "search/transsearch";
-
-            request.open("GET", url, true);
-            request.onreadystatechange = transactionCallback;
-            request.send(null);
-        	
-        }
-    }
-
-    function transactionCallback() {
-
-        if (request.readyState == 4 && request.status == 200) {
-            var outputField = document.getElementById("transTable");
-            outputField.innerHTML = request.responseText;
-        }
-    }
-
-    function profitsearch() {
-
-        if (request != null) {
-            var url = "search/profitSearch";
-
-            request.open("GET", url, true);
-            request.onreadystatechange = profitCallback;
-            request.send(null);
-        	
-        }
-    }
-
-    function profitCallback() {
-
-        if (request.readyState == 4 && request.status == 200) {
-            var outputField = document.getElementById("profitTable");
-            outputField.innerHTML = request.responseText;
-        }
-    }
 </script>
 
 
@@ -170,55 +110,12 @@
 		</header>
 
 		<div class="content container">
-			<h1 id="skip-dest" style="text-align: center;">Portfolio</h1>
+			<h1 id="skip-dest" style="text-align: center;">About Us</h1>
 
 			<ul class="tilelinks clearfix">
 				<div>
-					<div>
-						<ul class="tilelinks clearfix">
-							<li>
-							<div id="ownedstock">
-									<h2>Current Stock</h2>
-									<ul>
-									<input type="button" id="ownupdate" value="Update" onclick="ownstock()">
-									<div id="ostockTable">
-									</div>
-
-									</ul>
-								</div>								
-							</li>
-							<li class="seperater">
-						<ul>
-							<li>
-							<div id="profit-loss">								
-									<ul>
-									<h2>Strategy Profit/Loss</h2>
-									<ul>
-									<input type="button" " value="Update" onclick="profitsearch()">
-									<div id="profitTable">
-									</ul>
-
-									</ul>
-								</div>								
-							</li>
-						</ul>
-					</li>
-							
-						</ul>					
-					</div>
-					<div>
-						<ul class="tilelinks clearfix">
-							<li>
-							<div id="transaction">
-									<h2>Transactions Table</h2>
-									<ul>
-									<input type="button" id="transUpdate" value="Update" onclick="owntransaction()">
-									<div id="transTable">
-									</ul>
-								</div>								
-							</li>
-						</ul>					
-					</div>
+					<h2 style="text-align: center;">We Are The BEST Team!</h2>
+					<img class="logo" src="Images/theTeam.jpg" alt="the team" width="1000" height="500" />
 
 					<footer id="footnote">
 						<div class="clearfix">
