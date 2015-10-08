@@ -175,7 +175,7 @@ function myCreateXMLHttpRequest() {
             						
             						<option value="movingAvg">Moving Average</option>
             						<option value="bollinger">Bollinger Band</option>   
-            						<option value="moveAvgExp">Moving Average Expo</option>    						
+            						<option value="movAvgExp">Moving Average Expo</option>    						
             						</select>
             						<br><br>
             						<select name="buy/sell" id="buysell" >
