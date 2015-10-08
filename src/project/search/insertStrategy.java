@@ -14,6 +14,7 @@ import javax.ws.rs.QueryParam;
 
 import project.dal.DataAccess;
 import project.dal.Database;
+import project.txtMessage.TwilioDriver;
 
 @Path("/insertStrat")
 public class insertStrategy {
@@ -26,6 +27,7 @@ public class insertStrategy {
 		Connection cn = null;
 		cn = DataAccess.getConnection();
 		DataAccess.insertStrategy( 1, sym, type, bs, sta);
+		TwilioDriver.twilioSendMessage(String.format("Strategy created for: %s, type: %s buy/sell %s status: %s", sym.toUpperCase(), type.toUpperCase(), bs.toUpperCase(), sta.toUpperCase()));
 	}
 }
 

@@ -273,6 +273,43 @@ public class DataAccess {
 		return temp;
 
 	}
+	
+	/**
+	 * Method returns an ArrayList of stocks from database
+	 */
+	public static ArrayList<String> getFavourites() {
+
+		ArrayList<String> temp = new ArrayList<String>();
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select stockSymbol from favourite ");
+
+			while (rs.next()) {
+				temp.add(rs.getString(1));
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
+
+	}
 
 	/**
 	 * Method gets the top 5 stocks based on the percentage change
@@ -384,6 +421,8 @@ public class DataAccess {
 		}
 		return temp;
 	}
+	
+	
 
 	public static void updateStockChange(String symbol,
 			String percentageChange, String openPrice, String closePrice,
@@ -454,8 +493,12 @@ public class DataAccess {
 			st.setString(5, active);
 			st.executeUpdate();
 
-			insertIntoFav(userID, stockSymbol);
-
+			
+				if(!getFavourites().contains(stockSymbol)){
+				
+				insertIntoFav(userID, stockSymbol);
+			}
+				
 		} catch (SQLException ex) {
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
 			log.error("ERROR" + ex);
@@ -529,8 +572,8 @@ public class DataAccess {
 					.prepareStatement("INSERT INTO favourite(userID, stockSymbol) VALUES(?,?)");
 			st.setInt(1, userID);
 			st.setString(2, stockSymbol);
+			
 			st.executeUpdate();
-
 		} catch (SQLException ex) {
 			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
 			log.error("ERROR" + ex);
