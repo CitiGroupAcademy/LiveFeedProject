@@ -274,9 +274,9 @@
 				</div>
 			</div>
 
-			<div class="brandingLogo">
-				<!--<img class="logo" src="Images/logo.jpg" alt="name" width="173" height="57" />-->
-				
+			<<div class="brandingLogo">
+				<img class="logo" src="Images/Banner_Logo2.png" alt="name" width="800" height="200" />
+
 			</div>
 		</header>
 		

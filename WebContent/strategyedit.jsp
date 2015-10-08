@@ -87,7 +87,7 @@ function myCreateXMLHttpRequest() {
         	alert("The Strategy has been Updated");
         	  	
             var url = "search/updateStrat?sym=" + sym.value + "&sta=" + status.value + "&bs=" + bs.value + "&type=" + type.value + "&id=" + id;
-			alert(url);
+
             request.open("GET", url, true);
             request.send(null);
         }
@@ -116,7 +116,7 @@ function myCreateXMLHttpRequest() {
 						</a>
 
 						<div class="brand">
-							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
+							<img src="Images/Banner_Logo2.png" alt="name"  width="800" height="200" />
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -134,14 +134,9 @@ function myCreateXMLHttpRequest() {
 				</div>
 			</div>
 
-			<div class="brandingLogo">
-				<img class="logo" src="Images/logo.jpg" alt="name" width="173"
-					height="57" />
-				<div class="service-name">
-					Stock Meet</br>
-					</br>
-					<span>Stocking you with Information</span>
-				</div>
+			<div class="brand">
+				<img class="logo" src="Images/Banner_Logo2.png" alt="name" width="800" height="200" />
+
 			</div>
 		</header>
 
