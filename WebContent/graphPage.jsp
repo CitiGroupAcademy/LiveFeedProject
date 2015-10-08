@@ -27,7 +27,6 @@
 
 <script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
-<script src="js/vendor/jquery.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -49,6 +48,16 @@ else
 }
 %>
 <script type="text/javascript">
+var request = myCreateXMLHttpRequest();
+
+function myCreateXMLHttpRequest() 
+{
+    try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e) { }
+    try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch (e) { }
+    try { return new XMLHttpRequest(); } catch (e) { }
+    return null;
+}
+
 	(function() {
 		var ga = document.createElement('script');
 		ga.type = 'text/javascript';
@@ -70,7 +79,7 @@ else
 	function stockdata() {
 
         if (request != null) {
-            var sym = <%=symbol%>
+            var sym = '<%=symbol%>';
             var url = "search/stockdata?sym="+sym;
 
             request.open("GET", url, true);
@@ -275,7 +284,7 @@ else
 										<form action="BuyServlet" method="post">
 											<h3>Buy</h3>
 											<input type="hidden" name="stockSymbol" value="<%=symbol%>"/>
-											<br> Number of Stocks: <input type="number" name="stockAmount"/> <br>
+											<br> Number of Stocks: <input type="number" min="1" max="999999" name="stockAmount"/> <br>
 											<br>
 											<br> <input type="submit" value="Buy" />
 										</form>
@@ -287,7 +296,7 @@ else
 										<form action="SellServlet" method="post">
 											<h3>Sell</h3>
 											<input type="hidden" name="stockSymbol" value="<%=symbol%>"/>
-											<br> Number of Stocks: <input type="number" name="stockAmount"/> <br>
+											<br> Number of Stocks: <input type="number" min="1" max="999999" name="stockAmount"/> <br>
 											<br>
 											<br> <input type="submit" value="Sell" />
 										</form>

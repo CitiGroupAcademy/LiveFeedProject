@@ -128,7 +128,8 @@
 						</a>
 
 						<div class="brand">
-							<img src="Images/Banner_Logo2.png" width="800" height="200" />
+							<img class="logo" src="Images/Banner_Logo2.png" alt="name" width="800" height="200" />
+
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -172,6 +173,11 @@
 							<li>
 							<div id="profit-loss">								
 									<ul>
+									<h2>Profit/Loss</h2>
+									<ul>
+									<input type="button" " value="Update" onclick="owntransaction()">
+									<div id="transTable">
+									</ul>
 
 									</ul>
 								</div>								
