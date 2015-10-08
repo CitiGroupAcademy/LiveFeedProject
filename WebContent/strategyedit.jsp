@@ -39,6 +39,10 @@
 	<![endif]-->
 <%
 int id = 0;
+String symbol = "";
+String type = "";
+String buysell = "";
+String active = "";
 if(request.getParameter("id")==null)
 {
 	out.println("Invalid Navigation");
@@ -46,6 +50,10 @@ if(request.getParameter("id")==null)
 else
 {
 	id = Integer.parseInt(request.getParameter("id"));
+	symbol = request.getParameter("sym");
+	type = request.getParameter("type");
+	buysell = request.getParameter("bs");
+	active = request.getParameter("sta");
 	
 }
 %>
@@ -154,7 +162,7 @@ function myCreateXMLHttpRequest() {
 							<ul>
 								<form action="" method="post">
 									<h3>New Strategies</h3>
-									<select name="txtSymbol" id="sym" >
+									<select name="txtSymbol" id="sym" value=<%=symbol%>>
             						<option value="symbol" selected>Choose a Symbol</option>
             						<%
             							//Generate the rest of the options from the database
@@ -166,7 +174,7 @@ function myCreateXMLHttpRequest() {
             						%>
             						</select>
             						<br><br>
-            						<select name="txtStrategy" id="type" >
+            						<select name="txtStrategy" id="type" placeholder=<%=type%> >
             						
             						<option value="movingAvg">Moving Average</option>
             						<option value="bollinger">Bollinger Band</option>   
