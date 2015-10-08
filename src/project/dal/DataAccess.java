@@ -399,7 +399,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(3), rs.getString(4),  rs
 						.getString(6)));
 			}
 
@@ -479,18 +479,17 @@ public class DataAccess {
 	 *            String
 	 */
 	public static void insertStrategy(int userID, String stockSymbol,
-			String type, String buySell, String active) {
+			String type,String active) {
 
 		Connection cn = null;
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("INSERT INTO strategy (userID, stockSymbol, type, buySell, active) values(?,?,?,?,?)");
+					.prepareStatement("INSERT INTO strategy (userID, stockSymbol, type, active) values(?,?,?,?)");
 			st.setInt(1, userID);
 			st.setString(2, stockSymbol);
 			st.setString(3, type);
-			st.setString(4, buySell);
-			st.setString(5, active);
+			st.setString(4, active);
 			st.executeUpdate();
 
 			
@@ -761,7 +760,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(3), rs.getString(4),  rs
 						.getString(6)));
 			}
 
@@ -1015,7 +1014,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(3), rs.getString(4),  rs
 						.getString(6)));
 			}
 
@@ -1057,7 +1056,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4), rs.getString(5), rs
+						.getString(3), rs.getString(4),  rs
 						.getString(6)));
 			}
 

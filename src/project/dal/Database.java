@@ -47,7 +47,6 @@ public class Database {
 					+ "userID INTEGER NOT NULL, "
 					+ "stockSymbol NVARCHAR (10) NOT NULL, "
 					+ "type NVARCHAR(10), "
-					+ "buySell NVARCHAR(20), "
 					+ "active NVARCHAR(10), "
 					+ "PRIMARY KEY (stratID), "
 					+ "FOREIGN KEY (userID) REFERENCES user (userID), "
