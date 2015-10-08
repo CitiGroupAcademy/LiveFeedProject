@@ -107,12 +107,10 @@
 
         if (request != null) {
         	var symbol = document.getElementById("sym");
-        	var type = document.getElementById("type");
-        	var bs = document.getElementById("buysell");
         	var status = document.getElementById("status");
         	alert("A New Strategy has been Created");
         	  	
-            var url = "search/insertStrat?sym=" + sym.value + "&sta=" + status.value + "&bs=" + bs.value + "&type=" + type.value;
+            var url = "search/insertStrat?sym=" + sym.value + "&sta=" + status.value + "&type=" + type.value;
 
             request.open("POST", url, true);
             request.send(null);
@@ -317,19 +315,13 @@
             						%>
             						</select>
             						<br><br>
-            						<select name="txtStrategy" id="type" >
+            						<select name="txtStrategy" id="type" onchange="checkstrat()">
             						
             						<option value="movingAvg">Moving Average</option>
             						<option value="bollinger">Bollinger Band</option>
             						<option value="movAvgExp">Moving Average Expo</option>    	        						
             						</select>
-            						<br><br>
-            						<select name="buy/sell" id="buysell" >
-            						
-            						<option value="buy">Buy</option>
-            						<option value="sell">Sell</option>        						
-            						</select>  
-  									<br><br>
+   									<br><br>
   									<select name="txtstatus" id="status" >
             						
             						<option value="active">Active</option>
