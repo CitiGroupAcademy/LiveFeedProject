@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.logging.Logger;
 
+import project.dal.DataAccess;
 import project.dal.GetQuotes;
 import project.dal.OrderManager;
 import project.dal.OrderManager.OrderResult;
@@ -61,12 +62,19 @@ public class SellServlet extends HttpServlet {
 			}
 			if(ask>0)
 			{
-				OrderResult or = OrderManager.getInstance().sellOrder(stock, ask, amount);
-				Logger log = Logger.getLogger(this.getClass());
-				log.info("INFO MANUAL SELL: " + stock + "ASK: " + ask + "AMOUNT: " + amount);
+				if(amount>DataAccess.amountOfOwnedStock(stock))
+				{
+					OrderResult or = OrderManager.getInstance().sellOrder(stock, ask, amount);
+					Logger log = Logger.getLogger(this.getClass());
+					log.info("INFO MANUAL SELL: " + stock + "ASK: " + ask + "AMOUNT: " + amount);
+					request.setAttribute("message", "You have sold " + amount + " shares in: " + stock);
+				}
+				else
+				{
+					request.setAttribute("message", "You cannot sell more stock than you own!");
+				}
 			}
 			
-			request.setAttribute("message", "You have sold " + amount + " shares in: " + stock);
 	        RequestDispatcher dis = getServletContext().getRequestDispatcher("/home.jsp");
 	        dis.forward(request, response);
         }
