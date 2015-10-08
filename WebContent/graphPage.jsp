@@ -111,7 +111,7 @@ else
 						</a>
 
 						<div class="brand">
-							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
+							
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -131,7 +131,7 @@ else
 			</div>
 
 			<div class="brandingLogo">
-				<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
+				<img src="Images/Banner_Logo2.png" alt="name"  width="800" height="200" />
 					height="57" />
 			</div>
 		</header>

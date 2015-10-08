@@ -242,7 +242,7 @@
 						</a>
 						
 						<div class="brand">
-							<!--<img src="Images/logo.jpg" alt="name"  width="120" height="28" />  -->
+							<img src="Images/Banner_Logo2.png" width="800" height="300" />
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -264,7 +264,7 @@
 
 			<div class="brandingLogo">
 				<!--<img class="logo" src="Images/logo.jpg" alt="name" width="173" height="57" />-->
-				<div class="service-name">Stock Meet</br></br><span>Stocking you with Information</span></div>
+				
 			</div>
 		</header>
 		

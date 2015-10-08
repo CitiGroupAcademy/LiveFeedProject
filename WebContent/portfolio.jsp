@@ -81,7 +81,27 @@
     function ownstockCallback() {
 
         if (request.readyState == 4 && request.status == 200) {
-            var outputField = document.getElementById("ostock");
+            var outputField = document.getElementById("ostockTable");
+            outputField.innerHTML = request.responseText;
+        }
+    }
+
+    function owntransaction() {
+
+        if (request != null) {
+            var url = "search/transsearch";
+
+            request.open("GET", url, true);
+            request.onreadystatechange = transactionCallback;
+            request.send(null);
+        	
+        }
+    }
+
+    function transactionCallback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("transTable");
             outputField.innerHTML = request.responseText;
         }
     }
@@ -108,7 +128,7 @@
 						</a>
 
 						<div class="brand">
-							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
+							<img src="Images/Banner_Logo2.png" width="800" height="200" />
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -140,7 +160,7 @@
 									<h2>Current Stock</h2>
 									<ul>
 									<input type="button" id="ownupdate" value="Update" onclick="ownstock()">
-									<div id="ostock">
+									<div id="ostockTable">
 									</div>
 
 									</ul>
@@ -152,9 +172,10 @@
 						<ul class="tilelinks clearfix">
 							<li>
 							<div id="transaction">
-									<h2>Transaction</h2>
+									<h2>Transactions Table</h2>
 									<ul>
-
+									<input type="button" id="transUpdate" value="Update" onclick="owntransaction()">
+									<div id="transTable">
 									</ul>
 								</div>								
 							</li>
