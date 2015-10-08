@@ -5,7 +5,7 @@
 <head>
 <%
         String run = (String)session.getAttribute("run");
-		if(run=="")
+		if(run==null)
 		{
    			GetQuotes getQuotesInstance = new GetQuotes();
 			getQuotesInstance.start();
@@ -192,6 +192,7 @@
              request.send(null);
              alert(id+" has been removed from your favourites");
         }
+        stocksearch();
     }
     
     function bot5update() {
@@ -319,7 +320,8 @@
             						<select name="txtStrategy" id="type" >
             						
             						<option value="movingAvg">Moving Average</option>
-            						<option value="bollinger">Bollinger Band</option>        						
+            						<option value="bollinger">Bollinger Band</option>
+            						<option value="moveAvgExp">Moving Average Expo</option>    	        						
             						</select>
             						<br><br>
             						<select name="buy/sell" id="buysell" >

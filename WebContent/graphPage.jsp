@@ -111,7 +111,7 @@ else
 						</a>
 
 						<div class="brand">
-							
+							<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -131,7 +131,7 @@ else
 			</div>
 
 			<div class="brandingLogo">
-				<img src="Images/Banner_Logo2.png" alt="name"  width="800" height="200" />
+				<img src="Images/Banner_Logo2.png" alt="name"  width="120" height="28" />
 					height="57" />
 			</div>
 		</header>
@@ -149,14 +149,16 @@ else
 									<ul>
 
 										<script type="text/javascript">
-										setInterval(function() 
+										window.onload = updategraph;
+										setInterval(updategraph, 15000);
+										function updategraph() 
 											{
 
 												var percentChange = [];
 												var timeStamp = [];
 												var change = true;
 												var symbol = '<%=symbol%>';
-												$.get("search/getgraphdata?sym="+symbol,
+												var updateChart = $.get("search/getgraphdata?sym="+symbol,
 												function(temp) 
 												{
 													temp = temp.split(',');
@@ -215,7 +217,7 @@ else
 														{
 															title : 
 															{
-																text : 'Change(%)'
+																text : 'Change(£)'
 															},
 															plotLines : 
 															[ {
@@ -226,7 +228,7 @@ else
 														},
 														tooltip : 
 														{
-															valueSuffix : '%'
+															valuePrefix : '£'
 														},
 														legend : 
 														{
@@ -242,7 +244,7 @@ else
 														} ]
 													});
 												});
-											}, 15000);
+											};
 										</script>
 									</ul>
 								</div>
