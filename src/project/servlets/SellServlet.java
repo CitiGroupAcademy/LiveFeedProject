@@ -59,7 +59,7 @@ public class SellServlet extends HttpServlet {
 			}
 			if(ask>0)
 			{
-				OrderResult or = OrderManager.getInstance().sellOrder(stock, ask, amount);
+				OrderResult or = OrderManager.getInstance().sellOrder(stock, ask, amount, "MANUAL");
 			}
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");

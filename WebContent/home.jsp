@@ -4,8 +4,14 @@
 <html lang="en">
 <head>
 <%
-   		GetQuotes getQuotesInstance = new GetQuotes();
-		getQuotesInstance.start();
+        String run = (String)session.getAttribute("run");
+		if(run=="")
+		{
+   			GetQuotes getQuotesInstance = new GetQuotes();
+			getQuotesInstance.start();
+			
+			session.setAttribute("run", "running");
+		}
 		
 		
 		String message = "";
@@ -57,6 +63,7 @@
 			alert(message);
 		}
 	});
+	
 	</script>
 	
 	<script type="text/javascript">
@@ -93,7 +100,7 @@
     var intervalIndex = 0;
     window.setInterval(function(){
       intervalFunctions[intervalIndex++ % intervalFunctions.length]();
-    }, 1000);
+    }, 500);
     
     function insertStrat() {
 
@@ -160,6 +167,7 @@
              request.open("GET", url, true);
              request.send(null);
         }
+        stocksearch();
     }
 
     function addFav(id) 
@@ -170,7 +178,9 @@
             var url = "search/addFavourite?sym=" + id;
             request.open("GET", url, true);
             request.send(null);
+            alert(id+" has been added to your favourites");
         }
+        stocksearch();
     }
 
     function delFav(id) {
@@ -180,6 +190,7 @@
         	 var url = "search/deleteFavourite?sym=" + id;
              request.open("GET", url, true);
              request.send(null);
+             alert(id+" has been removed from your favourites");
         }
     }
     
@@ -242,7 +253,7 @@
 						</a>
 						
 						<div class="brand">
-							<!--<img src="Images/logo.jpg" alt="name"  width="120" height="28" />  -->
+							<img src="Images/Banner_Logo2.png" width="800" height="300" />
 						</div>
 
 						<div class="nav-collapse collapse">
@@ -264,7 +275,7 @@
 
 			<div class="brandingLogo">
 				<!--<img class="logo" src="Images/logo.jpg" alt="name" width="173" height="57" />-->
-				<div class="service-name">Stock Meet</br></br><span>Stocking you with Information</span></div>
+				
 			</div>
 		</header>
 		
@@ -355,7 +366,6 @@
 						<ul>
 							<p>
 								<b>Top 5</b>
-								<input type="button" id="topbutton" value="Update" onclick="top5update()">
 							</p>
 							<p id="top5table">
 							
@@ -364,7 +374,6 @@
 						<ul>
 							<p>
 								<b>Bottom 5</b>
-								<input type="button" id="botbutton" value="Update" onclick="bot5update()">
 							</p>						
 							<p id="bot5table">
 						

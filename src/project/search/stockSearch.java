@@ -29,7 +29,7 @@ public class stockSearch
 			ArrayList<String> stocks = new ArrayList<>();
 			ResultSet rs = st.executeQuery("SELECT stockSymbol, stockName FROM stock WHERE stockName LIKE '" + str + "%' OR stockSymbol LIKE '" + str + "%'");
 			ResultSet rs2 = null;
-			html += "<table class='standard'><th>Stock Symbol</th><th>Stock Name</th>";
+			html += "<table class='standard'><th>Stock Symbol</th><th>Stock Name</th><th></th>";
 			while(rs.next())
 			{
 				stocks.add(rs.getString("stockSymbol")+","+ rs.getString("stockName"));
