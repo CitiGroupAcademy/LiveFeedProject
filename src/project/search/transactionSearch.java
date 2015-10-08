@@ -31,7 +31,7 @@ public class transactionSearch
 		{
 			e.printStackTrace();
 		}
-		html += "<table class='standard'><th>TransID</th><th>Stock Symbol</th><th>Amount</th><th>Price</th><th>Action</th><th>Status</th><th>TimeStamp</th>";
+		html += "<table class='standard' class='tableSection'><th>TransID</th><th>Stock Symbol</th><th>Amount</th><th>Price</th><th>Action</th><th>Status</th><th>TimeStamp</th>";
 		for(Transaction t : trans)
 		{
 			int id = t.getTransID();

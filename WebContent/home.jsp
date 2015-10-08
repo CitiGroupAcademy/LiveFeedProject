@@ -319,7 +319,8 @@
             						<select name="txtStrategy" id="type" >
             						
             						<option value="movingAvg">Moving Average</option>
-            						<option value="bollinger">Bollinger Band</option>        						
+            						<option value="bollinger">Bollinger Band</option>
+            						<option value="moveAvgExp">Moving Average Expo</option>    	        						
             						</select>
             						<br><br>
             						<select name="buy/sell" id="buysell" >

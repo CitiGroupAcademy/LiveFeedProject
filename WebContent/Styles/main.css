@@ -29,6 +29,27 @@ body {
 	width: 960px;
 }
 
+.tableSection {
+    display: table;
+    width: 100%;
+}
+.tableSection thead,.tableSection tbody {
+    float: left;
+    width: 100%;
+}
+.tableSection tbody {
+    overflow: auto;
+    height: 150px;
+}
+.tableSection tr {
+    width: 100%;
+    display: table;
+    text-align: left;
+}
+.tableSection th, table.tableSection td {
+    width: 33%;
+}
+
 .content{
 	font-size: 1.6em;
 	min-height: 645px;
