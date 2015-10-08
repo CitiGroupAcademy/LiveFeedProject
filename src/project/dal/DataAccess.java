@@ -16,6 +16,7 @@ import project.dataObjects.OwnedStock;
 import project.dataObjects.Stock;
 import project.dataObjects.Strategy;
 import project.dataObjects.Ticker;
+import project.dataObjects.Transaction;
 
 public class DataAccess {
 
@@ -109,6 +110,40 @@ public class DataAccess {
 			while (rs.next()) {
 				temp.add(new Ticker(rs.getInt(1), rs.getString(2), rs
 						.getDouble(3), rs.getDouble(4), rs.getDate(5)));
+			}
+
+		} catch (SQLException ex) {
+			Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+			log.error("ERROR" + ex);
+			System.out.println("Error adding data " + ex);
+		} finally {
+
+			if (cn != null) {
+
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					Logger log = Logger.getLogger("DATA ACCESS LAYER:");
+					log.error("ERROR" + e);
+				}
+			}
+		}
+		return temp;
+	}
+	
+	public static ArrayList<Transaction> getTransaction() {
+
+		ArrayList<Transaction> temp = new ArrayList<Transaction>();
+
+		Connection cn = null;
+		try {
+			cn = getConnection();
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("Select * from transaction");
+
+			while (rs.next()) {
+				temp.add(new Transaction(rs.getInt(1), rs.getString(2), rs
+						.getInt(3), rs.getDouble(4), rs.getString(5), rs.getString(6), rs.getTimestamp(7)));
 			}
 
 		} catch (SQLException ex) {
