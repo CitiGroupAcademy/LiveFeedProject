@@ -105,6 +105,26 @@
             outputField.innerHTML = request.responseText;
         }
     }
+
+    function profitsearch() {
+
+        if (request != null) {
+            var url = "search/profitSearch";
+
+            request.open("GET", url, true);
+            request.onreadystatechange = profitCallback;
+            request.send(null);
+        	
+        }
+    }
+
+    function profitCallback() {
+
+        if (request.readyState == 4 && request.status == 200) {
+            var outputField = document.getElementById("profitTable");
+            outputField.innerHTML = request.responseText;
+        }
+    }
 </script>
 
 
@@ -168,15 +188,14 @@
 								</div>								
 							</li>
 							<li class="seperater">
-						<h2>Profit/Loss</h2>
 						<ul>
 							<li>
 							<div id="profit-loss">								
 									<ul>
 									<h2>Profit/Loss</h2>
 									<ul>
-									<input type="button" " value="Update" onclick="owntransaction()">
-									<div id="transTable">
+									<input type="button" " value="Update" onclick="profitsearch()">
+									<div id="profitTable">
 									</ul>
 
 									</ul>
