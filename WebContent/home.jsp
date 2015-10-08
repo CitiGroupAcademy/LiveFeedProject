@@ -167,7 +167,6 @@
              request.open("GET", url, true);
              request.send(null);
         }
-        stocksearch();
     }
 
     function addFav(id) 
