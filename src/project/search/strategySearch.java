@@ -22,15 +22,14 @@ public class strategySearch
 		try 
 		{
 			strategies = DataAccess.getStrats();
-			html += "<table class='standard'><th>Stock Symbol</th><th>Type</th><th>Buy/Sell</th><th>Active</th><th>Edit</th><th>Remove</th>";
+			html += "<table class='standard'><th>Stock Symbol</th><th>Type</th><th>Active</th><th>Edit</th><th>Remove</th>";
 			for(Strategy strategy : strategies)
 			{
 				int id = strategy.getStratID();
 				String symbol = strategy.getStockSymbol();
 				String type = strategy.getType();
-				String buysell = strategy.getBuySell();
 				String active = strategy.getActive();
-				html += "<tr><td><a href='graphPage.jsp?sym="+ symbol + "'>" + symbol + "</a></td><td>"+type+"</td><td>"+buysell+"</td><td>"+active+"</td><td><a href='strategyedit.jsp?id="+ id + "&sym=" + symbol + "&type=" + type + "&bs=" + buysell + "&sta=" + active +"'>edit</a></td><td><a href='search/deletestrategy?id="+ id + "'onclick='delStrat(this.id);'>remove</a></td>";
+				html += "<tr><td><a href='graphPage.jsp?sym="+ symbol + "'>" + symbol + "</a></td><td>"+type+"</td><td>"+active+"</td><td><a href='strategyedit.jsp?id="+ id + "&sym=" + symbol + "&type=" + type + "&sta=" + active +"'>edit</a></td><td><a href='search/deletestrategy?id="+ id + "'onclick='delStrat(this.id);'>remove</a></td>";
 			}
 			html += "</table>";
 		} 
