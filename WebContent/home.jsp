@@ -192,6 +192,7 @@
              request.send(null);
              alert(id+" has been removed from your favourites");
         }
+        stocksearch();
     }
     
     function bot5update() {
