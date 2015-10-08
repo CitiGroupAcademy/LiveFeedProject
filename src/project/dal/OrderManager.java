@@ -88,6 +88,10 @@ public class OrderManager {
 		DataAccess.insertOwnedStock(stock, shares, price);
 		DataAccess.confirmOrder();
 		engine.sendNewBuyOrder(stock, price, shares);
+		
+		Logger log = Logger.getLogger(this.getClass());
+		log.info("INFO BUY: " + stock + "ASK: " + price + "AMOUNT: " + shares);
+		
 		return o;
 	}
 
@@ -103,6 +107,8 @@ public class OrderManager {
 		DataAccess.insertOwnedStock(stock, -shares, price);
 		DataAccess.confirmOrder();
 
+		Logger log = Logger.getLogger(this.getClass());
+		log.info("INFO BUY: " + stock + "BID: " + price + "AMOUNT: " + shares);
 		
 		engine.sendNewSellOrder(stock, price, shares);
 		return o;
@@ -209,14 +215,11 @@ class FixEngine extends quickfix.fix42.MessageCracker implements
 		if (buy == true){
 			s = new Side(Side.BUY);
 			
-		Logger log = Logger.getLogger(this.getClass());
-		log.info("INFO BUY: " + stock + "ASK: " + px + "AMOUNT: " + shares);
+		
 		}else{
 			
 			s = new Side(Side.SELL);
 			
-		Logger log = Logger.getLogger(this.getClass());
-		log.info("INFO SELL: " + stock + "BID: " + px + "AMOUNT: " + shares);
 		}
 		NewOrderSingle no = new NewOrderSingle(orderId, handInst, sym, s, tt, o);
 		no.set(price);
