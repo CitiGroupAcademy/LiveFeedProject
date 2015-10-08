@@ -21,13 +21,13 @@ public class insertStrategy {
 	
 	@POST
 	@Produces("text/plain")
-	public void insertStrategy(@QueryParam("sym") String sym, @QueryParam("sta") String sta, @QueryParam("bs") String bs, @QueryParam("type") String type) throws SQLException{
+	public void insertStrategy(@QueryParam("sym") String sym, @QueryParam("sta") String sta, @QueryParam("type") String type) throws SQLException{
 		
 		String temp = "";
 		Connection cn = null;
 		cn = DataAccess.getConnection();
-		DataAccess.insertStrategy( 1, sym, type, bs, sta);
-		TwilioDriver.twilioSendMessage(String.format("Strategy created for: %s, type: %s buy/sell %s status: %s", sym.toUpperCase(), type.toUpperCase(), bs.toUpperCase(), sta.toUpperCase()));
+		DataAccess.insertStrategy( 1, sym, type, sta);
+		TwilioDriver.twilioSendMessage(String.format("\nStrategy created!\n Symbol: %s,\n Type: %s, \n Status: %s", sym.toUpperCase(), type.toUpperCase(), sta.toUpperCase()));
 	}
 }
 
