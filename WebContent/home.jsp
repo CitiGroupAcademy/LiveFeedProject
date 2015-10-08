@@ -5,7 +5,7 @@
 <head>
 <%
         String run = (String)session.getAttribute("run");
-		if(run=="")
+		if(run==null)
 		{
    			GetQuotes getQuotesInstance = new GetQuotes();
 			getQuotesInstance.start();
