@@ -284,7 +284,7 @@ function myCreateXMLHttpRequest()
 										<form action="BuyServlet" method="post">
 											<h3>Buy</h3>
 											<input type="hidden" name="stockSymbol" value="<%=symbol%>"/>
-											<br> Number of Stocks: <input type="number" name="stockAmount"/> <br>
+											<br> Number of Stocks: <input type="number" min="1" max="999999" name="stockAmount"/> <br>
 											<br>
 											<br> <input type="submit" value="Buy" />
 										</form>
@@ -296,7 +296,7 @@ function myCreateXMLHttpRequest()
 										<form action="SellServlet" method="post">
 											<h3>Sell</h3>
 											<input type="hidden" name="stockSymbol" value="<%=symbol%>"/>
-											<br> Number of Stocks: <input type="number" name="stockAmount"/> <br>
+											<br> Number of Stocks: <input type="number" min="1" max="999999" name="stockAmount"/> <br>
 											<br>
 											<br> <input type="submit" value="Sell" />
 										</form>
