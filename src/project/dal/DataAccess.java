@@ -435,7 +435,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4), rs.getString(6)));
+						.getString(3), rs.getString(4), rs.getString(5)));
 			}
 
 		} catch (SQLException ex) {
@@ -557,13 +557,12 @@ public class DataAccess {
 		try {
 			cn = getConnection();
 			PreparedStatement st = cn
-					.prepareStatement("UPDATE strategy SET userID = ?, stockSymbol = ?, type = ?, buySell = ?, active = ? WHERE stratID = ?");
+					.prepareStatement("UPDATE strategy SET userID = ?, stockSymbol = ?, type = ?, active = ? WHERE stratID = ?");
 			st.setInt(1, userID);
 			st.setString(2, stockSymbol);
 			st.setString(3, type);
-			st.setString(4, buySell);
-			st.setString(5, active);
-			st.setInt(6, stratID);
+			st.setString(4, active);
+			st.setInt(5, stratID);
 			st.executeUpdate();
 
 			insertIntoFav(userID, stockSymbol);
@@ -793,7 +792,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4), rs.getString(6)));
+						.getString(3), rs.getString(4), rs.getString(5)));
 			}
 
 		} catch (SQLException ex) {
@@ -1046,7 +1045,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4), rs.getString(6)));
+						.getString(3), rs.getString(4), rs.getString(5)));
 			}
 
 		} catch (SQLException ex) {
@@ -1087,7 +1086,7 @@ public class DataAccess {
 
 			while (rs.next()) {
 				temp.add(new Strategy(rs.getInt(1), rs.getInt(2), rs
-						.getString(3), rs.getString(4), rs.getString(6)));
+						.getString(3), rs.getString(4), rs.getString(5)));
 			}
 
 		} catch (SQLException ex) {
